@@ -1,0 +1,48 @@
+.justify-evenly{
+    justify-content: space-evenly;
+}
+
+
+.min-h-screen-minus-64{
+    min-height: calc(100vh - 64px);
+}
+
+.w-130{
+    width: 130px;
+}
+
+.flex{
+    display: flex;
+}
+
+.right-3{
+    right: .75rem;
+}
+
+.pr-10{
+    padding-right: 2.5rem;
+}
+
+#line{
+    margin: 0;
+    top: 26px;
+    transition: left .5s, width .5s;
+}
+
+.loader{
+    animation: loading 1.7s infinite linear;
+}
+
+.px-4{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@keyframes loading {
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
