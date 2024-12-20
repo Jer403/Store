@@ -28,6 +28,10 @@
     padding-right: 2.5rem;
 }
 
+.pl-10{
+    padding-left: 2.5rem;
+}
+
 #line{
     margin: 0;
     top: 26px;
