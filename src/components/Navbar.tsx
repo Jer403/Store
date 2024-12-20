@@ -21,8 +21,11 @@ export function Navbar({logged}:NavbarProps) {
   const [lineLeft, setLineLeft] = useState({left:"0px", width:"43"})
   
   useEffect(()=>{
+    if(location.pathname == "/") setLineLeft(POSITIONS.Home);
     if(location.pathname == "/login") setLineLeft(POSITIONS.User);
     if(location.pathname == "/checkout") setLineLeft(POSITIONS.Store);
+    if(location.pathname == "/about") setLineLeft(POSITIONS.About);
+    if(location.pathname == "/contact") setLineLeft(POSITIONS.Contact);
   }, [])
 
   return (

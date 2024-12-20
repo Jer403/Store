@@ -19,6 +19,11 @@
     right: .75rem;
 }
 
+.px-4{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
 .pr-10{
     padding-right: 2.5rem;
 }
@@ -31,11 +36,6 @@
 
 .loader{
     animation: loading 1.7s infinite linear;
-}
-
-.px-4{
-    padding-left: 1rem;
-    padding-right: 1rem;
 }
 
 @keyframes loading {
