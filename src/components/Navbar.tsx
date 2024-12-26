@@ -2,30 +2,27 @@ import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { UserButton } from './UserButton';
 import { HLine } from './HLine';
-import { useEffect, useState } from 'react';
-
-interface NavbarProps {
-  logged: boolean;
-}
-
-const POSITIONS = {
-  Home:{left:"0px", width:"43"},
-  Store:{left:"75px", width:"37"},
-  About:{left:"142px", width:"48"},
-  Contact:{left:"219px", width:"56"},
-  User:{left:"300px", width:"0"},
-}
+import { useEffect } from 'react';
+import { useLogged } from '../hooks/useLogged';
+import { POSITIONS } from '../consts';
+import { useLineLeft } from '../hooks/useLineLeft';
 
 
-export function Navbar({logged}:NavbarProps) {
-  const [lineLeft, setLineLeft] = useState({left:"0px", width:"43"})
+
+
+export function Navbar() {
+  const {lineLeft, setLineLeftProperties} = useLineLeft()
+  const {logged} = useLogged()
+
   
   useEffect(()=>{
-    if(location.pathname == "/") setLineLeft(POSITIONS.Home);
-    if(location.pathname == "/login") setLineLeft(POSITIONS.User);
-    if(location.pathname == "/checkout") setLineLeft(POSITIONS.Store);
-    if(location.pathname == "/about") setLineLeft(POSITIONS.About);
-    if(location.pathname == "/contact") setLineLeft(POSITIONS.Contact);
+    if(location.pathname == "/") setLineLeftProperties(POSITIONS.Home);
+    if(location.pathname == "/login") setLineLeftProperties(POSITIONS.User);
+    if(location.pathname == "/store") setLineLeftProperties(POSITIONS.Store);
+    if(location.pathname == "/checkout") setLineLeftProperties(POSITIONS.Store);
+    if(location.pathname.startsWith("/product")) setLineLeftProperties(POSITIONS.Store);
+    if(location.pathname == "/about") setLineLeftProperties(POSITIONS.About);
+    if(location.pathname == "/contact") setLineLeftProperties(POSITIONS.Contact);
   }, [])
 
   return (
@@ -37,10 +34,10 @@ export function Navbar({logged}:NavbarProps) {
           </Link>
           
           <div className="hidden md:flex items-center relative space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeft(POSITIONS.Home)}>Home</Link>
-            <Link to="/store" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeft(POSITIONS.Store)}>Store</Link>
-            <Link to="/about" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeft(POSITIONS.About)}>About</Link>
-            <Link to="/contact" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeft(POSITIONS.Contact)}>Contact</Link>
+            <Link to="/" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeftProperties(POSITIONS.Home)}>Home</Link>
+            <Link to="/store" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeftProperties(POSITIONS.Store)}>Store</Link>
+            <Link to="/about" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeftProperties(POSITIONS.About)}>About</Link>
+            <Link to="/contact" className="text-gray-700 hover:text-indigo-600" onClick={()=>setLineLeftProperties(POSITIONS.Contact)}>Contact</Link>
             <HLine style={lineLeft} />
           </div>
 
@@ -48,7 +45,7 @@ export function Navbar({logged}:NavbarProps) {
             {/* <Link to="/dashboard" className="md:hidden text-gray-700 hover:text-indigo-600">
               <User className="h-6 w-6" />
             </Link> */}
-            <UserButton logged={logged} onClickEvent={()=>setLineLeft(POSITIONS.User)}/>
+            <UserButton logged={logged} onClickEvent={()=>setLineLeftProperties(POSITIONS.User)}/>
             <button className="md:hidden">
               <Menu className="h-6 w-6" />
             </button>

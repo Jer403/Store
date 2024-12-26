@@ -9,28 +9,32 @@ import { Login } from './pages/Login';
 import { Checkout } from './pages/Checkout';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
-import { useState } from 'react';
+import { LoggedProvider } from './context/logged.tsx'
+import { LineLeftProvider } from './context/lineleft.tsx'
 
 function App() {
-  const [logged, setLogged] = useState(false);
 
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Navbar logged={logged}/>
-        <Routes>
-          <Route path="/" element={<Welcome logged={logged}/>} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/settings" element={<Settings />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </div>
-    </Router>
+    <LoggedProvider>
+      <LineLeftProvider>
+        <Router>
+          <div className="min-h-screen bg-gray-50">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Welcome/>} />
+              <Route path="/store" element={<Store />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/settings" element={<Settings />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </div>
+        </Router>
+      </LineLeftProvider>
+    </LoggedProvider>
   );
 }
 

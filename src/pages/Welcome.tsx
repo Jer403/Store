@@ -1,16 +1,18 @@
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-interface WelcomeProps {
-  logged: boolean;
-}
-
+import { useLogged } from '../hooks/useLogged';
+import { POSITIONS } from '../consts';
+import { useLineLeft } from '../hooks/useLineLeft';
 
 
-export function Welcome({logged}:WelcomeProps) {
+
+
+export function Welcome() {
+  const {logged} = useLogged()
+  const { setLineLeftProperties} = useLineLeft()
 
   const clickHandler = () =>{
-    document.getElementById("line")?.setAttribute("style", "left: 300px; width: 0px;")
+    setLineLeftProperties(logged ? POSITIONS.Store : POSITIONS.User)
   }
 
   return (

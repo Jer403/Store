@@ -42,6 +42,83 @@
     animation: loading 1.7s infinite linear;
 }
 
+.align-center{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.l-2{
+    left: .5rem;
+}
+
+.gap-2{
+    gap: .5rem;
+}
+
+.gap-1{
+    gap: .25rem;
+}
+
+.pl-2{
+    padding-left: .5rem;
+}
+
+.pl-4{
+    padding-left: 1rem;
+}
+
+.pl-6{
+    padding-left: 1.5rem;
+}
+
+.pl-8{
+    padding-left: 2rem;
+}
+
+.mb-4{
+    margin-bottom: 1rem;
+}
+
+.mb-6{
+    margin-bottom: 1.5rem;
+    
+}
+
+.w-1{
+    width: 8rem;
+}
+
+.w-2{
+    width: 16rem;
+}
+
+.w-3{
+    width: 24rem;
+}
+
+.w-50p{
+    width: 50%;
+}
+
+.w-60p{
+    width: 60%;
+}
+
+.w-75p{
+    width: 75%;
+}
+
+.top-left-align-name{
+    top: -10px;
+    left: 12px;
+}
+
+.back-white{
+    background-color: white;
+    padding: 0 2px;
+}
+
 @keyframes loading {
     0%{
         transform: rotateZ(0deg);
