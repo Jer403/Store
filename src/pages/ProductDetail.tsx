@@ -1,5 +1,5 @@
 import { Suspense, useState } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Link, Route, BrowserRouter as Router, Routes, useParams } from 'react-router-dom';
 import { Star, MessageSquare, ShoppingCart } from 'lucide-react';
 import type { Comment } from '../types';
 import { LoadingBarWrapper } from '../components/LoadingBarWrapper';
@@ -50,18 +50,20 @@ export default function ProductDetail() {
               <div className="mt-6">
                 <span className="text-3xl font-bold text-indigo-600">$29.99</span>
               </div>
+              <Router>
+                <Link to="/checkout">
+                  <button className="mt-6 w-full bg-indigo-600 text-white py-3 px-6 rounded-lg flex items-center justify-center hover:bg-indigo-700">
+                    <ShoppingCart className="h-5 w-5 mr-2" />
+                    Buy
+                  </button>
+                </Link>
+                <Suspense fallback={(<LoadingBarWrapper/>)}>
+                  <Routes>
+                    <Route path="/checkout" element={<LoadingWrapper onMount={handleLoad}><Checkout /></LoadingWrapper>}/>
+                  </Routes>
+                </Suspense>
+              </Router>
               
-              <Suspense fallback={(<LoadingBarWrapper/>)}>
-                <Routes>
-                  <Route path="/checkout" element={<LoadingWrapper onMount={handleLoad}><Checkout /></LoadingWrapper>}/>
-                </Routes>
-              </Suspense>
-              <a href="/checkout">
-                <button className="mt-6 w-full bg-indigo-600 text-white py-3 px-6 rounded-lg flex items-center justify-center hover:bg-indigo-700">
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  Buy
-                </button>
-              </a>
             </div>
           </div>
 
