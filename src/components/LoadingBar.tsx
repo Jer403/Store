@@ -8,7 +8,7 @@ const LoadingBar = ({ isLoading }: { isLoading: boolean }) => {
     console.log("Cargando...")
     // Finalizar la barra de carga cuando se complete
     if(isLoading){
-      setProgress(44);
+      setProgress(39);
     }else{
       setProgress(99);
       setTimeout(() => {
