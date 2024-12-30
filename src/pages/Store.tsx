@@ -2,6 +2,7 @@ import { ProductCard } from '../components/ProductCard';
 import { Search } from 'lucide-react';
 import type { Product } from '../types';
 import { SearchFilters } from '../components/filters/SearchFilters';
+import { useState } from 'react';
 
 let ids = 1;
 
