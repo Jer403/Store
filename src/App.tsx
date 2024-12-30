@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { UtilsProvider } from './context/utils.tsx'
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import './hooks/useLazyLoading.tsx'
-import LoadingBar from './components/LoadingBar.tsx';
-import { useUtils } from './hooks/useUtils.tsx';
 import { LoadingWrapper } from './components/LoadingWrapper.tsx';
+import { LoadingBarWrapper } from './components/LoadingBarWrapper.tsx';
+import { useHandleLoad } from './hooks/useHandleLoad.tsx';
 
 
 
@@ -19,19 +19,8 @@ const Checkout = lazy(() => import('./pages/Checkout.tsx'))
 const About = lazy(() => import('./pages/About.tsx'))
 const Contact = lazy(() => import('./pages/Contact.tsx'))
 
-function LoadingBarWrapper(){
-  const { isLoading, setIsLoading} = useUtils()
-  setIsLoading(true)
-  return <><LoadingBar isLoading={isLoading}/></>
-}
-
 function App() {
-  const { setIsLoading} = useUtils()
-
-  const handleLoad = ()=>{
-    setIsLoading(false)
-  }
-
+  const {handleLoad} = useHandleLoad()
 
   return (
     <UtilsProvider>

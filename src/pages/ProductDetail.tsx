@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Suspense, useState } from 'react';
+import { Route, Routes, useParams } from 'react-router-dom';
 import { Star, MessageSquare, ShoppingCart } from 'lucide-react';
 import type { Comment } from '../types';
-import { useLoadingBar } from '../hooks/useLoadingBar';
-import { useUtils } from '../hooks/useUtils';
+import { LoadingBarWrapper } from '../components/LoadingBarWrapper';
+import { LoadingWrapper } from '../components/LoadingWrapper';
+import Checkout from './Checkout';
+import { useHandleLoad } from '../hooks/useHandleLoad';
 
 const MOCK_COMMENTS: Comment[] = [
   {
@@ -24,6 +26,7 @@ export default function ProductDetail() {
 
   const { id } = useParams();
   const [comment, setComment] = useState('');
+  const {handleLoad} = useHandleLoad()
 
   return (
     <div className="min-h-screen-minus-64 bg-gray-50 py-8">
@@ -47,6 +50,12 @@ export default function ProductDetail() {
               <div className="mt-6">
                 <span className="text-3xl font-bold text-indigo-600">$29.99</span>
               </div>
+              
+              <Suspense fallback={(<LoadingBarWrapper/>)}>
+                <Routes>
+                  <Route path="/checkout" element={<LoadingWrapper onMount={handleLoad}><Checkout /></LoadingWrapper>}/>
+                </Routes>
+              </Suspense>
               <a href="/checkout">
                 <button className="mt-6 w-full bg-indigo-600 text-white py-3 px-6 rounded-lg flex items-center justify-center hover:bg-indigo-700">
                   <ShoppingCart className="h-5 w-5 mr-2" />

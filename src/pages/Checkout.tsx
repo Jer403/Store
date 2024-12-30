@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { CreditCard } from 'lucide-react';
-import { useUtils } from '../hooks/useUtils';
 
 export default function Checkout() {
 

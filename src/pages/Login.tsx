@@ -14,7 +14,7 @@ export default function Login() {
   const submitClickHandler = ({e}:SubmitClickProps)=>{
     e.preventDefault()
     e.currentTarget.firstElementChild?.classList.add("md:hidden")
-    e.currentTarget.firstElementChild?.nextElementSibling?.classList.remove("md:hidden")
+    e.currentTarget.firstElementChild?.nextElementSibling?.setAttribute("style","display: block;")
   }
 
   return (
@@ -89,7 +89,7 @@ export default function Login() {
                 submitClickHandler({e})
               }}>
               <span>Sign in</span>
-              <CircleDashed className='md:hidden loader'/>
+              <CircleDashed className='loader' style={{display:"none"}}/>
             </button>
           </div>
         </form>
