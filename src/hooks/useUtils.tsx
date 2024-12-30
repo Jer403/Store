@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { LineLeftContext } from "../context/lineleft"
+import { UtilsContext } from "../context/utils"
 
 
-export const useLineLeft = () => {
-    const context = useContext(LineLeftContext)
+export const useUtils = () => {
+    const context = useContext(UtilsContext)
     if (context == undefined) {
         throw new Error("useCart must be used within a CartProvider")
     }

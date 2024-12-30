@@ -1,19 +1,23 @@
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLogged } from '../hooks/useLogged';
+import { useUtils } from '../hooks/useUtils';
 import { POSITIONS } from '../consts';
-import { useLineLeft } from '../hooks/useLineLeft';
+import { useEffect } from 'react';
 
 
 
 
-export function Welcome() {
-  const {logged} = useLogged()
-  const { setLineLeftProperties} = useLineLeft()
+export default function Welcome() {
+
+  const {logged, setLineLeftProperties, setLoggedIn} = useUtils()
 
   const clickHandler = () =>{
     setLineLeftProperties(logged ? POSITIONS.Store : POSITIONS.User)
   }
+
+  useEffect(()=>{
+    setLoggedIn(false)
+  },[])
 
   return (
     <div className="min-h-screen-minus-64 bg-gradient-to-br from-indigo-50 via-white to-purple-50">

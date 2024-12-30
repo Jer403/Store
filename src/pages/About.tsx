@@ -1,4 +1,9 @@
-export function About() {
+import { useEffect } from "react";
+import { useLoadingBar } from "../hooks/useLoadingBar";
+import { useUtils } from "../hooks/useUtils";
+
+export default function About() {
+
   return (
     <div className="min-h-screen-minus-64 bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">

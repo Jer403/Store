@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CreditCard } from 'lucide-react';
+import { useUtils } from '../hooks/useUtils';
 
-export function Checkout() {
+export default function Checkout() {
+
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');

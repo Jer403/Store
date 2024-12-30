@@ -1,7 +1,44 @@
 import { Package, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { PurchasedProduct } from '../types';
+import { PurchasedProductCard } from '../components/PurchasedProductCard';
+import { useLoadingBar } from '../hooks/useLoadingBar';
+import { useEffect } from 'react';
+import { useUtils } from '../hooks/useUtils';
 
-export function Dashboard() {
+
+
+let ids = 1;
+
+const MOCK_PRODUCTS: PurchasedProduct[] = [
+    {
+      id: (ids++).toString(),
+      title: 'Adventure Game Pro',
+      description: 'An exciting adventure game with stunning graphics',
+      price: 10.29,
+      image: 'https://images.unsplash.com/photo-1592155931584-901ac15763e3?auto=format&fit=crop&w=800&q=80',
+      category: 'Games',
+      rating: 2.5,
+      purchasedDate: 1234124
+    },
+    {
+      id: (ids++).toString(),
+      title: 'Adventure Game Pro',
+      description: 'An exciting adventure game with stunning graphics',
+      price: 30,
+      image: 'https://images.unsplash.com/photo-1592155931584-901ac15763e3?auto=format&fit=crop&w=800&q=80',
+      category: 'Software',
+      rating: 3.5,
+      purchasedDate: 1234124
+    },
+]
+
+
+
+
+export default function Dashboard() {
+
+  const products = MOCK_PRODUCTS;
   return (
     <div className="min-h-screen-minus-64 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -40,18 +77,9 @@ export function Dashboard() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold mb-6">My Purchased Items</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <img
-                    src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?auto=format&fit=crop&w=800&q=80"
-                    alt="Game"
-                    className="w-full h-48 object-cover rounded-lg"
-                  />
-                  <h3 className="mt-4 text-lg font-semibold">Adventure Game Pro</h3>
-                  <p className="text-gray-600 text-sm mt-1">Purchased on March 10, 2024</p>
-                  <button className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
-                    Download
-                  </button>
-                </div>
+                {products.map((product) => (
+                  <PurchasedProductCard key={product.id} product={product} />
+                ))}
               </div>
             </div>
           </div>

@@ -1,9 +1,22 @@
 import { useState } from 'react';
-import { Bell, Lock, Palette, User } from 'lucide-react';
+import { Bell, CircleDashed, Lock, Palette, User } from 'lucide-react';
 import { SettingsSection } from '../components/SettingsSection';
 import { Toggle } from '../components/Toggle';
 
-export function Settings() {
+
+interface SubmitClickProps{
+  e: React.MouseEvent
+}
+
+
+export default function Settings() {
+
+  // const submitClickHandler = ({e}:SubmitClickProps)=>{
+  //   e.preventDefault()
+  //   e.target?.firstElementChild?.classList.add("md:hidden")
+  //   e.target?.firstElementChild?.nextElementSibling?.classList.remove("md:hidden")
+  // }
+
   const [settings, setSettings] = useState({
     notifications: {
       email: true,
@@ -166,8 +179,12 @@ export function Settings() {
             <button
               type="button"
               className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              // onClick={(e)=>{
+              //   submitClickHandler({e}) 
+              // }}
             >
-              Save Changes
+              <span>Save Changes</span>
+              <CircleDashed className='md:hidden loader'/>
             </button>
           </div>
         </div>

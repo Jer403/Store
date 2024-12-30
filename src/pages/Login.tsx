@@ -6,7 +6,8 @@ interface SubmitClickProps{
 }
 
 
-export function Login() {
+export default function Login() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,7 +15,6 @@ export function Login() {
     e.preventDefault()
     e.currentTarget.firstElementChild?.classList.add("md:hidden")
     e.currentTarget.firstElementChild?.nextElementSibling?.classList.remove("md:hidden")
-
   }
 
   return (

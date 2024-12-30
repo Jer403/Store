@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Star, MessageSquare, ShoppingCart } from 'lucide-react';
 import type { Comment } from '../types';
+import { useLoadingBar } from '../hooks/useLoadingBar';
+import { useUtils } from '../hooks/useUtils';
 
 const MOCK_COMMENTS: Comment[] = [
   {
@@ -18,7 +20,8 @@ const MOCK_COMMENTS: Comment[] = [
   }
 ];
 
-export function ProductDetail() {
+export default function ProductDetail() {
+
   const { id } = useParams();
   const [comment, setComment] = useState('');
 

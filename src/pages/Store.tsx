@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ProductCard } from '../components/ProductCard';
 import { Search } from 'lucide-react';
 import type { Product } from '../types';
@@ -226,7 +225,8 @@ const MOCK_PRODUCTS: Product[] = [
   // Add more mock products as needed
 ];
 
-export function Store() {
+export default function Store() {
+
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(MOCK_PRODUCTS);
 

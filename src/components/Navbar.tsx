@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import { UserButton } from './UserButton';
 import { HLine } from './HLine';
 import { useEffect } from 'react';
-import { useLogged } from '../hooks/useLogged';
+import { useUtils } from '../hooks/useUtils';
 import { POSITIONS } from '../consts';
-import { useLineLeft } from '../hooks/useLineLeft';
 
 
 
 
 export function Navbar() {
-  const {lineLeft, setLineLeftProperties} = useLineLeft()
-  const {logged} = useLogged()
+  const {lineLeft, setLineLeftProperties, logged , setLoggedIn} = useUtils()
 
   
   useEffect(()=>{
@@ -23,10 +21,11 @@ export function Navbar() {
     if(location.pathname.startsWith("/product")) setLineLeftProperties(POSITIONS.Store);
     if(location.pathname == "/about") setLineLeftProperties(POSITIONS.About);
     if(location.pathname == "/contact") setLineLeftProperties(POSITIONS.Contact);
+    setLoggedIn(false)
   }, [])
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-evenly items-center h-16">
           <Link to="/" className="font-bold text-xl text-indigo-600">

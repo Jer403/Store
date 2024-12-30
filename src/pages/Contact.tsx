@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 
-export function Contact() {
+export default function Contact() {
+
   return (
     <div className="min-h-screen-minus-64 bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">

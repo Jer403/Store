@@ -15,6 +15,17 @@ export interface Product {
   rating: number;
 }
 
+export interface PurchasedProduct {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+  rating: number;
+  purchasedDate: number;
+}
+
 export interface Comment {
   id: string;
   userId: string;

@@ -119,6 +119,47 @@
     padding: 0 2px;
 }
 
+
+
+
+/* NProgress styles */
+#progressBar {
+  pointer-events: none;
+  z-index: 1031;
+  transition: width .7s;
+}
+
+.prb{
+    display: none;
+    width: 0;
+}
+
+.prog{
+    width: 37%;
+    display: block;
+}
+
+.finish{
+    width: 100%;
+    display: block;
+}
+
+
+
+
+.loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background-color: #4f46e5; /* Cambia el color si lo deseas */
+    z-index: 1000;
+    transition: width 0.2s ease, opacity 0.4s;
+  }
+
+
+
+
 @keyframes loading {
     0%{
         transform: rotateZ(0deg);
