@@ -155,7 +155,12 @@ export default function Register() {
               <div
                 className="absolute w-6 h-6 pass-check"
                 style={{
-                  color: valpassword ? "var(--good)" : "var(--wrong)",
+                  color:
+                    valpassword != null
+                      ? valpassword
+                        ? "var(--good)"
+                        : "var(--wrong)"
+                      : "transparent",
                 }}
               >
                 {valpassword != null ? (
