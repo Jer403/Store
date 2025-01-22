@@ -1,11 +1,16 @@
-import {  useState } from 'react';
-import { CreditCard } from 'lucide-react';
+import { CircleDashed, CreditCard } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Checkout() {
 
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.currentTarget.lastElementChild?.setAttribute("style", "display:block")
+    e.currentTarget.firstElementChild?.setAttribute("style", "display:none")
+  }
 
   return (
     <div className="min-h-screen-minus-64 bg-gray-50 py-12">
@@ -75,9 +80,9 @@ export default function Checkout() {
               </div>
             </div>
 
-            <button className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 flex items-center justify-center">
-              <CreditCard className="h-5 w-5 mr-2" />
-              Pay Now
+            <button onClick={handleClick} className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 flex items-center justify-center">
+              <span className='flex row align-center'><CreditCard className="h-5 w-5 mr-2" />Pay Now</span>
+              <CircleDashed className='loader' style={{display:"none"}}/>
             </button>
           </div>
         </div>

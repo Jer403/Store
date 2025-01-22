@@ -1,21 +1,23 @@
-import { CircleDashed } from 'lucide-react';
-import { MouseEvent, useState } from 'react';
+import { CircleDashed } from "lucide-react";
+import { MouseEvent, useState } from "react";
+import { Link } from "react-router-dom";
 
-interface SubmitClickProps{
-  e: MouseEvent
+interface SubmitClickProps {
+  e: MouseEvent;
 }
 
-
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const submitClickHandler = ({e}:SubmitClickProps)=>{
-    e.preventDefault()
-    e.currentTarget.firstElementChild?.classList.add("md:hidden")
-    e.currentTarget.firstElementChild?.nextElementSibling?.setAttribute("style","display: block;")
-  }
+  const submitClickHandler = ({ e }: SubmitClickProps) => {
+    e.preventDefault();
+    e.currentTarget.firstElementChild?.classList.add("md:hidden");
+    e.currentTarget.firstElementChild?.nextElementSibling?.setAttribute(
+      "style",
+      "display: block;"
+    );
+  };
 
   return (
     <div className="min-h-screen-minus-64 bg-gray-50 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -61,23 +63,41 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
+          <div className="flex items-center justify-between flex-col">
+            <div className="flex  items-center justify-between w-full">
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-gray-900"
+                >
+                  Remember me
+                </label>
+              </div>
 
-            <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center  justify-end w-full">
+              <div className="text-sm">
+                <Link
+                  to="/register"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Don't have an account? Sign up
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -85,11 +105,12 @@ export default function Login() {
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={(e)=>{
-                submitClickHandler({e})
-              }}>
+              onClick={(e) => {
+                submitClickHandler({ e });
+              }}
+            >
               <span>Sign in</span>
-              <CircleDashed className='loader' style={{display:"none"}}/>
+              <CircleDashed className="loader" style={{ display: "none" }} />
             </button>
           </div>
         </form>

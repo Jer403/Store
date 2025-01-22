@@ -1,32 +1,38 @@
-import { Suspense, useState } from 'react';
-import { Link, Route, BrowserRouter as Router, Routes, useParams } from 'react-router-dom';
-import { Star, MessageSquare, ShoppingCart } from 'lucide-react';
-import type { Comment } from '../types';
-import { LoadingBarWrapper } from '../components/LoadingBarWrapper';
-import { LoadingWrapper } from '../components/LoadingWrapper';
-import Checkout from './Checkout';
-import { useHandleLoad } from '../hooks/useHandleLoad';
+import { Suspense, useState } from "react";
+import {
+  Link,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useParams,
+} from "react-router-dom";
+import { Star, MessageSquare, ShoppingCart } from "lucide-react";
+import type { Comment } from "../types";
+import { LoadingBarWrapper } from "../components/Elements/LoadingBarWrapper";
+import { LoadingWrapper } from "../components/Elements/LoadingWrapper";
+import Checkout from "./Checkout";
+import { useHandleLoad } from "../hooks/useHandleLoad";
 
 const MOCK_COMMENTS: Comment[] = [
   {
-    id: '1',
-    userId: '1',
-    productId: '1',
-    content: 'Great game! Really enjoyed the graphics and gameplay.',
+    id: "1",
+    userId: "1",
+    productId: "1",
+    content: "Great game! Really enjoyed the graphics and gameplay.",
     rating: 5,
-    createdAt: '2024-03-10',
+    createdAt: "2024-03-10",
     user: {
-      name: 'John Doe',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-    }
-  }
+      name: "John Doe",
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    },
+  },
 ];
 
 export default function ProductDetail() {
-
   const { id } = useParams();
-  const [comment, setComment] = useState('');
-  const {handleLoad} = useHandleLoad()
+  const [comment, setComment] = useState("");
+  const { handleLoad } = useHandleLoad();
 
   return (
     <div className="min-h-screen-minus-64 bg-gray-50 py-8">
@@ -39,16 +45,21 @@ export default function ProductDetail() {
               className="rounded-lg w-full h-[400px] object-cover"
             />
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Adventure Game Pro</h1>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Adventure Game Pro
+              </h1>
               <div className="flex items-center mt-2">
                 <Star className="h-5 w-5 text-yellow-400 fill-current" />
                 <span className="ml-1 text-gray-600">4.5 (128 reviews)</span>
               </div>
               <p className="mt-4 text-gray-600">
-                An exciting adventure game with stunning graphics and immersive gameplay.
+                An exciting adventure game with stunning graphics and immersive
+                gameplay.
               </p>
               <div className="mt-6">
-                <span className="text-3xl font-bold text-indigo-600">$29.99</span>
+                <span className="text-3xl font-bold text-indigo-600">
+                  $29.99
+                </span>
               </div>
               <Link to="/checkout">
                 <button className="mt-6 w-full bg-indigo-600 text-white py-3 px-6 rounded-lg flex items-center justify-center hover:bg-indigo-700">
@@ -56,7 +67,6 @@ export default function ProductDetail() {
                   Buy
                 </button>
               </Link>
-              
             </div>
           </div>
 
@@ -75,7 +85,9 @@ export default function ProductDetail() {
                       <h4 className="font-semibold">{comment.user.name}</h4>
                       <div className="flex items-center">
                         <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                        <span className="ml-1 text-sm text-gray-600">{comment.rating}</span>
+                        <span className="ml-1 text-sm text-gray-600">
+                          {comment.rating}
+                        </span>
                       </div>
                     </div>
                   </div>
