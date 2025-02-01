@@ -27,7 +27,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
         setProducts(null);
       }
     } catch (error) {
-      console.log("Error from products: ", error);
+      console.log("Error fetching products data: ", error);
     }
   };
 
