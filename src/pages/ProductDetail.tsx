@@ -1,16 +1,7 @@
-import { Suspense, useState } from "react";
-import {
-  Link,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import { useState } from "react";
+import { Link, BrowserRouter as Router, useParams } from "react-router-dom";
 import { Star, MessageSquare, ShoppingCart } from "lucide-react";
 import type { Comment } from "../types";
-import { LoadingBarWrapper } from "../components/Elements/LoadingBarWrapper";
-import { LoadingWrapper } from "../components/Elements/LoadingWrapper";
-import Checkout from "./Checkout";
 import { useHandleLoad } from "../hooks/useHandleLoad";
 
 const MOCK_COMMENTS: Comment[] = [

@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { DollarSign, Tag, X } from 'lucide-react';
-import { PriceRangeFilter } from './PriceRangeFilter';
-import { CategoryFilter } from './CategoryFilter';
-import { StarFilter } from './StarFilter';
+import { useState } from "react";
+import { DollarSign, X } from "lucide-react";
+import { PriceRangeFilter } from "./PriceRangeFilter";
 
 interface Filters {
   priceRange: {
@@ -18,7 +16,7 @@ const initialFilters: Filters = {
     min: 0,
     max: 0,
   },
-  category: '',
+  category: "",
   star: 0,
 };
 
@@ -32,7 +30,6 @@ export function SearchFilters({ onFiltersChange }: SearchFiltersProps) {
   const handleFilterChange = (key: keyof Filters, value: any) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
-    console.log(newFilters)
     onFiltersChange(newFilters);
   };
 
@@ -41,10 +38,10 @@ export function SearchFilters({ onFiltersChange }: SearchFiltersProps) {
     onFiltersChange(initialFilters);
   };
 
-  const hasActiveFilters = 
+  const hasActiveFilters =
     filters.priceRange.min > 0 ||
     filters.priceRange.max > 0 ||
-    filters.category !== '' ||
+    filters.category !== "" ||
     filters.star !== 0;
 
   return (
@@ -54,18 +51,9 @@ export function SearchFilters({ onFiltersChange }: SearchFiltersProps) {
           <PriceRangeFilter
             icon={<DollarSign className="h-4 w-4" />}
             value={filters.priceRange}
-            onChange={(value) => handleFilterChange('priceRange', value)}
+            onChange={(value) => handleFilterChange("priceRange", value)}
           />
-          <CategoryFilter
-            icon={<Tag className="h-4 w-4 absolute l-2" />}
-            value={filters.category}
-            onChange={(value) => handleFilterChange('category', value)}
-          />
-          <StarFilter
-            value={filters.star}
-            onChange={(value) => handleFilterChange('star', value)}
-          />
-          
+
           {hasActiveFilters && (
             <button
               onClick={resetFilters}

@@ -1,26 +1,119 @@
-import { CircleDashed } from "lucide-react";
-import { MouseEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  CheckCircle2,
+  CircleDashed,
+  LucideCheckCircle2,
+  XCircle,
+  EyeIcon,
+  EyeOff,
+} from "lucide-react";
+import { MouseEvent, useEffect, useId, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { replaceString } from "../utils";
+import { useCart } from "../hooks/useCart";
 
 interface SubmitClickProps {
   e: MouseEvent;
 }
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+interface AxiosResult {
+  status: number;
+  response: { data: [] };
+}
 
-  const submitClickHandler = ({ e }: SubmitClickProps) => {
+export default function Login() {
+  const [eyeVisible, setEyeVisible] = useState<boolean>(false);
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [requestErrors, setRequestErrors] = useState<[]>([]);
+  const [valEmail, setValEmail] = useState<boolean | null>(null);
+  const [valpassword, setValpassword] = useState<boolean | null>(null);
+  const { signIn, logged } = useAuth();
+  const { loadCart } = useCart();
+  const navigate = useNavigate();
+  const errorIdKey = useId();
+
+  const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
-    e.currentTarget.firstElementChild?.classList.add("md:hidden");
-    e.currentTarget.firstElementChild?.nextElementSibling?.setAttribute(
-      "style",
-      "display: block;"
-    );
+
+    if (valEmail == true && valpassword == true) {
+      const target = e.currentTarget;
+      target.firstElementChild?.classList.add("md:hidden");
+      target.firstElementChild?.nextElementSibling?.setAttribute(
+        "style",
+        "display: block;"
+      );
+
+      const res = (await signIn({ email, password })) as AxiosResult;
+      console.log(res);
+
+      if (res.status == 200) {
+        target.firstElementChild?.nextElementSibling?.setAttribute(
+          "style",
+          "display: none;"
+        );
+        target.lastElementChild?.setAttribute("style", "display: block;");
+        target.setAttribute("disabled", "true");
+        setDataToDefault();
+      } else {
+        setRequestErrors(res.response.data);
+        target.firstElementChild?.classList.remove("md:hidden");
+        target.firstElementChild?.nextElementSibling?.setAttribute(
+          "style",
+          "display: none;"
+        );
+      }
+    } else {
+      if (valEmail != true) {
+        document.getElementById("email-address")?.classList.add("shake");
+        setTimeout(() => {
+          document.getElementById("email-address")?.classList.remove("shake");
+        }, 500);
+        setValEmail(false);
+      }
+      if (valpassword != true) {
+        document.getElementById("password")?.classList.add("shake");
+        setTimeout(() => {
+          document.getElementById("password")?.classList.remove("shake");
+        }, 500);
+        setValpassword(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (logged) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      let path = replaceString(urlParams.get("path"), "-", "/");
+      if (path == "") path = "/";
+      loadCart();
+      navigate(`${path}`);
+    }
+  }, [loadCart, logged, navigate]);
+
+  const setDataToDefault = () => {
+    setEmail("");
+    setPassword("");
+    setRequestErrors([]);
+  };
+
+  const validateEmail = (value: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setValEmail(emailRegex.test(value));
+  };
+
+  const validatePassword = (value: string) => {
+    if (value.length >= 6) {
+      setValpassword(true);
+    } else {
+      setValpassword(false);
+    }
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-50 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen-minus-64 bg-gray-100 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -29,7 +122,7 @@ export default function Login() {
         </div>
         <form className="mt-8 space-y-6">
           <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+            <div className="relative">
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -40,26 +133,107 @@ export default function Login() {
                 autoComplete="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  validateEmail(e.target.value);
+                }}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
               />
+              <div
+                className="absolute w-6 h-6 check"
+                style={{
+                  color: valEmail ? "var(--good)" : "var(--wrong)",
+                }}
+              >
+                {valEmail != null ? (
+                  valEmail ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
+                  ) : (
+                    <XCircle></XCircle>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
               <input
                 id="password"
                 name="password"
-                type="password"
+                type={passwordVisible ? "text" : "password"}
                 autoComplete="current-password"
                 required
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  validatePassword(e.target.value);
+                }}
+                onMouseEnter={() => setEyeVisible(true)}
+                onMouseLeave={() => setEyeVisible(false)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
               />
+              <div className="absolute w-6 h-6 eye" style={{ color: "#111" }}>
+                {eyeVisible ? (
+                  passwordVisible ? (
+                    <EyeOff
+                      onMouseEnter={() => setEyeVisible(true)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setPasswordVisible(!passwordVisible);
+                      }}
+                    ></EyeOff>
+                  ) : (
+                    <EyeIcon
+                      onMouseEnter={() => setEyeVisible(true)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setPasswordVisible(!passwordVisible);
+                      }}
+                    ></EyeIcon>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+
+              <div
+                className="absolute w-6 h-6 check"
+                style={{
+                  color: valpassword ? "var(--good)" : "var(--wrong)",
+                }}
+              >
+                {valpassword != null ? (
+                  valpassword ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
+                  ) : (
+                    <XCircle></XCircle>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="flex items-center justify-between"
+            style={{ display: requestErrors.length == 0 ? "none" : "block" }}
+          >
+            <div className="flex items-center">
+              {requestErrors.map((item) => (
+                <p
+                  key={errorIdKey}
+                  className="block text-sm"
+                  style={{ color: "var(--wrong)" }}
+                >
+                  {item}
+                </p>
+              ))}
             </div>
           </div>
 
@@ -111,6 +285,7 @@ export default function Login() {
             >
               <span>Sign in</span>
               <CircleDashed className="loader" style={{ display: "none" }} />
+              <CheckCircle2 style={{ display: "none", color: "white" }} />
             </button>
           </div>
         </form>

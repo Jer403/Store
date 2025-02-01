@@ -11,6 +11,10 @@
   min-height: calc(100vh - 64px);
 }
 
+.h-screen-minus-nav {
+  height: calc(100vh - 64px);
+}
+
 .w-130 {
   width: 130px;
 }
@@ -182,11 +186,44 @@
   border-radius: 0 0 0.5em 0;
 }
 
+.eye {
+  top: calc(50% - 12px);
+  right: 6px;
+  z-index: 90;
+}
+
+.shake {
+  animation: wrongShake 0.3s linear;
+  border-color: var(--wrong);
+  z-index: 100;
+}
+
 @keyframes loading {
   0% {
     transform: rotateZ(0deg);
   }
   100% {
     transform: rotateZ(360deg);
+  }
+}
+
+@keyframes wrongShake {
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(10px);
+  }
+  40% {
+    transform: translateX(-10px);
+  }
+  60% {
+    transform: translateX(10px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0px);
   }
 }

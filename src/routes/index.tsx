@@ -1,12 +1,12 @@
 import { Suspense, lazy } from "react";
 import { useHandleLoad } from "../hooks/useHandleLoad.tsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Navbar } from "../components/Elements/Navbar.tsx";
+import { Navbar } from "../components/Navbar.tsx";
 import { LoadingBarWrapper } from "../components/Elements/LoadingBarWrapper.tsx";
 import { LoadingWrapper } from "../components/Elements/LoadingWrapper.tsx";
+import { Footer } from "../components/Footer.tsx";
 
 const Welcome = lazy(() => import("../pages/Welcome.tsx"));
-const Store = lazy(() => import("../pages/Store.tsx"));
 const Dashboard = lazy(() => import("../pages/Dashboard.tsx"));
 const ProductDetail = lazy(() => import("../pages/ProductDetail.tsx"));
 const Settings = lazy(() => import("../pages/Settings.tsx"));
@@ -15,6 +15,8 @@ const Register = lazy(() => import("../pages/Register.tsx"));
 const Checkout = lazy(() => import("../pages/Checkout.tsx"));
 const About = lazy(() => import("../pages/About.tsx"));
 const Contact = lazy(() => import("../pages/Contact.tsx"));
+const Cart = lazy(() => import("../pages/Cart.tsx"));
+const ProtectedRoute = lazy(() => import("../routes/ProtectedRoute.tsx"));
 
 export function AppRouter() {
   const { handleLoad } = useHandleLoad();
@@ -34,34 +36,10 @@ export function AppRouter() {
               }
             />
             <Route
-              path="/store"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <Store />
-                </LoadingWrapper>
-              }
-            />
-            <Route
               path="/product/:id"
               element={
                 <LoadingWrapper onMount={handleLoad}>
                   <ProductDetail />
-                </LoadingWrapper>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <Dashboard />
-                </LoadingWrapper>
-              }
-            />
-            <Route
-              path="/dashboard/settings"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <Settings />
                 </LoadingWrapper>
               }
             />
@@ -82,14 +60,6 @@ export function AppRouter() {
               }
             />
             <Route
-              path="/checkout"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <Checkout />
-                </LoadingWrapper>
-              }
-            />
-            <Route
               path="/about"
               element={
                 <LoadingWrapper onMount={handleLoad}>
@@ -105,9 +75,45 @@ export function AppRouter() {
                 </LoadingWrapper>
               }
             />
+
+            <Route element={<ProtectedRoute />}>
+              <Route
+                path="/dashboard/*"
+                element={
+                  <LoadingWrapper onMount={handleLoad}>
+                    <Dashboard />
+                  </LoadingWrapper>
+                }
+              />
+              <Route
+                path="/dashboard/settings"
+                element={
+                  <LoadingWrapper onMount={handleLoad}>
+                    <Settings />
+                  </LoadingWrapper>
+                }
+              />
+              <Route
+                path="/checkout"
+                element={
+                  <LoadingWrapper onMount={handleLoad}>
+                    <Checkout />
+                  </LoadingWrapper>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <LoadingWrapper onMount={handleLoad}>
+                    <Cart />
+                  </LoadingWrapper>
+                }
+              />
+            </Route>
           </Routes>
         </Suspense>
       </div>
+      <Footer></Footer>
     </Router>
   );
 }

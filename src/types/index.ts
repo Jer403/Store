@@ -11,19 +11,30 @@ export interface Product {
   description: string;
   price: number;
   image: string;
-  category: string;
-  rating: number;
+  gallery?: string[];
+}
+
+export interface CartProduct {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+}
+
+export interface Payment {
+  id: string;
+  cart: CartProduct[];
+  state: number;
+  shortURL: string;
+  created_at: string;
+  price: string;
 }
 
 export interface PurchasedProduct {
   id: string;
   title: string;
-  description: string;
-  price: number;
   image: string;
-  category: string;
-  rating: number;
-  purchasedDate: number;
+  purchased_at: string;
 }
 
 export interface Comment {

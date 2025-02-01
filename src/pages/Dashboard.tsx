@@ -1,66 +1,59 @@
-import { Package, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { PurchasedProduct } from '../types';
-import { PurchasedProductCard } from '../components/PurchasedProductCard';
-import { useLoadingBar } from '../hooks/useLoadingBar';
-import { useEffect } from 'react';
-import { useUtils } from '../hooks/useUtils';
+import { CreditCard, LogOut, Package, Settings } from "lucide-react";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useCart } from "../hooks/useCart";
+import { LoadingWrapper } from "../components/Elements/LoadingWrapper";
+import { useHandleLoad } from "../hooks/useHandleLoad";
+import { lazy } from "react";
+import PurchasedProducts from "./PurchasedProducts.tsx";
 
-
-
-let ids = 1;
-
-const MOCK_PRODUCTS: PurchasedProduct[] = [
-    {
-      id: (ids++).toString(),
-      title: 'Adventure Game Pro',
-      description: 'An exciting adventure game with stunning graphics',
-      price: 10.29,
-      image: 'https://images.unsplash.com/photo-1592155931584-901ac15763e3?auto=format&fit=crop&w=800&q=80',
-      category: 'Games',
-      rating: 2.5,
-      purchasedDate: 1234124
-    },
-    {
-      id: (ids++).toString(),
-      title: 'Adventure Game Pro',
-      description: 'An exciting adventure game with stunning graphics',
-      price: 30,
-      image: 'https://images.unsplash.com/photo-1592155931584-901ac15763e3?auto=format&fit=crop&w=800&q=80',
-      category: 'Software',
-      rating: 3.5,
-      purchasedDate: 1234124
-    },
-]
-
-
-
+const Payment = lazy(() => import("../pages/Payments.tsx"));
 
 export default function Dashboard() {
+  const { user, signOut } = useAuth();
+  const { clearCart } = useCart();
+  const { handleLoad } = useHandleLoad();
+  const { pathname } = useLocation();
 
-  const products = MOCK_PRODUCTS;
+  const handleLogOutClick = () => {
+    signOut();
+    clearCart();
+  };
+
   return (
-    <div className="min-h-screen-minus-64 bg-gray-50">
+    <div className="min-h-screen-minus-64 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="md:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex flex-col items-center">
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt="Profile"
-                  className="w-24 h-24 rounded-full"
-                />
-                <h2 className="mt-4 text-xl font-semibold">John Doe</h2>
-                <p className="text-gray-600">john@example.com</p>
+                <h2 className="mt-4 text-3xl font-semibold">
+                  {user?.username}
+                </h2>
+                <p className="text-gray-600 text-xl">{user?.email}</p>
               </div>
               <nav className="mt-8">
                 <Link
                   to="/dashboard"
-                  className="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg"
+                  className={`flex items-center px-4 py-2 text-gray-700 ${
+                    pathname == "/dashboard"
+                      ? "bg-gray-100"
+                      : "hover:bg-gray-100"
+                  } rounded-lg`}
                 >
                   <Package className="h-5 w-5 mr-3" />
                   My Items
+                </Link>
+                <Link
+                  to="/dashboard/payments"
+                  className={`flex items-center px-4 py-2 text-gray-700 ${
+                    pathname == "/dashboard/payments"
+                      ? "bg-gray-100"
+                      : "hover:bg-gray-100"
+                  } rounded-lg mt-2`}
+                >
+                  <CreditCard className="h-5 w-5 mr-3" />
+                  My Payments
                 </Link>
                 <Link
                   to="/dashboard/settings"
@@ -69,20 +62,35 @@ export default function Dashboard() {
                   <Settings className="h-5 w-5 mr-3" />
                   Settings
                 </Link>
+                <Link
+                  to="/login"
+                  className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg mt-2"
+                  onClick={handleLogOutClick}
+                >
+                  <LogOut className="h-5 w-5 mr-3" />
+                  Log out
+                </Link>
               </nav>
             </div>
           </div>
-
-          <div className="md:col-span-3">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold mb-6">My Purchased Items</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {products.map((product) => (
-                  <PurchasedProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-          </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <LoadingWrapper onMount={handleLoad}>
+                  <PurchasedProducts />
+                </LoadingWrapper>
+              }
+            />
+            <Route
+              path="/payments"
+              element={
+                <LoadingWrapper onMount={handleLoad}>
+                  <Payment />
+                </LoadingWrapper>
+              }
+            />
+          </Routes>
         </div>
       </div>
     </div>

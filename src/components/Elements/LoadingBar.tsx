@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const LoadingBar = ({ isLoading }: { isLoading: boolean }) => {
   const [progress, setProgress] = useState(0);
 
-
   useEffect(() => {
-    console.log("Cargando...")
     // Finalizar la barra de carga cuando se complete
-    if(isLoading){
+    if (isLoading) {
       setProgress(39);
-    }else{
+    } else {
       setProgress(99);
       setTimeout(() => {
         setProgress(100); // Reinicia después de un corto retraso
@@ -20,19 +18,17 @@ const LoadingBar = ({ isLoading }: { isLoading: boolean }) => {
     }
   }, [isLoading]);
 
-
-
   return (
     <div
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
         width: `${progress}%`,
-        height: '4px',
-        backgroundColor: '#4f46e5',
-        transition: 'width 0.5s ease, opacity 0.4s',
-        opacity: (progress > 0 && progress < 100) ? 1 : 0,
+        height: "4px",
+        backgroundColor: "#4f46e5",
+        transition: "width 0.5s ease, opacity 0.4s",
+        opacity: progress > 0 && progress < 100 ? 1 : 0,
         zIndex: 1000,
       }}
     />

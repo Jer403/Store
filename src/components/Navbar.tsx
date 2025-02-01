@@ -1,32 +1,38 @@
 import { Menu } from "lucide-react";
-import { Link } from "react-router-dom";
-import { UserButton } from "../UserButton";
-import { HLine } from "./HLine";
+import { Link, useLocation } from "react-router-dom";
+import { UserButton } from "./UserButton.tsx";
+import { HLine } from "./Elements/HLine.tsx";
 import { useEffect } from "react";
-import { useUtils } from "../../hooks/useUtils";
-import { POSITIONS } from "../../consts";
+import { useUtils } from "../hooks/useUtils.tsx";
+import { POSITIONS } from "../consts.ts";
+import { useAuth } from "../hooks/useAuth.tsx";
 
 export function Navbar() {
-  const { lineLeft, setLineLeftProperties, logged } = useUtils();
+  const { lineLeft, setLineLeftProperties } = useUtils();
+  const { logged } = useAuth();
+  const location = useLocation();
 
   useEffect(() => {
     if (location.pathname == "/") setLineLeftProperties(POSITIONS.Home);
-    if (location.pathname == "/login") setLineLeftProperties(POSITIONS.User);
-    if (location.pathname == "/register") setLineLeftProperties(POSITIONS.User);
-    if (location.pathname == "/store") setLineLeftProperties(POSITIONS.Store);
-    if (location.pathname == "/checkout")
-      setLineLeftProperties(POSITIONS.Store);
-    if (location.pathname.startsWith("/product"))
-      setLineLeftProperties(POSITIONS.Store);
-    if (location.pathname == "/about") setLineLeftProperties(POSITIONS.About);
-    if (location.pathname == "/contact")
+    else if (location.pathname == "/login")
+      setLineLeftProperties(POSITIONS.User);
+    else if (location.pathname == "/register")
+      setLineLeftProperties(POSITIONS.User);
+    else if (location.pathname == "/cart")
+      setLineLeftProperties(POSITIONS.User);
+    else if (location.pathname == "/checkout")
+      setLineLeftProperties(POSITIONS.User);
+    else if (location.pathname == "/about")
+      setLineLeftProperties(POSITIONS.About);
+    else if (location.pathname == "/contact")
       setLineLeftProperties(POSITIONS.Contact);
-  }, []);
+    else setLineLeftProperties(POSITIONS.User);
+  }, [location]);
 
   return (
     <nav className="bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-evenly items-center h-16">
+        <div className="flex justify-between lg:justify-evenly items-center h-16">
           <Link to="/" className="font-bold text-xl text-indigo-600">
             DigitalMarket
           </Link>
@@ -38,13 +44,6 @@ export function Navbar() {
               onClick={() => setLineLeftProperties(POSITIONS.Home)}
             >
               Home
-            </Link>
-            <Link
-              to="/store"
-              className="text-gray-700 hover:text-indigo-600"
-              onClick={() => setLineLeftProperties(POSITIONS.Store)}
-            >
-              Store
             </Link>
             <Link
               to="/about"
@@ -63,7 +62,7 @@ export function Navbar() {
             <HLine style={lineLeft} />
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-end lg:justify-start gap-1 max-w-[120px]">
             {/* <Link to="/dashboard" className="md:hidden text-gray-700 hover:text-indigo-600">
               <User className="h-6 w-6" />
             </Link> */}
@@ -71,8 +70,8 @@ export function Navbar() {
               logged={logged}
               onClickEvent={() => setLineLeftProperties(POSITIONS.User)}
             />
-            <button className="md:hidden">
-              <Menu className="h-6 w-6" />
+            <button className="md:hidden ml-3">
+              <Menu className="h-8 w-8" />
             </button>
           </div>
         </div>
