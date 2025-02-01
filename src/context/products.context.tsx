@@ -20,6 +20,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   const getProducts = async () => {
     try {
       const res = await getProductsRequest();
+      console.log("Response from products: ", res);
       if (res.status == 200) {
         setProducts(res.data);
       } else {
