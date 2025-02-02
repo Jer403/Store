@@ -4,6 +4,7 @@ import { Product } from "../types";
 
 interface ProductContextType {
   products: Product[] | null;
+  loadingProducts: boolean;
 }
 
 interface ProductProviderProps {
@@ -12,12 +13,15 @@ interface ProductProviderProps {
 
 export const ProductContext = createContext<ProductContextType>({
   products: null,
+  loadingProducts: false,
 });
 
 export function ProductProvider({ children }: ProductProviderProps) {
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   const getProducts = async () => {
+    setLoadingProducts(false);
     try {
       const res = await getProductsRequest();
       console.log("Response from products: ", res);
@@ -28,6 +32,8 @@ export function ProductProvider({ children }: ProductProviderProps) {
       }
     } catch (error) {
       console.log("Error fetching products data: ", error);
+    } finally {
+      setLoadingProducts(false);
     }
   };
 
@@ -36,7 +42,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products }}>
+    <ProductContext.Provider value={{ products, loadingProducts }}>
       {children}
     </ProductContext.Provider>
   );

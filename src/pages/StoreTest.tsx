@@ -1,5 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { X, ShoppingCart, LogIn, Download, Clock } from "lucide-react";
+import {
+  X,
+  ShoppingCart,
+  LogIn,
+  Download,
+  Clock,
+  CircleDashed,
+} from "lucide-react";
 import type { Product } from "../types";
 import { useAuth } from "../hooks/useAuth";
 import { useProduct } from "../hooks/useProduct";
@@ -359,7 +366,7 @@ function ProductCard({
 export function StoreTest() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const { products } = useProduct();
+  const { products, loadingProducts } = useProduct();
   const { addToCart } = useCart();
   const { logged } = useAuth();
   const { state: cart, purchased, waitingForPay } = useCart();
@@ -427,7 +434,11 @@ export function StoreTest() {
                } 
               `}
           >
-            {products != null ? (
+            {loadingProducts ? (
+              <>
+                <CircleDashed className="loader"></CircleDashed>
+              </>
+            ) : products != null ? (
               <div
                 className={`relative grid grid-cols-1 md:grid-cols-2 ${
                   selectedProduct
