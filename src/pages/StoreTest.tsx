@@ -435,19 +435,22 @@ export function StoreTest() {
               `}
           >
             {loadingProducts ? (
-              <>
-                <CircleDashed className="loader"></CircleDashed>
-              </>
+              <div className=" mt-12 flex items-center justify-center gap-2">
+                <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"></CircleDashed>
+                <span className="text-2xl sm:text-4xl lg:text-4xl">
+                  Loading products...
+                </span>
+              </div>
             ) : products != null ? (
-              <div
-                className={`relative grid grid-cols-1 md:grid-cols-2 ${
-                  selectedProduct
-                    ? "lg:grid-cols-2 xl:grid-cols-3"
-                    : "lg:grid-cols-3 xl:grid-cols-4"
-                } gap-6`}
-              >
-                {products.length > 0 ? (
-                  products.map((product) => {
+              products.length > 0 ? (
+                <div
+                  className={`relative grid grid-cols-1 md:grid-cols-2 ${
+                    selectedProduct
+                      ? "lg:grid-cols-2 xl:grid-cols-3"
+                      : "lg:grid-cols-3 xl:grid-cols-4"
+                  } gap-6`}
+                >
+                  {products.map((product) => {
                     return (
                       <ProductCard
                         key={product.id}
@@ -464,15 +467,15 @@ export function StoreTest() {
                         }}
                       />
                     );
-                  })
-                ) : (
-                  <p className="text-2xl sm:text-3xl md:text-5xl mt-12 flex items-center justify-center">
-                    There are no products yet
-                  </p>
-                )}
-              </div>
+                  })}
+                </div>
+              ) : (
+                <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center">
+                  There are no products yet
+                </p>
+              )
             ) : (
-              <p className="text-2xl sm:text-3xl md:text-5xl mt-12 flex items-center justify-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center">
                 Something went wrong.
                 <a className="ml-4 underline " href="/">
                   Reload

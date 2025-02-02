@@ -13,7 +13,7 @@ interface ProductProviderProps {
 
 export const ProductContext = createContext<ProductContextType>({
   products: null,
-  loadingProducts: false,
+  loadingProducts: true,
 });
 
 export function ProductProvider({ children }: ProductProviderProps) {
@@ -21,7 +21,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   const getProducts = async () => {
-    setLoadingProducts(false);
+    setLoadingProducts(true);
     try {
       const res = await getProductsRequest();
       console.log("Response from products: ", res);
@@ -40,6 +40,10 @@ export function ProductProvider({ children }: ProductProviderProps) {
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    console.log(loadingProducts);
+  }, [loadingProducts]);
 
   return (
     <ProductContext.Provider value={{ products, loadingProducts }}>

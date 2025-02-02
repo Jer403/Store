@@ -78,7 +78,7 @@ function useCartReducer() {
         console.error("Error loading Payments");
       }
     } catch (error) {
-      console.error("Error fetching coupon data", error);
+      console.error("Error fetching Payments data", error);
     } finally {
       setLoadingPayments(false);
     }
@@ -123,10 +123,6 @@ function useCartReducer() {
     loadPurchased();
     loadWaiting();
   }, []);
-
-  useEffect(() => {
-    console.log(purchased);
-  }, [purchased]);
 
   const addToCart = async (id: string) => {
     const res = await addProductToCartRequest(id);
