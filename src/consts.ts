@@ -5,9 +5,9 @@ export const POSITIONS = {
   User: { left: "300px", width: "0" },
 };
 
-export const API_URL = "https://3dcute.up.railway.app//app";
+export const API_URL = "https://3dcute.up.railway.app/app";
 
-export const IMG_API_URL = "https://3dcute.up.railway.app//app/img/";
+export const IMG_API_URL = "https://3dcute.up.railway.app/app/img/";
 
 export const months = [
   "January",
