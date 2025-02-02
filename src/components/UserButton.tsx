@@ -42,7 +42,8 @@ export function UserButton({ logged, onClickEvent }: UserButtonProps) {
             </>
           ) : (
             <>
-              <LogIn width={18} height={24}></LogIn>Login
+              <LogIn width={18} height={24}></LogIn>
+              <span className="hidden sm:block ">Login</span>
             </>
           )}
         </button>

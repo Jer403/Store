@@ -15,7 +15,7 @@ export const ProductContext = createContext<ProductContextType>({
 });
 
 export function ProductProvider({ children }: ProductProviderProps) {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState<Product[] | null>(null);
 
   const getProducts = async () => {
     try {
@@ -24,7 +24,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
       if (res.status == 200) {
         setProducts(res.data);
       } else {
-        setProducts(null);
+        setProducts([] as Product[]);
       }
     } catch (error) {
       console.log("Error fetching products data: ", error);
