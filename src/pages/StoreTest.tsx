@@ -466,7 +466,9 @@ export function StoreTest() {
                     );
                   })
                 ) : (
-                  <>There are no products yet</>
+                  <p className="text-2xl sm:text-3xl md:text-5xl mt-12 flex items-center justify-center">
+                    There are no products yet
+                  </p>
                 )}
               </div>
             ) : (
