@@ -446,7 +446,7 @@ export function StoreTest() {
                     : "lg:grid-cols-3 xl:grid-cols-4"
                 } gap-6`}
               >
-                {products ? (
+                {products.length > 0 ? (
                   products.map((product) => {
                     return (
                       <ProductCard
