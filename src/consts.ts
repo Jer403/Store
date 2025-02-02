@@ -5,9 +5,9 @@ export const POSITIONS = {
   User: { left: "300px", width: "0" },
 };
 
-export const API_URL = "/vs0wwjrk-3000.use2.devtunnels.ms/app";
+export const API_URL = "http://vs0wwjrk-3000.use2.devtunnels.ms/app";
 
-export const IMG_API_URL = "/vs0wwjrk-3000.use2.devtunnels.ms/app/img/";
+export const IMG_API_URL = "http:///vs0wwjrk-3000.use2.devtunnels.ms/app/img/";
 
 export const months = [
   "January",
