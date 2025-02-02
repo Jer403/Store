@@ -459,7 +459,7 @@ export function StoreTest() {
                 )}
               </div>
             ) : (
-              <p className="text-5xl mt-12 flex items-center justify-center">
+              <p className="text-2xl sm:text-3xl md:text-5xl mt-12 flex items-center justify-center">
                 Something went wrong.
                 <a className="ml-4 underline " href="/">
                   Reload
