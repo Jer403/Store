@@ -88,6 +88,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const verifyToken = async () => {
     const cookies = Cookies.get();
+    console.log("Cookies: ", cookies);
 
     if (!cookies.token) {
       setUser(null);
