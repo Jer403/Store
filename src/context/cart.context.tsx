@@ -50,6 +50,7 @@ function useCartReducer() {
   const [purchased, setPurchased] = useState([] as PurchasedProduct[]);
 
   const loadCart = async () => {
+    if (loadingCart) return;
     setLoadingCart(true);
     try {
       const res = await getCartRequest();

@@ -1,6 +1,6 @@
 import { useCart } from "../hooks/useCart";
 
-import { CreditCard, Trash2 } from "lucide-react";
+import { CircleDashed, CreditCard, Trash2 } from "lucide-react";
 import { useEffect, useId } from "react";
 import { Link } from "react-router-dom";
 import { IMG_API_URL } from "../consts";
@@ -39,7 +39,7 @@ export function CartProductItem({
 }
 
 export default function Cart() {
-  const { state: cart, loadCart, removeFromCart } = useCart();
+  const { state: cart, loadCart, removeFromCart, loadingCart } = useCart();
   const itemsCId = useId();
   const titleCId = useId();
   const checkCId = useId();
@@ -67,8 +67,11 @@ export default function Cart() {
           >
             <div
               key={itemsCId}
-              className="w-full bg-white rounded-lg shadow-md p-8 flex flex-col gap-2"
+              className="w-full bg-white rounded-lg shadow-md p-8 flex flex-col gap-2 relative"
             >
+              {loadingCart && (
+                <CircleDashed className="loader h-6 w-6 absolute top-0 right-0 mr-2 mt-2"></CircleDashed>
+              )}
               {cart.length > 0 ? (
                 cart.map((product) => {
                   return (
