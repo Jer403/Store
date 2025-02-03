@@ -138,7 +138,14 @@ export default function Register() {
           </h2>
         </div>
         <form className="mt-8 space-y-6">
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div
+            className={`rounded-md shadow-sm -space-y-px ${
+              (valEmail != null ||
+                valUsername != null ||
+                valpassword != null) &&
+              "mr-6"
+            }`}
+          >
             <div className="relative">
               <label htmlFor="username" className="sr-only">
                 Username
