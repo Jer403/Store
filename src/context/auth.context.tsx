@@ -5,7 +5,6 @@ import {
   registerRequest,
   verifyTokenRequest,
 } from "../Api/auth";
-import Cookies from "js-cookie";
 
 interface UserInterface {
   id: string;
@@ -87,17 +86,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const verifyToken = async () => {
-    const cookies = Cookies.get();
-    console.log("Cookies: ", cookies);
-
-    if (!cookies.token) {
-      setUser(null);
-      setLoadingLog(false);
-      return setLogged(false);
-    }
     try {
       const res = await verifyTokenRequest();
       if (!res.data) {
+        setUser(null);
         setLoadingLog(false);
         return setLogged(false);
       }
