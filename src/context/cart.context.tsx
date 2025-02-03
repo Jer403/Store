@@ -30,7 +30,7 @@ export const CartContext = createContext({
   loadCart: () => {},
   loadPayments: () => {},
   setPayments: (pays: Payment[]) => {},
-  loadingCart: true,
+  loadingCart: false,
   loadingPayments: true,
   payments: [] as Payment[],
   loadingPurchased: true,
@@ -41,7 +41,7 @@ export const CartContext = createContext({
 
 function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
-  const [loadingCart, setLoadingCart] = useState(true);
+  const [loadingCart, setLoadingCart] = useState(false);
   const [loadingPayments, setLoadingPayments] = useState(true);
   const [loadingPurchased, setLoadingPurchased] = useState(true);
   const [loadingWaiting, setLoadingWaiting] = useState(true);
