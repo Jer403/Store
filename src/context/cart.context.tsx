@@ -53,7 +53,9 @@ function useCartReducer() {
     if (loadingCart) return;
     setLoadingCart(true);
     try {
+      console.log("Starting cart request");
       const res = await getCartRequest();
+      console.log("Response from cart: ", res);
       if (res.status === 200) {
         dispatch({
           type: CART_ACTIONS.SET_CART,
@@ -89,7 +91,6 @@ function useCartReducer() {
     setLoadingPurchased(true);
     try {
       const res = await getPurchasedRequest();
-      console.log(res);
       if (res.status === 200) {
         setPurchased(res.data);
       } else {
