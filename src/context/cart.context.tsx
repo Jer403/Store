@@ -151,16 +151,10 @@ function useCartReducer() {
   };
 
   const clearCart = async () => {
-    const res = await clearCartRequest();
-
-    if (res.status === 200) {
-      dispatch({
-        type: CART_ACTIONS.CLEAR_CART,
-        payload: [],
-      });
-    } else {
-      console.error("Error removing product from cart");
-    }
+    dispatch({
+      type: CART_ACTIONS.CLEAR_CART,
+      payload: [],
+    });
   };
 
   const clearCartFromClient = async () => {
