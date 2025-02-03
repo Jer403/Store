@@ -143,7 +143,7 @@ export default function Register() {
               (valEmail != null ||
                 valUsername != null ||
                 valpassword != null) &&
-              "mr-6"
+              "mr-6 sm:mr-0"
             }`}
           >
             <div className="relative">
