@@ -72,7 +72,9 @@ export default function Cart() {
               {loadingCart && (
                 <CircleDashed className="loader h-6 w-6 absolute top-0 right-0 mr-2 mt-2"></CircleDashed>
               )}
-              {cart.length > 0 ? (
+              {loadingCart ? (
+                <p className="text-2xl">Loading cart...</p>
+              ) : cart.length > 0 ? (
                 cart.map((product) => {
                   return (
                     <CartProductItem
