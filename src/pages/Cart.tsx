@@ -1,7 +1,7 @@
 import { useCart } from "../hooks/useCart";
 
 import { CircleDashed, CreditCard, Trash2 } from "lucide-react";
-import { useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
 import { Link } from "react-router-dom";
 import { IMG_API_URL } from "../consts";
 import { CartProduct } from "../types";
@@ -13,6 +13,7 @@ export function CartProductItem({
   product: CartProduct;
   handleRemoveElement: (id: string) => void;
 }) {
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   return (
     <div className="w-full flex flex-row p-2 bg-gray-50 border rounded-lg">
       <div>
@@ -27,9 +28,18 @@ export function CartProductItem({
         <div className="flex flex-col-reverse justify-between items-end">
           <button
             className="w-20 h-7 px-1 flex flex-row items-center justify-center gap-1 text-sm font-medium rounded-md text-gray-500 border border-gray-300  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
-            onClick={() => handleRemoveElement(product.id)}
+            onClick={() => {
+              handleRemoveElement(product.id);
+              setLoadingSubmit(true);
+            }}
           >
-            <Trash2></Trash2>Eliminar
+            {loadingSubmit ? (
+              <CircleDashed className="h-4 w-4 loader" />
+            ) : (
+              <>
+                <Trash2></Trash2>Eliminar
+              </>
+            )}
           </button>
           <p className="text-md flex items-center">${product.price}</p>
         </div>

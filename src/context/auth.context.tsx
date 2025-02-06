@@ -89,6 +89,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const verifyToken = async () => {
     try {
       const res = await verifyTokenRequest();
+      console.log(res.data.preferences);
 
       if (!res.data) {
         setUser(null);
@@ -96,7 +97,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return setLogged(false);
       }
 
-      setUser(res.data);
+      setUser({ ...res.data, preferences: res.data.preferences });
       setLogged(true);
       setLoadingLog(false);
     } catch (error) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import { Product } from "../types";
-import { Download, LogIn, ShoppingCart, X } from "lucide-react";
+import { CircleDashed, Download, LogIn, ShoppingCart, X } from "lucide-react";
 import { IMG_API_URL } from "../consts";
 
 const specs = {
@@ -20,7 +20,8 @@ interface ProductDetailsProps {
   handleProductAction: (
     id: string,
     isInCart: boolean,
-    isInPurchased: boolean
+    isInPurchased: boolean,
+    setLoadingSubmit: (b: boolean) => void
   ) => void;
   isOpen: boolean;
   setCurrentImage: (string: string) => void;
@@ -43,6 +44,7 @@ export function ProductDetails({
   const { state: cart } = useCart();
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
 
   useEffect(() => {
     setIsInCart(checkProductInCart(product));
@@ -54,6 +56,14 @@ export function ProductDetails({
       setCurrentImage(e.currentTarget.src);
     }
   };
+
+  useEffect(() => {
+    if (isInCart) {
+      if (!loadingSubmit) {
+        setLoadingSubmit(false);
+      }
+    }
+  }, [isInCart, loadingSubmit]);
 
   return (
     <div
@@ -118,13 +128,22 @@ export function ProductDetails({
                   : "bg-indigo-600 hover:bg-indigo-700"
               } text-white rounded-lg  transition-colors`}
               onClick={() =>
-                handleProductAction(product.id, isInCart, isInPurchased)
+                handleProductAction(
+                  product.id,
+                  isInCart,
+                  isInPurchased,
+                  setLoadingSubmit
+                )
               }
             >
               {logged ? (
                 isInPurchased ? (
                   <>
                     <Download className="h-5 w-5" /> Download
+                  </>
+                ) : loadingSubmit ? (
+                  <>
+                    <CircleDashed className="h-5 w-5 loader" />
                   </>
                 ) : isInCart ? (
                   <>

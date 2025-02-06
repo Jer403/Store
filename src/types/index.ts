@@ -30,6 +30,12 @@ export interface Payment {
   price: string;
 }
 
+export interface preferences {
+  language: string;
+  theme: string;
+  currency: string;
+}
+
 export interface PurchasedProduct {
   id: string;
   title: string;

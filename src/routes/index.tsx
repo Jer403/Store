@@ -8,7 +8,8 @@ import { Footer } from "../components/Footer.tsx";
 
 const Welcome = lazy(() => import("../pages/Welcome.tsx"));
 const Dashboard = lazy(() => import("../pages/Dashboard.tsx"));
-const ProductDetail = lazy(() => import("../components/ProductDetail.tsx"));
+const PaymentSuccess = lazy(() => import("../pages/PaymentSuccess.tsx"));
+const PaymentFailed = lazy(() => import("../pages/PaymentFailed.tsx"));
 const Settings = lazy(() => import("../pages/Settings.tsx"));
 const Login = lazy(() => import("../pages/Login.tsx"));
 const Register = lazy(() => import("../pages/Register.tsx"));
@@ -32,14 +33,6 @@ export function AppRouter() {
               element={
                 <LoadingWrapper onMount={handleLoad}>
                   <Welcome />
-                </LoadingWrapper>
-              }
-            />
-            <Route
-              path="/product/:id"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <ProductDetail />
                 </LoadingWrapper>
               }
             />
@@ -72,6 +65,22 @@ export function AppRouter() {
               element={
                 <LoadingWrapper onMount={handleLoad}>
                   <Contact />
+                </LoadingWrapper>
+              }
+            />
+            <Route
+              path="/payment/success"
+              element={
+                <LoadingWrapper onMount={handleLoad}>
+                  <PaymentSuccess />
+                </LoadingWrapper>
+              }
+            />
+            <Route
+              path="/payment/failed"
+              element={
+                <LoadingWrapper onMount={handleLoad}>
+                  <PaymentFailed />
                 </LoadingWrapper>
               }
             />

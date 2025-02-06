@@ -3,6 +3,7 @@ import { CircleDashed, Palette, User } from "lucide-react";
 import { SettingsSection } from "../components/SettingsSection";
 import { useAuth } from "../hooks/useAuth";
 import { preferencesRequest } from "../Api/auth";
+import { preferences } from "../types";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
@@ -23,11 +24,13 @@ export default function Settings() {
   const errorIdKey = useId();
   const { user } = useAuth();
 
-  const [preferences, setPreferences] = useState({
+  const [preferences, setPreferences] = useState<preferences>({
     language: "en",
     theme: "light",
     currency: "EUR",
   });
+
+  console.log(preferences);
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();

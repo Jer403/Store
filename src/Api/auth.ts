@@ -1,3 +1,4 @@
+import { preferences } from "../types/index.ts";
 import axios from "./axios.ts";
 
 export const registerRequest = async (user: {
@@ -23,10 +24,6 @@ export const logoutRequest = async () => {
   return await axios.get(`/logout`);
 };
 
-export const preferencesRequest = async (preferences: {
-  language: string;
-  theme: string;
-  currency: string;
-}) => {
+export const preferencesRequest = async (preferences: preferences) => {
   return await axios.post(`/preferences`, { preferences });
 };

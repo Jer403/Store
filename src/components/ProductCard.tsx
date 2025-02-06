@@ -3,7 +3,7 @@ import { useCart } from "../hooks/useCart";
 import { Product } from "../types";
 import { useAuth } from "../hooks/useAuth";
 import { IMG_API_URL } from "../consts";
-import { Download, LogIn, ShoppingCart } from "lucide-react";
+import { CircleDashed, Download, LogIn, ShoppingCart } from "lucide-react";
 
 export function ProductCard({
   product,
@@ -20,7 +20,8 @@ export function ProductCard({
   handleProductAction: (
     id: string,
     isInCart: boolean,
-    isInPurchased: boolean
+    isInPurchased: boolean,
+    setLoadingSubmit: (b: boolean) => void
   ) => void;
   checkProductInCart: (product: Product) => boolean;
   checkProductInPurchased: (product: Product) => boolean;
@@ -28,12 +29,21 @@ export function ProductCard({
   const { state: cart } = useCart();
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const { logged } = useAuth();
 
   useEffect(() => {
     setIsInCart(checkProductInCart(product));
     setIsInPurchased(checkProductInPurchased(product));
   }, [cart, checkProductInCart, checkProductInPurchased, product]);
+
+  useEffect(() => {
+    if (isInCart) {
+      if (loadingSubmit) {
+        setLoadingSubmit(false);
+      }
+    }
+  }, [isInCart, loadingSubmit]);
 
   return (
     <div
@@ -69,14 +79,24 @@ export function ProductCard({
             } items-center justify-center flex gap-2`}
             onClick={(e) => {
               e.stopPropagation();
-              handleProductAction(product.id, isInCart, isInPurchased);
+              handleProductAction(
+                product.id,
+                isInCart,
+                isInPurchased,
+                setLoadingSubmit
+              );
             }}
+            disabled={loadingSubmit}
           >
             {selectedProduct ? (
               logged ? (
                 isInPurchased ? (
                   <>
                     <Download className="h-5 w-5" />
+                  </>
+                ) : loadingSubmit ? (
+                  <>
+                    <CircleDashed className="h-5 w-5 loader" />
                   </>
                 ) : isInCart ? (
                   <>
@@ -95,6 +115,10 @@ export function ProductCard({
                 <>
                   <Download className="h-5 w-5" />
                   Download
+                </>
+              ) : loadingSubmit ? (
+                <>
+                  <CircleDashed className="h-5 w-5 loader" />
                 </>
               ) : isInCart ? (
                 <>

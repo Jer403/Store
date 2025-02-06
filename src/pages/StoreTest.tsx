@@ -21,7 +21,8 @@ export function StoreTest() {
   const handleProductAction = (
     id: string,
     isInCart: boolean,
-    isInPurchased: boolean
+    isInPurchased: boolean,
+    setLoadingSubmit: (b: boolean) => void
   ) => {
     if (!logged) {
       navigate(`/login`);
@@ -38,6 +39,7 @@ export function StoreTest() {
       return;
     }
     addToCart(id);
+    setLoadingSubmit(true);
   };
 
   const checkProductInCart = useCallback(
