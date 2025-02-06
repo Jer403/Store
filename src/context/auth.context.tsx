@@ -89,6 +89,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const verifyToken = async () => {
     try {
       const res = await verifyTokenRequest();
+      console.log(res);
       if (!res.data) {
         setUser(null);
         setLoadingLog(false);
