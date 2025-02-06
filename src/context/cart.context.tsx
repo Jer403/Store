@@ -19,7 +19,7 @@ import {
   removeProductFromCartRequest,
 } from "../Api/cart.ts";
 import { CartProduct, Payment, PurchasedProduct } from "../types/index.ts";
-import { getPurchasedRequest, getWaitingRequest } from "../Api/payment.ts";
+import { getPurchasedRequest } from "../Api/payment.ts";
 
 export const CartContext = createContext({
   state: [] as CartProduct[],
@@ -34,8 +34,6 @@ export const CartContext = createContext({
   loadingPayments: true,
   payments: [] as Payment[],
   loadingPurchased: true,
-  loadingWaiting: true,
-  waitingForPay: [] as CartProduct[],
   purchased: [] as PurchasedProduct[],
 });
 
@@ -44,9 +42,7 @@ function useCartReducer() {
   const [loadingCart, setLoadingCart] = useState(false);
   const [loadingPayments, setLoadingPayments] = useState(true);
   const [loadingPurchased, setLoadingPurchased] = useState(true);
-  const [loadingWaiting, setLoadingWaiting] = useState(true);
   const [payments, setPayments] = useState([] as Payment[]);
-  const [waitingForPay, setWaitingForPay] = useState([] as CartProduct[]);
   const [purchased, setPurchased] = useState([] as PurchasedProduct[]);
 
   const loadCart = async () => {
@@ -103,27 +99,10 @@ function useCartReducer() {
     }
   };
 
-  const loadWaiting = async () => {
-    setLoadingWaiting(true);
-    try {
-      const res = await getWaitingRequest();
-      if (res.status === 200) {
-        setWaitingForPay(res.data);
-      } else {
-        console.error("Error loading waiting products");
-      }
-    } catch (error) {
-      console.error("Error fetching waiting products data", error);
-    } finally {
-      setLoadingWaiting(false);
-    }
-  };
-
   useEffect(() => {
     loadCart();
     loadPayments();
     loadPurchased();
-    loadWaiting();
   }, []);
 
   const addToCart = async (id: string) => {
@@ -179,8 +158,6 @@ function useCartReducer() {
     setPayments,
     loadingPayments,
     loadingPurchased,
-    loadingWaiting,
-    waitingForPay,
     purchased,
   };
 }
@@ -199,8 +176,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setPayments,
     loadingPayments,
     loadingPurchased,
-    loadingWaiting,
-    waitingForPay,
     purchased,
   } = useCartReducer();
 
@@ -219,8 +194,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setPayments,
         loadingPayments,
         loadingPurchased,
-        loadingWaiting,
-        waitingForPay,
         purchased,
       }}
     >

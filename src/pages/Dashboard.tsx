@@ -1,18 +1,12 @@
-import { CreditCard, LogOut, Package, Settings } from "lucide-react";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { LogOut, Package, Settings } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
-import { LoadingWrapper } from "../components/Elements/LoadingWrapper";
-import { useHandleLoad } from "../hooks/useHandleLoad";
-import { lazy } from "react";
 import PurchasedProducts from "./PurchasedProducts.tsx";
-
-const Payment = lazy(() => import("../pages/Payments.tsx"));
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const { clearCart } = useCart();
-  const { handleLoad } = useHandleLoad();
   const { pathname } = useLocation();
 
   const handleLogOutClick = () => {
@@ -45,17 +39,6 @@ export default function Dashboard() {
                   My Items
                 </Link>
                 <Link
-                  to="/dashboard/payments"
-                  className={`flex items-center px-4 py-2 text-gray-700 ${
-                    pathname == "/dashboard/payments"
-                      ? "bg-gray-100"
-                      : "hover:bg-gray-100"
-                  } rounded-lg mt-2`}
-                >
-                  <CreditCard className="h-5 w-5 mr-3" />
-                  My Payments
-                </Link>
-                <Link
                   to="/dashboard/settings"
                   className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg mt-2"
                 >
@@ -73,24 +56,7 @@ export default function Dashboard() {
               </nav>
             </div>
           </div>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <PurchasedProducts />
-                </LoadingWrapper>
-              }
-            />
-            <Route
-              path="/payments"
-              element={
-                <LoadingWrapper onMount={handleLoad}>
-                  <Payment />
-                </LoadingWrapper>
-              }
-            />
-          </Routes>
+          <PurchasedProducts />
         </div>
       </div>
     </div>

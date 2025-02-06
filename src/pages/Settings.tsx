@@ -1,48 +1,45 @@
-import { useState } from "react";
-import { Bell, CircleDashed, Lock, Palette, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CircleDashed, Palette, User } from "lucide-react";
 import { SettingsSection } from "../components/SettingsSection";
-import { Toggle } from "../components/Toggle";
+import { useAuth } from "../hooks/useAuth";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
 }
 
-export default function Settings() {
-  // const submitClickHandler = ({e}:SubmitClickProps)=>{
-  //   e.preventDefault()
-  //   e.target?.firstElementChild?.classList.add("md:hidden")
-  //   e.target?.firstElementChild?.nextElementSibling?.classList.remove("md:hidden")
-  // }
+type Language = "en" | "es";
+type Theme = "light" | "dark" | "system";
+type Currency = "USD" | "EUR";
 
-  const [settings, setSettings] = useState({
-    notifications: {
-      email: true,
-      push: false,
-      marketing: true,
-    },
-    privacy: {
-      profileVisibility: "public",
-      activityStatus: true,
-      showPurchases: false,
-    },
-    preferences: {
-      language: "en",
-      theme: "light",
-      currency: "USD",
-    },
+type SettingsProps =
+  | { preference: "language"; value: Language }
+  | { preference: "theme"; value: Theme }
+  | { preference: "currency"; value: Currency };
+
+export default function Settings() {
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const { user } = useAuth();
+
+  const submitClickHandler = ({ e }: SubmitClickProps) => {
+    e.preventDefault();
+    if (loadingSubmit) return;
+    setLoadingSubmit(true);
+  };
+
+  const [preferences, setPreferences] = useState({
+    language: "en",
+    theme: "light",
+    currency: "EUR",
   });
 
-  const handleSettingChange = (
-    category: string,
-    setting: string,
-    value: any
-  ) => {
-    setSettings((prev) => ({
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  const handleSettingChange = ({ preference, value }: SettingsProps) => {
+    setPreferences((prev) => ({
       ...prev,
-      [category]: {
-        ...prev[category],
-        [setting]: value,
-      },
+      [preference]: { value },
     }));
   };
 
@@ -66,19 +63,17 @@ export default function Settings() {
                     Language
                   </label>
                   <select
-                    value={settings.preferences.language}
+                    value={preferences.language}
                     onChange={(e) =>
-                      handleSettingChange(
-                        "preferences",
-                        "language",
-                        e.target.value
-                      )
+                      handleSettingChange({
+                        preference: "language",
+                        value: e.target.value as Language,
+                      })
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="en">English</option>
                     <option value="es">Español</option>
-                    <option value="fr">Français</option>
                   </select>
                 </div>
                 <div>
@@ -86,99 +81,19 @@ export default function Settings() {
                     Currency
                   </label>
                   <select
-                    value={settings.preferences.currency}
+                    value={preferences.currency}
                     onChange={(e) =>
-                      handleSettingChange(
-                        "preferences",
-                        "currency",
-                        e.target.value
-                      )
+                      handleSettingChange({
+                        preference: "currency",
+                        value: e.target.value as Currency,
+                      })
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
-                    <option value="GBP">GBP (£)</option>
                   </select>
                 </div>
-              </div>
-            </SettingsSection>
-
-            <SettingsSection
-              icon={<Bell className="h-6 w-6" />}
-              title="Notifications"
-              description="Manage your notification preferences"
-            >
-              <div className="space-y-4">
-                <Toggle
-                  label="Email Notifications"
-                  description="Receive important updates via email"
-                  checked={settings.notifications.email}
-                  onChange={(value) =>
-                    handleSettingChange("notifications", "email", value)
-                  }
-                />
-                <Toggle
-                  label="Push Notifications"
-                  description="Get instant notifications on your device"
-                  checked={settings.notifications.push}
-                  onChange={(value) =>
-                    handleSettingChange("notifications", "push", value)
-                  }
-                />
-                <Toggle
-                  label="Marketing Communications"
-                  description="Receive news about products and special offers"
-                  checked={settings.notifications.marketing}
-                  onChange={(value) =>
-                    handleSettingChange("notifications", "marketing", value)
-                  }
-                />
-              </div>
-            </SettingsSection>
-
-            <SettingsSection
-              icon={<Lock className="h-6 w-6" />}
-              title="Privacy"
-              description="Control your privacy settings"
-            >
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Profile Visibility
-                  </label>
-                  <select
-                    value={settings.privacy.profileVisibility}
-                    onChange={(e) =>
-                      handleSettingChange(
-                        "privacy",
-                        "profileVisibility",
-                        e.target.value
-                      )
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                    <option value="friends">Friends Only</option>
-                  </select>
-                </div>
-                <Toggle
-                  label="Online Status"
-                  description="Show when you're active"
-                  checked={settings.privacy.activityStatus}
-                  onChange={(value) =>
-                    handleSettingChange("privacy", "activityStatus", value)
-                  }
-                />
-                <Toggle
-                  label="Purchase History"
-                  description="Allow others to see your purchases"
-                  checked={settings.privacy.showPurchases}
-                  onChange={(value) =>
-                    handleSettingChange("privacy", "showPurchases", value)
-                  }
-                />
               </div>
             </SettingsSection>
 
@@ -193,13 +108,12 @@ export default function Settings() {
                     Theme
                   </label>
                   <select
-                    value={settings.preferences.theme}
+                    value={preferences.theme}
                     onChange={(e) =>
-                      handleSettingChange(
-                        "preferences",
-                        "theme",
-                        e.target.value
-                      )
+                      handleSettingChange({
+                        preference: "theme",
+                        value: e.target.value as Theme,
+                      })
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
@@ -216,12 +130,15 @@ export default function Settings() {
             <button
               type="button"
               className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              // onClick={(e)=>{
-              //   submitClickHandler({e})
-              // }}
+              onClick={(e) => {
+                submitClickHandler({ e });
+              }}
             >
-              <span>Save Changes</span>
-              <CircleDashed className="md:hidden loader" />
+              {loadingSubmit ? (
+                <CircleDashed className="loader" />
+              ) : (
+                <span>Save Changes</span>
+              )}
             </button>
           </div>
         </div>

@@ -158,21 +158,21 @@
 }
 
 .check {
-  top: calc(50% - 12px);
-  right: -30px;
+  top: calc(50% + 1px);
+  right: -26px;
 }
 
 .pass-check {
-  top: calc(100% - 12px);
-  right: -30px;
+  top: calc(100% + 3px);
+  right: -26px;
 }
 .pass-check:before,
 .pass-check:after {
   content: "";
   position: absolute;
-  top: -10px;
+  top: -20px;
   left: 3px;
-  height: 10px;
+  height: 20px;
   width: 10px;
   border-top: 2px solid;
   border-right: 2px solid;
@@ -187,7 +187,7 @@
 }
 
 .eye {
-  top: calc(50% - 12px);
+  top: calc(50% + 2px);
   right: 6px;
   z-index: 90;
 }

@@ -10,6 +10,7 @@ interface UserInterface {
   id: string;
   username: string;
   email: string;
+  preferences: { language: string; theme: string; currency: string };
 }
 
 interface AuthContextType {

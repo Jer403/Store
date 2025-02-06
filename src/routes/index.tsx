@@ -8,7 +8,7 @@ import { Footer } from "../components/Footer.tsx";
 
 const Welcome = lazy(() => import("../pages/Welcome.tsx"));
 const Dashboard = lazy(() => import("../pages/Dashboard.tsx"));
-const ProductDetail = lazy(() => import("../pages/ProductDetail.tsx"));
+const ProductDetail = lazy(() => import("../components/ProductDetail.tsx"));
 const Settings = lazy(() => import("../pages/Settings.tsx"));
 const Login = lazy(() => import("../pages/Login.tsx"));
 const Register = lazy(() => import("../pages/Register.tsx"));

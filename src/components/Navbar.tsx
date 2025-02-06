@@ -31,8 +31,8 @@ export function Navbar() {
 
   return (
     <nav className="bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between lg:justify-evenly items-center h-16">
+      <div className="mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
           <Link to="/" className="font-bold text-xl text-indigo-600">
             DigitalMarket
           </Link>
@@ -62,7 +62,7 @@ export function Navbar() {
             <HLine style={lineLeft} />
           </div>
 
-          <div className="flex items-center justify-end lg:justify-start gap-1 max-w-[120px]">
+          <div className="flex items-center justify-end gap-1 max-w-[120px]">
             {/* <Link to="/dashboard" className="md:hidden text-gray-700 hover:text-indigo-600">
               <User className="h-6 w-6" />
             </Link> */}
