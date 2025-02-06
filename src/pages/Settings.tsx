@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { CircleDashed, Palette, User } from "lucide-react";
 import { SettingsSection } from "../components/SettingsSection";
 import { useAuth } from "../hooks/useAuth";
+import { preferencesRequest } from "../Api/auth";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
@@ -18,13 +19,9 @@ type SettingsProps =
 
 export default function Settings() {
   const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [requestErrors, setRequestErrors] = useState<[]>([]);
+  const errorIdKey = useId();
   const { user } = useAuth();
-
-  const submitClickHandler = ({ e }: SubmitClickProps) => {
-    e.preventDefault();
-    if (loadingSubmit) return;
-    setLoadingSubmit(true);
-  };
 
   const [preferences, setPreferences] = useState({
     language: "en",
@@ -32,14 +29,31 @@ export default function Settings() {
     currency: "EUR",
   });
 
+  const submitClickHandler = async ({ e }: SubmitClickProps) => {
+    e.preventDefault();
+    if (loadingSubmit) return;
+    setLoadingSubmit(true);
+    console.log(preferences);
+    const res = await preferencesRequest(preferences);
+    if (res.status == 200) {
+      setLoadingSubmit(false);
+      return;
+    }
+    setRequestErrors(res.data.error);
+    setLoadingSubmit(false);
+  };
+
   useEffect(() => {
-    console.log(user);
+    if (user) {
+      setPreferences(user.preferences);
+    }
   }, [user]);
 
   const handleSettingChange = ({ preference, value }: SettingsProps) => {
+    console.log(value);
     setPreferences((prev) => ({
       ...prev,
-      [preference]: { value },
+      [preference]: value,
     }));
   };
 
@@ -125,7 +139,22 @@ export default function Settings() {
               </div>
             </SettingsSection>
           </div>
-
+          <div
+            className="flex items-center justify-between"
+            style={{ display: requestErrors.length == 0 ? "none" : "block" }}
+          >
+            <div className="flex items-center">
+              {requestErrors.map((item) => (
+                <p
+                  key={errorIdKey}
+                  className="block text-sm"
+                  style={{ color: "var(--wrong)" }}
+                >
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
           <div className="mt-8 flex justify-end">
             <button
               type="button"

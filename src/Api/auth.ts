@@ -22,3 +22,11 @@ export const verifyTokenRequest = async () => {
 export const logoutRequest = async () => {
   return await axios.get(`/logout`);
 };
+
+export const preferencesRequest = async (preferences: {
+  language: string;
+  theme: string;
+  currency: string;
+}) => {
+  return await axios.post(`/preferences`, { preferences });
+};
