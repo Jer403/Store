@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import { Product } from "../types";
 import { CircleDashed, Download, LogIn, ShoppingCart, X } from "lucide-react";
-import { IMG_API_URL } from "../consts";
+import { IMG_API_URL, LANGUAGE } from "../consts";
 
 const specs = {
   platform: "Windows, Mac, Linux",
@@ -40,7 +40,7 @@ export function ProductDetails({
   checkProductInCart,
   checkProductInPurchased,
 }: ProductDetailsProps) {
-  const { logged } = useAuth();
+  const { logged, user } = useAuth();
   const { state: cart } = useCart();
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
@@ -139,7 +139,12 @@ export function ProductDetails({
               {logged ? (
                 isInPurchased ? (
                   <>
-                    <Download className="h-5 w-5" /> Download
+                    <Download className="h-5 w-5" />{" "}
+                    {user
+                      ? LANGUAGE.PRODUCT_BUTTON.DOWNLOAD[
+                          user.preferences.language
+                        ]
+                      : LANGUAGE.PRODUCT_BUTTON.DOWNLOAD.en}
                   </>
                 ) : loadingSubmit ? (
                   <>
@@ -147,16 +152,27 @@ export function ProductDetails({
                   </>
                 ) : isInCart ? (
                   <>
-                    <ShoppingCart className="h-5 w-5" /> Go to Cart
+                    <ShoppingCart className="h-5 w-5" />{" "}
+                    {user
+                      ? LANGUAGE.PRODUCT_BUTTON.GO_TO_CART[
+                          user.preferences.language
+                        ]
+                      : LANGUAGE.PRODUCT_BUTTON.GO_TO_CART.en}
                   </>
                 ) : (
                   <>
-                    <ShoppingCart className="h-5 w-5" /> Add to Cart
+                    <ShoppingCart className="h-5 w-5" />
+                    {user
+                      ? LANGUAGE.PRODUCT_BUTTON.ADD[user.preferences.language]
+                      : LANGUAGE.PRODUCT_BUTTON.ADD.en}
                   </>
                 )
               ) : (
                 <>
-                  <LogIn></LogIn> Login to buy
+                  <LogIn></LogIn>{" "}
+                  {user
+                    ? LANGUAGE.PRODUCT_BUTTON.LOGIN[user.preferences.language]
+                    : LANGUAGE.PRODUCT_BUTTON.LOGIN.en}
                 </>
               )}
             </button>

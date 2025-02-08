@@ -1,13 +1,356 @@
 export const POSITIONS = {
   Home: { left: "0px", width: "43" },
   About: { left: "73px", width: "48" },
-  Contact: { left: "151px", width: "56" },
+  Contact: { left: "150px", width: "56" },
   User: { left: "300px", width: "0" },
 };
 
 export const API_URL = "https://3dcute.up.railway.app/app";
 
 export const IMG_API_URL = "https://3dcute.up.railway.app/app/img/";
+
+export const BRANDNAME = "DigitalMarket";
+
+export const LANGUAGE = {
+  WELCOME: {
+    HERO_WELCOME: {
+      es: "Bienvenido a",
+      en: "Welcome to",
+    },
+    HERO_DESCRIPTION: {
+      es: "Descubre un mundo de contenido digital premium. Desde juegos hasta software, encuentra todo lo que necesitas en un mercado seguro",
+      en: "Discover a world of premium digital content. From games to software, find everything you need in one secure marketplace.",
+    },
+    HERO_BUTTON_START: {
+      es: "Empezar",
+      en: "Get Started",
+    },
+    HERO_BUTTON_SEE: {
+      es: "Ver nuestros productos",
+      en: "See our products",
+    },
+    HERO_BUTTON_LEARN: {
+      es: "Aprender más",
+      en: "Learn More",
+    },
+  },
+  NAVBAR: {
+    HOME: {
+      es: "Inicio",
+      en: "Home",
+    },
+    ABOUT: {
+      es: "Sobre nosotros",
+      en: "About",
+    },
+    CONTACT: {
+      es: "Contactar",
+      en: "Contact",
+    },
+    CART: {
+      es: "Carrito",
+      en: "Cart",
+    },
+    DASHBOARD: {
+      es: "Perfil",
+      en: "Dashboard",
+    },
+    LOGIN: {
+      es: "Iniciar Sesión",
+      en: "Login",
+    },
+  },
+  CART: {
+    TITLE: {
+      es: "Carrito",
+      en: "Shopping Cart",
+    },
+    SUMMARY: {
+      es: "Resumen",
+      en: "Summary",
+    },
+    LOADING: {
+      es: "Cargando carrito...",
+      en: "Loading cart...",
+    },
+    PRODUCT: {
+      es: "Productos",
+      en: "Products",
+    },
+    TOTAL: {
+      es: "Total",
+      en: "Total",
+    },
+    PAY: {
+      es: "Pagar",
+      en: "Pay",
+    },
+    ANY_PRODUCT: {
+      es: "No tienes ningún producto en el carrito",
+      en: "You don't have any product in the cart",
+    },
+    DELETE: {
+      es: "Eliminar",
+      en: "Delete",
+    },
+  },
+  DASHBOARD: {
+    PURCHASED: {
+      es: "Mis Productos Comprados",
+      en: "My Purchased Items",
+    },
+    ANYITEMS: {
+      es: "Aun no has comprado ningun producto",
+      en: "You don't have any purchase yet",
+    },
+    MYITEMS: {
+      es: "Mis Products",
+      en: "My Items",
+    },
+    SETTINGS: {
+      es: "Ajustes",
+      en: "Settings",
+    },
+    LOGOUT: {
+      es: "Cerrar Sesión",
+      en: "Log out",
+    },
+  },
+  STORE: {
+    TITLE: {
+      es: "Tienda digital",
+      en: "Digital Store",
+    },
+    LOADING: {
+      es: "Cargando productos...",
+      en: "Loading products...",
+    },
+    NO_PRODUCTS: {
+      es: "No hay ningún producto todavía",
+      en: "There are no products yet",
+    },
+    WRONG: {
+      es: "Algo salió mal.",
+      en: "Something went wrong.",
+    },
+    RELOAD: {
+      es: "Recargar",
+      en: "Reload",
+    },
+  },
+  SETTINGS: {
+    TITLE: {
+      es: "Mis Productos Comprados",
+      en: "Account Settings",
+    },
+    USER_PREF_TITLE: {
+      es: "Preferencias de usuario",
+      en: "User Preferences",
+    },
+    LANGUAGE: {
+      es: "Lenguaje",
+      en: "Language",
+    },
+    CURRENCY: {
+      es: "Moneda",
+      en: "Currency",
+    },
+    APPEARENCE_TITLE: {
+      es: "Apariencia",
+      en: "Appearance",
+    },
+    APPEARENCE_DESCRIPTION: {
+      es: "Personaliza la apariencia y la sensación",
+      en: "Customize the look and feel",
+    },
+    THEME: {
+      es: "Tema",
+      en: "Theme",
+    },
+    DARK: {
+      es: "Oscuro",
+      en: "Dark",
+    },
+    LIGHT: {
+      es: "Claro",
+      en: "Light",
+    },
+    SYSTEM: {
+      es: "Color del sistema",
+      en: "System",
+    },
+    SAVE: {
+      es: "Guardar Cambios",
+      en: "Save Changes",
+    },
+  },
+  CHECKOUT: {
+    TITLE: {
+      es: "Checkout",
+      en: "Checkout",
+    },
+    SUMMARY: {
+      es: "Resuen de la compra",
+      en: "Order Summary",
+    },
+    TOTAL: {
+      es: "Total",
+      en: "Total",
+    },
+    PAYMENT_INFORMATION: {
+      es: "Imformación del pago",
+      en: "Payment Information",
+    },
+    NAME: {
+      es: "Nombre",
+      en: "Name",
+    },
+    LASTNAME: {
+      es: "Apellidos",
+      en: "Last Name",
+    },
+    PHONE: {
+      es: "Número de teléfono",
+      en: "Phone Number",
+    },
+    ADDRESS: {
+      es: "Dirección",
+      en: "Address",
+    },
+    COUNTRY: {
+      es: "País",
+      en: "Country",
+    },
+    CITY: {
+      es: "Ciudad",
+      en: "City",
+    },
+    POSTALCODE: {
+      es: "Codigo Postal",
+      en: "Postal Code",
+    },
+    PAY: {
+      es: "Pagar ahora",
+      en: "Pay now",
+    },
+    TERMS_AND_CONDITIONS: {
+      es: "Continuando con el pago estas de acuerdo con los Terminos y Condiciones de la Plataforma de Tropipay",
+      en: "By continuing with the payment you agree to the Terms and Conditions of Tropipay Platform",
+    },
+  },
+  PRODUCT_BUTTON: {
+    DOWNLOAD: {
+      es: "Descargar",
+      en: "Download",
+    },
+    GO_TO_CART: {
+      es: "Ir al carrito",
+      en: "Go to Cart",
+    },
+    ADD: {
+      es: "Agregar al carrito",
+      en: "Add to Cart",
+    },
+    LOGIN: {
+      es: "Iniciar sesión",
+      en: "Login to buy",
+    },
+  },
+  CONTACT: {
+    TITLE: {
+      es: "Contactar con Nosotros",
+      en: "Contact Us",
+    },
+    TOUCH: {
+      es: "Ir al carrito",
+      en: "Get in Touch",
+    },
+    NAME: {
+      es: "Nombre",
+      en: "Name",
+    },
+    EMAIL: {
+      es: "Correo electrónico",
+      en: "Email",
+    },
+    MESSAGE: {
+      es: "Mensaje",
+      en: "Message",
+    },
+    SEND: {
+      es: "Enviar mensaje",
+      en: "Send Message",
+    },
+    CONTACT_INFO: {
+      es: "Información de contacto",
+      en: "Contact Information",
+    },
+  },
+  LOGIN: {
+    TITLE: {
+      es: "Inicia sesión en tu cuenta",
+      en: "Sign in to your account",
+    },
+    EMAIL: {
+      es: "Dirección de correo",
+      en: "Email address",
+    },
+    PASS: {
+      es: "Contraseña",
+      en: "Password",
+    },
+    REMEMBERME: {
+      es: "Recuerdame",
+      en: "Remember me",
+    },
+    FORGOT: {
+      es: "Olvidó su contraseña?",
+      en: "Forgot your password?",
+    },
+    DONT_HAVE_ACCOUNT: {
+      es: "No tienes una cuenta? Crear cuenta",
+      en: "Don't have an account? Sign up",
+    },
+    SIGNIN: {
+      es: "Iniciar Sesion",
+      en: "Sign in",
+    },
+  },
+  REGISTER: {
+    TITLE: {
+      es: "Crear una Cuenta",
+      en: "Sign Up",
+    },
+    USERNAME: {
+      es: "Nombre de usuário",
+      en: "Username",
+    },
+    EMAIL: {
+      es: "Dirección de correo",
+      en: "Email address",
+    },
+    PASS: {
+      es: "Contraseña",
+      en: "Password",
+    },
+    REPEAT_PASS: {
+      es: "Repita la contraseña",
+      en: "Repeat password",
+    },
+    REMEMBERME: {
+      es: "Recuerdame",
+      en: "Remember me",
+    },
+    ALREADY_ACCOUNT: {
+      es: "Ya tienes una cuenta?",
+      en: "Already have an account?",
+    },
+    SIGNUP: {
+      es: "Crear cuenta",
+      en: "Sign up",
+    },
+  },
+};
 
 export const months = [
   "January",

@@ -24,7 +24,7 @@ export function AppRouter() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-950">
         <Navbar />
         <Suspense fallback={<LoadingBarWrapper />}>
           <Routes>

@@ -1,42 +1,136 @@
+import { XCircleIcon } from "lucide-react";
+import { useId } from "react";
+import { Link } from "react-router-dom";
+
 export default function About() {
+  const orderCId = useId();
+  const itemsCId = useId();
   return (
     <div className="min-h-screen-minus-64 bg-gray-100 py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-8">
-            Payment Failed
-          </h1>
-
           <div className="bg-white rounded-lg shadow-md p-8">
+            <p className="text-5xl font-bold text-center mb-4 flex justify-center items-center gap-3">
+              <XCircleIcon className="h-20 w-20 text-[--wrong]"></XCircleIcon>
+              <span>Payment Failed</span>
+            </p>
+            <div className="flex justify-center items-center mb-10"></div>
+
             <p className="text-lg text-gray-700 mb-6">
-              DigitalMarket is your premier destination for digital content,
-              games, and software. We believe in providing high-quality digital
-              products while ensuring a seamless and secure shopping experience
-              for our customers.
+              Lo sentimos, hubo un problema con tu pago
+            </p>
+            <p className="text-lg text-gray-700 mb-6">
+              Agradecemos tu intención de compra en nuestra tienda y, al mismo
+              tiempo, le informamos que hubo un inconveniente con el
+              procesamiento de tu pago. Lamentamos mucho esta situación y
+              entendemos lo frustrante que puede ser.
+            </p>
+            <p className="text-lg font-bold text-gray-700 mb-6">
+              Te sugerimos verificar con tu banco o método de pago si hubo algún
+              bloqueo o restricción.
+            </p>
+            <p className="text-lg font-bold text-gray-700 mb-6">
+              Gracias por tu paciencia y por confiar en nosotros.
+            </p>
+            <p className="text-lg text-gray-700">Un cordial saludo,</p>
+            <p className="text-lg font-bold text-gray-700 mb-10">
+              DigitalMarket.
             </p>
 
-            <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-            <p className="text-gray-700 mb-6">
-              To create a trusted marketplace where creators can share their
-              digital products and where customers can discover and purchase
-              with confidence.
-            </p>
+            <div className="flex flex-row gap-4  mb-10">
+              <Link
+                to="/"
+                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                onClick={() => window.scrollTo({ top: 0 })}
+              >
+                Home
+              </Link>
+              <Link
+                to="/cart"
+                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                onClick={() => window.scrollTo({ top: 0 })}
+              >
+                Cart
+              </Link>
+            </div>
 
-            <h2 className="text-2xl font-semibold mb-4">Why Choose Us?</h2>
-            <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
-              <li>Curated selection of high-quality digital products</li>
-              <li>Secure payment processing</li>
-              <li>Instant digital delivery</li>
-              <li>24/7 customer support</li>
-              <li>Money-back guarantee</li>
-            </ul>
-
-            <h2 className="text-2xl font-semibold mb-4">Our Team</h2>
-            <p className="text-gray-700">
-              We're a dedicated team of technology enthusiasts, developers, and
-              customer service professionals working together to provide you
-              with the best digital marketplace experience possible.
-            </p>
+            <div className="bg-gray-100 p-5 rounded-md">
+              <h2
+                key={orderCId}
+                className="text-xl text-gray-700 font-semibold mb-4"
+              >
+                Payment Details
+              </h2>
+              <div key={"chr-0" + "prod.id" + itemsCId}>
+                <h3 className="text-lg font-medium text-gray-700">
+                  Products to purchased
+                </h3>
+              </div>
+              <div key={itemsCId} className="border-t border-b py-4 mb-3">
+                <div
+                  key={"chr-" + "prod.id" + itemsCId}
+                  className="flex justify-between items-center"
+                >
+                  <div key={"chr-0" + "prod.id" + itemsCId}>
+                    <h3 className="font-medium text-gray-800">Amphora</h3>
+                  </div>
+                  <span
+                    key={"chr-1" + "prod.id" + itemsCId}
+                    className="font-semibold text-gray-800"
+                  >
+                    $32
+                  </span>
+                </div>
+              </div>
+              <div
+                key={"chr-" + "prod.id" + itemsCId}
+                className="flex justify-between items-center  mb-3"
+              >
+                <div key={"chr-0" + "prod.id" + itemsCId}>
+                  <h3 className="text-lg font-medium text-gray-700">
+                    Amount to pay
+                  </h3>
+                </div>
+                <span
+                  key={"chr-1" + "prod.id" + itemsCId}
+                  className="font-semibold text-gray-800"
+                >
+                  $32
+                </span>
+              </div>
+              <div
+                key={"chr-" + "prod.id" + itemsCId}
+                className="flex justify-between items-center  mb-3"
+              >
+                <div key={"chr-0" + "prod.id" + itemsCId}>
+                  <h3 className="text-lg font-medium text-gray-700">
+                    Order Code
+                  </h3>
+                </div>
+                <span
+                  key={"chr-1" + "prod.id" + itemsCId}
+                  className="font-semibold text-gray-800"
+                >
+                  AK2184KKJKHSD123
+                </span>
+              </div>
+              <div
+                key={"chr-" + "prod.id" + itemsCId}
+                className="flex justify-between items-center  mb-3"
+              >
+                <div key={"chr-0" + "prod.id" + itemsCId}>
+                  <h3 className="text-lg font-medium text-gray-700">
+                    Payment Date
+                  </h3>
+                </div>
+                <span
+                  key={"chr-1" + "prod.id" + itemsCId}
+                  className="font-semibold text-gray-800"
+                >
+                  January 30, 2024
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

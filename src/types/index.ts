@@ -21,6 +21,16 @@ export interface CartProduct {
   image: string;
 }
 
+export interface UserInterface {
+  id: string;
+  username: string;
+  email: string;
+  preferences: { language: Language; theme: Theme; currency: Currency };
+}
+export type Language = "en" | "es";
+export type Theme = "light" | "dark" | "system";
+export type Currency = "USD" | "EUR";
+
 export interface Payment {
   id: string;
   cart: CartProduct[];
@@ -30,10 +40,10 @@ export interface Payment {
   price: string;
 }
 
-export interface preferences {
-  language: string;
-  theme: string;
-  currency: string;
+export interface Preferences {
+  language: Language;
+  theme: Theme;
+  currency: Currency;
 }
 
 export interface PurchasedProduct {

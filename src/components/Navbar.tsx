@@ -4,12 +4,12 @@ import { UserButton } from "./UserButton.tsx";
 import { HLine } from "./Elements/HLine.tsx";
 import { useEffect } from "react";
 import { useUtils } from "../hooks/useUtils.tsx";
-import { POSITIONS } from "../consts.ts";
+import { BRANDNAME, LANGUAGE, POSITIONS } from "../consts.ts";
 import { useAuth } from "../hooks/useAuth.tsx";
 
 export function Navbar() {
   const { lineLeft, setLineLeftProperties } = useUtils();
-  const { logged } = useAuth();
+  const { logged, loadingLog, user } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -30,34 +30,46 @@ export function Navbar() {
   }, [location]);
 
   return (
-    <nav className="bg-white">
+    <nav className="bg-white dark:bg-gray-900">
       <div className="mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="font-bold text-xl text-indigo-600">
-            DigitalMarket
+            {BRANDNAME}
           </Link>
 
           <div className="hidden md:flex items-center relative space-x-8">
             <Link
               to="/"
-              className="text-gray-700 hover:text-indigo-600"
+              className="text-gray-700 dark:text-white hover:text-indigo-600"
               onClick={() => setLineLeftProperties(POSITIONS.Home)}
             >
-              Home
+              <>
+                {user
+                  ? LANGUAGE.NAVBAR.HOME[user.preferences.language]
+                  : LANGUAGE.NAVBAR.HOME.en}
+              </>
             </Link>
             <Link
               to="/about"
-              className="text-gray-700 hover:text-indigo-600"
+              className="text-gray-700 dark:text-white hover:text-indigo-600"
               onClick={() => setLineLeftProperties(POSITIONS.About)}
             >
-              About
+              <>
+                {user
+                  ? LANGUAGE.NAVBAR.ABOUT[user.preferences.language]
+                  : LANGUAGE.NAVBAR.ABOUT.en}
+              </>
             </Link>
             <Link
               to="/contact"
-              className="text-gray-700 hover:text-indigo-600"
+              className="text-gray-700 dark:text-white hover:text-indigo-600"
               onClick={() => setLineLeftProperties(POSITIONS.Contact)}
             >
-              Contact
+              <>
+                {user
+                  ? LANGUAGE.NAVBAR.CONTACT[user.preferences.language]
+                  : LANGUAGE.NAVBAR.CONTACT.en}
+              </>
             </Link>
             <HLine style={lineLeft} />
           </div>
@@ -68,6 +80,8 @@ export function Navbar() {
             </Link> */}
             <UserButton
               logged={logged}
+              loading={loadingLog}
+              user={user}
               onClickEvent={() => setLineLeftProperties(POSITIONS.User)}
             />
             <button className="md:hidden ml-3">

@@ -1,17 +1,13 @@
 import { useEffect, useId, useState } from "react";
-import { CircleDashed, Palette, User } from "lucide-react";
+import { CheckCircle2, CircleDashed, Palette, User } from "lucide-react";
 import { SettingsSection } from "../components/SettingsSection";
 import { useAuth } from "../hooks/useAuth";
 import { preferencesRequest } from "../Api/auth";
-import { preferences } from "../types";
+import { Currency, Language, Preferences, Theme } from "../types";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
 }
-
-type Language = "en" | "es";
-type Theme = "light" | "dark" | "system";
-type Currency = "USD" | "EUR";
 
 type SettingsProps =
   | { preference: "language"; value: Language }
@@ -21,50 +17,50 @@ type SettingsProps =
 export default function Settings() {
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [requestErrors, setRequestErrors] = useState<[]>([]);
+  const [saved, setSaved] = useState(false);
   const errorIdKey = useId();
-  const { user } = useAuth();
+  const { user, setUserPreferences } = useAuth();
 
-  const [preferences, setPreferences] = useState<preferences>({
+  const [preferences, setPreferences] = useState<Preferences>({
     language: "en",
     theme: "light",
     currency: "EUR",
   });
 
-  console.log(preferences);
+  useEffect(() => {
+    if (user) {
+      setPreferences(user?.preferences);
+    }
+  }, [user]);
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
     if (loadingSubmit) return;
     setLoadingSubmit(true);
-    console.log(preferences);
+    setSaved(false);
     const res = await preferencesRequest(preferences);
     if (res.status == 200) {
       setLoadingSubmit(false);
+      setSaved(true);
       return;
     }
     setRequestErrors(res.data.error);
     setLoadingSubmit(false);
+    setSaved(false);
   };
 
-  useEffect(() => {
-    if (user) {
-      setPreferences(user.preferences);
-    }
-  }, [user]);
-
   const handleSettingChange = ({ preference, value }: SettingsProps) => {
-    console.log(value);
-    setPreferences((prev) => ({
-      ...prev,
-      [preference]: value,
-    }));
+    const newState = { ...preferences, [preference]: value };
+    setPreferences(newState);
+    setUserPreferences(newState);
+    setSaved(false);
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 py-12">
+    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
             Account Settings
           </h1>
 
@@ -76,7 +72,7 @@ export default function Settings() {
             >
               <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Language
                   </label>
                   <select
@@ -87,14 +83,14 @@ export default function Settings() {
                         value: e.target.value as Language,
                       })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-500 dark:bg-gray-950 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="en">English</option>
                     <option value="es">Español</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Currency
                   </label>
                   <select
@@ -105,7 +101,7 @@ export default function Settings() {
                         value: e.target.value as Currency,
                       })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-500 dark:bg-gray-950 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
@@ -121,7 +117,7 @@ export default function Settings() {
             >
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Theme
                   </label>
                   <select
@@ -132,7 +128,7 @@ export default function Settings() {
                         value: e.target.value as Theme,
                       })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-500 dark:bg-gray-950 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
@@ -169,7 +165,12 @@ export default function Settings() {
               {loadingSubmit ? (
                 <CircleDashed className="loader" />
               ) : (
-                <span>Save Changes</span>
+                <span className="flex flex-row justify-center items-center gap-1">
+                  Save Changes
+                  {saved && (
+                    <CheckCircle2 className="h-4 w-4 text-[--good]"></CheckCircle2>
+                  )}
+                </span>
               )}
             </button>
           </div>

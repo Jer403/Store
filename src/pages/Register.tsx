@@ -10,6 +10,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import { useAuth } from "../hooks/useAuth";
+import { LANGUAGE } from "../consts";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -31,7 +32,7 @@ export default function Register() {
   const [valEmail, setValEmail] = useState<boolean | null>(null);
   const [valpassword, setValpassword] = useState<boolean | null>(null);
   const [requestErrors, setRequestErrors] = useState<[]>([]);
-  const { signUp, logged } = useAuth();
+  const { signUp, logged, user } = useAuth();
   const navigate = useNavigate();
   let idCount = 0;
 
@@ -130,11 +131,13 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign Up
+            {user
+              ? LANGUAGE.REGISTER.TITLE[user.preferences.language]
+              : LANGUAGE.REGISTER.TITLE.en}
           </h2>
         </div>
         <div className="bg-white rounded-lg shadow-md p-7">
@@ -149,10 +152,14 @@ export default function Register() {
             >
               <div className="relative">
                 <label htmlFor="username" className="sr-only">
-                  Username
+                  {user
+                    ? LANGUAGE.REGISTER.USERNAME[user.preferences.language]
+                    : LANGUAGE.REGISTER.USERNAME.en}
                 </label>
                 <label htmlFor="username" className="text-md text-gray-500">
-                  Username
+                  {user
+                    ? LANGUAGE.REGISTER.USERNAME[user.preferences.language]
+                    : LANGUAGE.REGISTER.USERNAME.en}
                 </label>
                 <input
                   id="username"
@@ -185,10 +192,14 @@ export default function Register() {
               </div>
               <div className="relative">
                 <label htmlFor="email-address" className="sr-only">
-                  Email address
+                  {user
+                    ? LANGUAGE.REGISTER.EMAIL[user.preferences.language]
+                    : LANGUAGE.REGISTER.EMAIL.en}
                 </label>
                 <label htmlFor="username" className="text-md text-gray-500">
-                  Email address
+                  {user
+                    ? LANGUAGE.REGISTER.EMAIL[user.preferences.language]
+                    : LANGUAGE.REGISTER.EMAIL.en}
                 </label>
                 <input
                   id="email-address"
@@ -222,10 +233,14 @@ export default function Register() {
               </div>
               <div className="relative">
                 <label htmlFor="password" className="sr-only">
-                  Password
+                  {user
+                    ? LANGUAGE.REGISTER.PASS[user.preferences.language]
+                    : LANGUAGE.REGISTER.PASS.en}
                 </label>
                 <label htmlFor="username" className="text-md text-gray-500">
-                  Password
+                  {user
+                    ? LANGUAGE.REGISTER.PASS[user.preferences.language]
+                    : LANGUAGE.REGISTER.PASS.en}
                 </label>
                 <input
                   id="password"
@@ -289,10 +304,14 @@ export default function Register() {
               </div>
               <div className="relative">
                 <label htmlFor="password2" className="sr-only">
-                  Repeat password
+                  {user
+                    ? LANGUAGE.REGISTER.REPEAT_PASS[user.preferences.language]
+                    : LANGUAGE.REGISTER.REPEAT_PASS.en}
                 </label>
                 <label htmlFor="username" className="text-md text-gray-500">
-                  Repeat password
+                  {user
+                    ? LANGUAGE.REGISTER.REPEAT_PASS[user.preferences.language]
+                    : LANGUAGE.REGISTER.REPEAT_PASS.en}
                 </label>
                 <input
                   id="password2"
@@ -364,7 +383,9 @@ export default function Register() {
                   htmlFor="remember-me"
                   className="ml-2 block text-md text-gray-900"
                 >
-                  Remember me
+                  {user
+                    ? LANGUAGE.REGISTER.REMEMBERME[user.preferences.language]
+                    : LANGUAGE.REGISTER.REMEMBERME.en}
                 </label>
               </div>
 
@@ -373,7 +394,11 @@ export default function Register() {
                   to="/login"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Already have an account?
+                  {user
+                    ? LANGUAGE.REGISTER.ALREADY_ACCOUNT[
+                        user.preferences.language
+                      ]
+                    : LANGUAGE.REGISTER.ALREADY_ACCOUNT.en}
                 </Link>
               </div>
             </div>
@@ -386,7 +411,11 @@ export default function Register() {
                   submitClickHandler({ e });
                 }}
               >
-                <span>Sign up</span>
+                <span>
+                  {user
+                    ? LANGUAGE.REGISTER.SIGNUP[user.preferences.language]
+                    : LANGUAGE.REGISTER.SIGNUP.en}
+                </span>
                 <CircleDashed className="loader" style={{ display: "none" }} />
                 <CheckCircle2 style={{ display: "none", color: "white" }} />
               </button>

@@ -41,10 +41,6 @@ export function ProductProvider({ children }: ProductProviderProps) {
     getProducts();
   }, []);
 
-  useEffect(() => {
-    console.log(loadingProducts);
-  }, [loadingProducts]);
-
   return (
     <ProductContext.Provider value={{ products, loadingProducts }}>
       {children}

@@ -3,7 +3,7 @@ import { CircleDashed } from "lucide-react";
 import type { Product } from "../types";
 import { useAuth } from "../hooks/useAuth";
 import { useProduct } from "../hooks/useProduct";
-import { IMG_API_URL } from "../consts";
+import { IMG_API_URL, LANGUAGE } from "../consts";
 import { useCart } from "../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
@@ -14,7 +14,7 @@ export function StoreTest() {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const { products, loadingProducts } = useProduct();
   const { addToCart } = useCart();
-  const { logged } = useAuth();
+  const { logged, user } = useAuth();
   const { state: cart, purchased } = useCart();
   const navigate = useNavigate();
 
@@ -54,11 +54,15 @@ export function StoreTest() {
     },
     [purchased]
   );
-
+  //  bg-gray-50 dark:bg-gray-950 bg-radial
   return (
-    <div className="min-h-screen bg-gray-50 py-12 relative">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 relative">
       <div className="max-w-[115rem] mx-auto px-4 lg:px-3 2xl:px-2">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Digital Store</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-8 dark:text-gray-50">
+          {user
+            ? LANGUAGE.STORE.TITLE[user.preferences.language]
+            : LANGUAGE.STORE.TITLE.en}
+        </h1>
 
         <div className="flex">
           <div
@@ -74,7 +78,9 @@ export function StoreTest() {
               <div className=" mt-12 flex items-center justify-center gap-2">
                 <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"></CircleDashed>
                 <span className="text-2xl sm:text-4xl lg:text-4xl">
-                  Loading products...
+                  {user
+                    ? LANGUAGE.STORE.LOADING[user.preferences.language]
+                    : LANGUAGE.STORE.LOADING.en}
                 </span>
               </div>
             ) : products != null ? (
@@ -106,14 +112,20 @@ export function StoreTest() {
                 </div>
               ) : (
                 <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center">
-                  There are no products yet
+                  {user
+                    ? LANGUAGE.STORE.NO_PRODUCTS[user.preferences.language]
+                    : LANGUAGE.STORE.NO_PRODUCTS.en}
                 </p>
               )
             ) : (
               <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center">
-                Something went wrong.
+                {user
+                  ? LANGUAGE.STORE.WRONG[user.preferences.language]
+                  : LANGUAGE.STORE.WRONG.en}
                 <a className="ml-4 underline " href="/">
-                  Reload
+                  {user
+                    ? LANGUAGE.STORE.RELOAD[user.preferences.language]
+                    : LANGUAGE.STORE.RELOAD.en}
                 </a>
               </p>
             )}

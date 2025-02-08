@@ -1,13 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUtils } from "../hooks/useUtils";
-import { POSITIONS } from "../consts";
+import { BRANDNAME, LANGUAGE, POSITIONS } from "../consts";
 import { useAuth } from "../hooks/useAuth";
 import { StoreTest } from "./StoreTest";
 
 export default function Welcome() {
   const { setLineLeftProperties } = useUtils();
-  const { logged } = useAuth();
+  const { logged, user } = useAuth();
 
   const clickHandler = () => {
     setLineLeftProperties(logged ? POSITIONS.Home : POSITIONS.User);
@@ -15,17 +15,22 @@ export default function Welcome() {
 
   return (
     <>
-      <div className=" bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <div className=" bg-gradient-to-br  from-indigo-50 via-white to-purple-50 dark:from-indigo-950 dark:via-gray-950 dark:to-purple-950">
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="pt-20 pb-24 text-center lg:pt-40 lg:pb-32">
-            <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-              <span className="block">Welcome to</span>
-              <span className="block text-indigo-600 mt-1">DigitalMarket</span>
+            <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
+              <span className="block">
+                {user
+                  ? LANGUAGE.WELCOME.HERO_WELCOME[user.preferences.language]
+                  : LANGUAGE.WELCOME.HERO_WELCOME.en}
+              </span>
+              <span className="block text-indigo-600 mt-1">{BRANDNAME}</span>
             </h1>
-            <p className="mt-6 text-xl text-gray-500 max-w-2xl mx-auto">
-              Discover a world of premium digital content. From games to
-              software, find everything you need in one secure marketplace.
+            <p className="mt-6 text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto">
+              {user
+                ? LANGUAGE.WELCOME.HERO_DESCRIPTION[user.preferences.language]
+                : LANGUAGE.WELCOME.HERO_DESCRIPTION.en}
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
@@ -33,14 +38,28 @@ export default function Welcome() {
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
                 onClick={() => clickHandler()}
               >
-                {logged ? "See our products" : "Get Started"}
+                {logged
+                  ? user
+                    ? LANGUAGE.WELCOME.HERO_BUTTON_SEE[
+                        user.preferences.language
+                      ]
+                    : LANGUAGE.WELCOME.HERO_BUTTON_SEE.en
+                  : user
+                  ? LANGUAGE.WELCOME.HERO_BUTTON_START[
+                      user.preferences.language
+                    ]
+                  : LANGUAGE.WELCOME.HERO_BUTTON_START.en}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
               >
-                Learn More
+                {user
+                  ? LANGUAGE.WELCOME.HERO_BUTTON_LEARN[
+                      user.preferences.language
+                    ]
+                  : LANGUAGE.WELCOME.HERO_BUTTON_LEARN.en}
               </Link>
             </div>
           </div>

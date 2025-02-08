@@ -5,13 +5,7 @@ import {
   registerRequest,
   verifyTokenRequest,
 } from "../Api/auth";
-
-interface UserInterface {
-  id: string;
-  username: string;
-  email: string;
-  preferences: { language: string; theme: string; currency: string };
-}
+import { Preferences, UserInterface } from "../types";
 
 interface AuthContextType {
   user: UserInterface | null;
@@ -27,6 +21,7 @@ interface AuthContextType {
     email: string;
   }) => Promise<void | unknown>;
   signOut: () => void;
+  setUserPreferences: (pref: Preferences) => void;
 }
 
 interface AuthProviderProps {
@@ -40,6 +35,8 @@ export const AuthContext = createContext<AuthContextType>({
   signUp: async () => {},
   signIn: async () => {},
   signOut: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setUserPreferences: async (pref: Preferences) => {},
 });
 
 export function AuthProvider({ children }: AuthProviderProps) {
@@ -108,14 +105,51 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const setUserPreferences = (pref: Preferences) => {
+    if (user) {
+      const newState = {
+        username: user.username,
+        email: user.email,
+        id: user.id,
+        preferences: pref,
+      };
+      setUser(newState);
+    }
+  };
+
   useEffect(() => {
     verifyToken();
   }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const systemDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    if (user?.preferences.theme === "dark") {
+      console.log("dark");
+      root.classList.add("dark");
+    } else if (user?.preferences.theme === "light") {
+      console.log("light");
+      root.classList.remove("dark");
+    } else {
+      console.log("system");
+      if (systemDark) {
+        root.classList.add("dark");
+        console.log("system dark");
+      } else {
+        root.classList.remove("dark");
+        console.log("system light");
+      }
+    }
+  }, [user?.preferences]);
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        setUserPreferences,
         loadingLog,
         logged,
         signUp,

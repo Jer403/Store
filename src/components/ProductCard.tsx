@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { Product } from "../types";
 import { useAuth } from "../hooks/useAuth";
-import { IMG_API_URL } from "../consts";
+import { IMG_API_URL, LANGUAGE } from "../consts";
 import { CircleDashed, Download, LogIn, ShoppingCart } from "lucide-react";
 
 export function ProductCard({
@@ -30,7 +30,7 @@ export function ProductCard({
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
-  const { logged } = useAuth();
+  const { logged, user } = useAuth();
 
   useEffect(() => {
     setIsInCart(checkProductInCart(product));
@@ -48,7 +48,7 @@ export function ProductCard({
   return (
     <div
       onClick={onClick}
-      className="flex flex-col justify-between group bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      className="flex flex-col justify-between group bg-white dark:bg-gray-900 dark:shadow-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
       <div className="aspect-[1/1] bg-gray-100">
         <img
@@ -58,7 +58,7 @@ export function ProductCard({
         />
       </div>
       <div className="p-4 h-full flex flex-col justify-between">
-        <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+        <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 transition-colors">
           {product.title}
         </h3>
         {/* <p className="mt-1 text-sm text-gray-500">AAAAAAAAAAAA</p> */}
@@ -67,7 +67,7 @@ export function ProductCard({
 
           <button
             className={`${
-              selectedProduct ? "w-1/4 min-w-12" : "w-1/3 min-w-36"
+              selectedProduct ? "w-1/4 min-w-12" : "w-auto px-1 min-w-36"
             } h-10 rounded-lg text-white ${
               logged
                 ? isInPurchased
@@ -114,7 +114,12 @@ export function ProductCard({
               isInPurchased ? (
                 <>
                   <Download className="h-5 w-5" />
-                  Download
+
+                  {user
+                    ? LANGUAGE.PRODUCT_BUTTON.DOWNLOAD[
+                        user.preferences.language
+                      ]
+                    : LANGUAGE.PRODUCT_BUTTON.DOWNLOAD.en}
                 </>
               ) : loadingSubmit ? (
                 <>
@@ -123,18 +128,26 @@ export function ProductCard({
               ) : isInCart ? (
                 <>
                   <ShoppingCart className="h-5 w-5" />
-                  Go to cart
+                  {user
+                    ? LANGUAGE.PRODUCT_BUTTON.GO_TO_CART[
+                        user.preferences.language
+                      ]
+                    : LANGUAGE.PRODUCT_BUTTON.GO_TO_CART.en}
                 </>
               ) : (
                 <>
                   <ShoppingCart className="h-5 w-5" />
-                  Add to cart
+                  {user
+                    ? LANGUAGE.PRODUCT_BUTTON.ADD[user.preferences.language]
+                    : LANGUAGE.PRODUCT_BUTTON.ADD.en}
                 </>
               )
             ) : (
               <>
                 <LogIn className="h-5 w-5" />
-                Login to buy
+                {user
+                  ? LANGUAGE.PRODUCT_BUTTON.LOGIN[user.preferences.language]
+                  : LANGUAGE.PRODUCT_BUTTON.LOGIN.en}
               </>
             )}
           </button>

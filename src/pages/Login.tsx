@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { replaceString } from "../utils";
 import { useCart } from "../hooks/useCart";
+import { LANGUAGE } from "../consts";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -29,7 +30,7 @@ export default function Login() {
   const [requestErrors, setRequestErrors] = useState<[]>([]);
   const [valEmail, setValEmail] = useState<boolean | null>(null);
   const [valpassword, setValpassword] = useState<boolean | null>(null);
-  const { signIn, logged } = useAuth();
+  const { signIn, logged, user } = useAuth();
   const { loadCart } = useCart();
   const navigate = useNavigate();
   const errorIdKey = useId();
@@ -113,11 +114,13 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            {user
+              ? LANGUAGE.LOGIN.TITLE[user.preferences.language]
+              : LANGUAGE.LOGIN.TITLE.en}
           </h2>
         </div>
         <div className="bg-white rounded-lg shadow-md p-7">
@@ -125,13 +128,17 @@ export default function Login() {
             <div className="rounded-md shadow-sm -space-y-px gap-3 flex flex-col">
               <div className="relative">
                 <label htmlFor="email-address" className="sr-only">
-                  Email address
+                  {user
+                    ? LANGUAGE.LOGIN.EMAIL[user.preferences.language]
+                    : LANGUAGE.LOGIN.EMAIL.en}
                 </label>
                 <label
                   htmlFor="email-address"
                   className="text-md text-gray-500"
                 >
-                  Email address
+                  {user
+                    ? LANGUAGE.LOGIN.EMAIL[user.preferences.language]
+                    : LANGUAGE.LOGIN.EMAIL.en}
                 </label>
                 <input
                   id="email-address"
@@ -166,10 +173,14 @@ export default function Login() {
               </div>
               <div className="relative">
                 <label htmlFor="password" className="sr-only">
-                  Password
+                  {user
+                    ? LANGUAGE.LOGIN.PASS[user.preferences.language]
+                    : LANGUAGE.LOGIN.PASS.en}
                 </label>
                 <label htmlFor="password" className="text-md text-gray-500">
-                  Password
+                  {user
+                    ? LANGUAGE.LOGIN.PASS[user.preferences.language]
+                    : LANGUAGE.LOGIN.PASS.en}
                 </label>
                 <input
                   id="password"
@@ -259,7 +270,9 @@ export default function Login() {
                     htmlFor="remember-me"
                     className="ml-2 block text-md text-gray-900"
                   >
-                    Remember me
+                    {user
+                      ? LANGUAGE.LOGIN.REMEMBERME[user.preferences.language]
+                      : LANGUAGE.LOGIN.REMEMBERME.en}
                   </label>
                 </div>
 
@@ -268,7 +281,9 @@ export default function Login() {
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    Forgot your password?
+                    {user
+                      ? LANGUAGE.LOGIN.FORGOT[user.preferences.language]
+                      : LANGUAGE.LOGIN.FORGOT.en}
                   </a>
                 </div>
               </div>
@@ -278,7 +293,11 @@ export default function Login() {
                     to="/register"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    Don't have an account? Sign up
+                    {user
+                      ? LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT[
+                          user.preferences.language
+                        ]
+                      : LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT.en}
                   </Link>
                 </div>
               </div>
@@ -292,7 +311,11 @@ export default function Login() {
                   submitClickHandler({ e });
                 }}
               >
-                <span>Sign in</span>
+                <span>
+                  {user
+                    ? LANGUAGE.LOGIN.SIGNIN[user.preferences.language]
+                    : LANGUAGE.LOGIN.SIGNIN.en}
+                </span>
                 <CircleDashed className="loader" style={{ display: "none" }} />
                 <CheckCircle2 style={{ display: "none", color: "white" }} />
               </button>
