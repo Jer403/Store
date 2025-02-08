@@ -76,8 +76,8 @@ export function StoreTest() {
           >
             {loadingProducts ? (
               <div className=" mt-12 flex items-center justify-center gap-2">
-                <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"></CircleDashed>
-                <span className="text-2xl sm:text-4xl lg:text-4xl">
+                <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:text-white"></CircleDashed>
+                <span className="text-2xl sm:text-4xl lg:text-4xl dark:text-white">
                   {user
                     ? LANGUAGE.STORE.LOADING[user.preferences.language]
                     : LANGUAGE.STORE.LOADING.en}
@@ -111,18 +111,18 @@ export function StoreTest() {
                   })}
                 </div>
               ) : (
-                <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center">
+                <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center dark:text-white">
                   {user
                     ? LANGUAGE.STORE.NO_PRODUCTS[user.preferences.language]
                     : LANGUAGE.STORE.NO_PRODUCTS.en}
                 </p>
               )
             ) : (
-              <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center dark:text-white">
                 {user
                   ? LANGUAGE.STORE.WRONG[user.preferences.language]
                   : LANGUAGE.STORE.WRONG.en}
-                <a className="ml-4 underline " href="/">
+                <a className="ml-4 underline dark:text-white" href="/">
                   {user
                     ? LANGUAGE.STORE.RELOAD[user.preferences.language]
                     : LANGUAGE.STORE.RELOAD.en}
