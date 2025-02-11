@@ -118,8 +118,8 @@ export const LANGUAGE = {
   },
   STORE: {
     TITLE: {
-      es: "Tienda digital",
-      en: "Digital Store",
+      es: "Nuestros productos",
+      en: "Our Products",
     },
     LOADING: {
       es: "Cargando productos...",
