@@ -5,6 +5,7 @@ import { Navbar } from "../components/Navbar.tsx";
 import { LoadingBarWrapper } from "../components/Elements/LoadingBarWrapper.tsx";
 import { LoadingWrapper } from "../components/Elements/LoadingWrapper.tsx";
 import { Footer } from "../components/Footer.tsx";
+import { usePreferences } from "../hooks/usePreferences.tsx";
 
 const Welcome = lazy(() => import("../pages/Welcome.tsx"));
 const Dashboard = lazy(() => import("../pages/Dashboard.tsx"));
@@ -21,10 +22,11 @@ const ProtectedRoute = lazy(() => import("../routes/ProtectedRoute.tsx"));
 
 export function AppRouter() {
   const { handleLoad } = useHandleLoad();
+  usePreferences();
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-950">
+      <div className="min-h-screen dark:bg-gray-950">
         <Navbar />
         <Suspense fallback={<LoadingBarWrapper />}>
           <Routes>

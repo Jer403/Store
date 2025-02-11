@@ -12,6 +12,7 @@ import { useAuth } from "../hooks/useAuth";
 import { replaceString } from "../utils";
 import { useCart } from "../hooks/useCart";
 import { LANGUAGE } from "../consts";
+import { usePreferences } from "../hooks/usePreferences";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -29,8 +30,9 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [requestErrors, setRequestErrors] = useState<[]>([]);
   const [valEmail, setValEmail] = useState<boolean | null>(null);
-  const [valpassword, setValpassword] = useState<boolean | null>(null);
-  const { signIn, logged, user } = useAuth();
+  const [valPassword, setValpassword] = useState<boolean | null>(null);
+  const { signIn, logged } = useAuth();
+  const { preferences } = usePreferences();
   const { loadCart } = useCart();
   const navigate = useNavigate();
   const errorIdKey = useId();
@@ -38,7 +40,7 @@ export default function Login() {
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
 
-    if (valEmail == true && valpassword == true) {
+    if (valEmail == true && valPassword == true) {
       const target = e.currentTarget;
       target.firstElementChild?.classList.add("md:hidden");
       target.firstElementChild?.nextElementSibling?.setAttribute(
@@ -73,7 +75,7 @@ export default function Login() {
         }, 500);
         setValEmail(false);
       }
-      if (valpassword != true) {
+      if (valPassword != true) {
         document.getElementById("password")?.classList.add("shake");
         setTimeout(() => {
           document.getElementById("password")?.classList.remove("shake");
@@ -117,28 +119,22 @@ export default function Login() {
     <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {user
-              ? LANGUAGE.LOGIN.TITLE[user.preferences.language]
-              : LANGUAGE.LOGIN.TITLE.en}
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+            {LANGUAGE.LOGIN.TITLE[preferences.language]}
           </h2>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-7">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-7">
           <form className=" space-y-7">
             <div className="rounded-md shadow-sm -space-y-px gap-3 flex flex-col">
               <div className="relative">
                 <label htmlFor="email-address" className="sr-only">
-                  {user
-                    ? LANGUAGE.LOGIN.EMAIL[user.preferences.language]
-                    : LANGUAGE.LOGIN.EMAIL.en}
+                  {LANGUAGE.LOGIN.EMAIL[preferences.language]}
                 </label>
                 <label
                   htmlFor="email-address"
-                  className="text-md text-gray-500"
+                  className="text-md text-gray-500 dark:text-gray-300"
                 >
-                  {user
-                    ? LANGUAGE.LOGIN.EMAIL[user.preferences.language]
-                    : LANGUAGE.LOGIN.EMAIL.en}
+                  {LANGUAGE.LOGIN.EMAIL[preferences.language]}
                 </label>
                 <input
                   id="email-address"
@@ -151,7 +147,7 @@ export default function Login() {
                     setEmail(e.target.value);
                     validateEmail(e.target.value);
                   }}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-4 py-3 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                   placeholder=""
                 />
                 <div
@@ -173,14 +169,13 @@ export default function Login() {
               </div>
               <div className="relative">
                 <label htmlFor="password" className="sr-only">
-                  {user
-                    ? LANGUAGE.LOGIN.PASS[user.preferences.language]
-                    : LANGUAGE.LOGIN.PASS.en}
+                  {LANGUAGE.LOGIN.PASS[preferences.language]}
                 </label>
-                <label htmlFor="password" className="text-md text-gray-500">
-                  {user
-                    ? LANGUAGE.LOGIN.PASS[user.preferences.language]
-                    : LANGUAGE.LOGIN.PASS.en}
+                <label
+                  htmlFor="password"
+                  className="text-md text-gray-500 dark:text-gray-300"
+                >
+                  {LANGUAGE.LOGIN.PASS[preferences.language]}
                 </label>
                 <input
                   id="password"
@@ -195,7 +190,7 @@ export default function Login() {
                   }}
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
-                  className="appearance-non text-md h-12 mt-1 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className="appearance-non text-md h-12 mt-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                 />
                 <div className="absolute w-6 h-6 eye" style={{ color: "#111" }}>
                   {eyeVisible ? (
@@ -206,6 +201,7 @@ export default function Login() {
                           e.preventDefault();
                           setPasswordVisible(!passwordVisible);
                         }}
+                        className="dark:text-white"
                       ></EyeOff>
                     ) : (
                       <EyeIcon
@@ -214,6 +210,7 @@ export default function Login() {
                           e.preventDefault();
                           setPasswordVisible(!passwordVisible);
                         }}
+                        className="dark:text-white"
                       ></EyeIcon>
                     )
                   ) : (
@@ -224,11 +221,11 @@ export default function Login() {
                 <div
                   className="absolute w-6 h-6 check"
                   style={{
-                    color: valpassword ? "var(--good)" : "var(--wrong)",
+                    color: valPassword ? "var(--good)" : "var(--wrong)",
                   }}
                 >
-                  {valpassword != null ? (
-                    valpassword ? (
+                  {valPassword != null ? (
+                    valPassword ? (
                       <LucideCheckCircle2></LucideCheckCircle2>
                     ) : (
                       <XCircle></XCircle>
@@ -264,15 +261,13 @@ export default function Login() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-900"
                   />
                   <label
                     htmlFor="remember-me"
-                    className="ml-2 block text-md text-gray-900"
+                    className="ml-2 block text-md text-gray-900 dark:text-gray-100"
                   >
-                    {user
-                      ? LANGUAGE.LOGIN.REMEMBERME[user.preferences.language]
-                      : LANGUAGE.LOGIN.REMEMBERME.en}
+                    {LANGUAGE.LOGIN.REMEMBERME[preferences.language]}
                   </label>
                 </div>
 
@@ -281,9 +276,7 @@ export default function Login() {
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    {user
-                      ? LANGUAGE.LOGIN.FORGOT[user.preferences.language]
-                      : LANGUAGE.LOGIN.FORGOT.en}
+                    {LANGUAGE.LOGIN.FORGOT[preferences.language]}
                   </a>
                 </div>
               </div>
@@ -293,11 +286,7 @@ export default function Login() {
                     to="/register"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    {user
-                      ? LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT[
-                          user.preferences.language
-                        ]
-                      : LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT.en}
+                    {LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT[preferences.language]}
                   </Link>
                 </div>
               </div>
@@ -306,16 +295,15 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                className="group h-12 relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={!valEmail || !valPassword}
+                className={`${
+                  !valEmail || !valPassword ? "cursor-not-allowed" : ""
+                } group h-12 relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 onClick={(e) => {
                   submitClickHandler({ e });
                 }}
               >
-                <span>
-                  {user
-                    ? LANGUAGE.LOGIN.SIGNIN[user.preferences.language]
-                    : LANGUAGE.LOGIN.SIGNIN.en}
-                </span>
+                <span>{LANGUAGE.LOGIN.SIGNIN[preferences.language]}</span>
                 <CircleDashed className="loader" style={{ display: "none" }} />
                 <CheckCircle2 style={{ display: "none", color: "white" }} />
               </button>

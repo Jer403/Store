@@ -28,11 +28,7 @@ export const CartContext = createContext({
   clearCart: () => {},
   clearCartFromClient: () => {},
   loadCart: () => {},
-  loadPayments: () => {},
-  setPayments: (pays: Payment[]) => {},
   loadingCart: false,
-  loadingPayments: true,
-  payments: [] as Payment[],
   loadingPurchased: true,
   purchased: [] as PurchasedProduct[],
 });
@@ -40,9 +36,7 @@ export const CartContext = createContext({
 function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
   const [loadingCart, setLoadingCart] = useState(false);
-  const [loadingPayments, setLoadingPayments] = useState(true);
   const [loadingPurchased, setLoadingPurchased] = useState(true);
-  const [payments, setPayments] = useState([] as Payment[]);
   const [purchased, setPurchased] = useState([] as PurchasedProduct[]);
 
   const loadCart = async () => {
@@ -67,22 +61,6 @@ function useCartReducer() {
     }
   };
 
-  const loadPayments = async () => {
-    setLoadingPayments(true);
-    try {
-      const res = await getPaymentsRequest();
-      if (res.status === 200) {
-        setPayments(res.data);
-      } else {
-        console.error("Error loading Payments");
-      }
-    } catch (error) {
-      console.error("Error fetching Payments data", error);
-    } finally {
-      setLoadingPayments(false);
-    }
-  };
-
   const loadPurchased = async () => {
     setLoadingPurchased(true);
     try {
@@ -101,7 +79,6 @@ function useCartReducer() {
 
   useEffect(() => {
     loadCart();
-    loadPayments();
     loadPurchased();
   }, []);
 
@@ -153,10 +130,6 @@ function useCartReducer() {
     clearCart,
     clearCartFromClient,
     loadCart,
-    loadPayments,
-    payments,
-    setPayments,
-    loadingPayments,
     loadingPurchased,
     purchased,
   };
@@ -171,10 +144,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     clearCart,
     clearCartFromClient,
     loadCart,
-    loadPayments,
-    payments,
-    setPayments,
-    loadingPayments,
     loadingPurchased,
     purchased,
   } = useCartReducer();
@@ -189,10 +158,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         clearCartFromClient,
         loadCart,
-        loadPayments,
-        payments,
-        setPayments,
-        loadingPayments,
         loadingPurchased,
         purchased,
       }}

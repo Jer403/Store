@@ -121,30 +121,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     verifyToken();
   }, []);
 
-  useEffect(() => {
-    const root = document.documentElement;
-    const systemDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (user?.preferences.theme === "dark") {
-      console.log("dark");
-      root.classList.add("dark");
-    } else if (user?.preferences.theme === "light") {
-      console.log("light");
-      root.classList.remove("dark");
-    } else {
-      console.log("system");
-      if (systemDark) {
-        root.classList.add("dark");
-        console.log("system dark");
-      } else {
-        root.classList.remove("dark");
-        console.log("system light");
-      }
-    }
-  }, [user?.preferences]);
-
   return (
     <AuthContext.Provider
       value={{

@@ -1,9 +1,11 @@
-import { useEffect, useId, useState } from "react";
+import { useId, useState } from "react";
 import { CheckCircle2, CircleDashed, Palette, User } from "lucide-react";
 import { SettingsSection } from "../components/SettingsSection";
 import { useAuth } from "../hooks/useAuth";
 import { preferencesRequest } from "../Api/auth";
-import { Currency, Language, Preferences, Theme } from "../types";
+import { Currency, Language, Theme } from "../types";
+import { usePreferences } from "../hooks/usePreferences";
+import { saveInLocalStorage } from "../utils";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
@@ -19,19 +21,8 @@ export default function Settings() {
   const [requestErrors, setRequestErrors] = useState<[]>([]);
   const [saved, setSaved] = useState(false);
   const errorIdKey = useId();
-  const { user, setUserPreferences } = useAuth();
-
-  const [preferences, setPreferences] = useState<Preferences>({
-    language: "en",
-    theme: "light",
-    currency: "EUR",
-  });
-
-  useEffect(() => {
-    if (user) {
-      setPreferences(user?.preferences);
-    }
-  }, [user]);
+  const { setUserPreferences } = useAuth();
+  const { preferences, setPreferences } = usePreferences();
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
@@ -53,6 +44,7 @@ export default function Settings() {
     const newState = { ...preferences, [preference]: value };
     setPreferences(newState);
     setUserPreferences(newState);
+    saveInLocalStorage({ item: "language", value: preferences.language });
     setSaved(false);
   };
 

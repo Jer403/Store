@@ -258,11 +258,11 @@ export const LANGUAGE = {
   },
   CONTACT: {
     TITLE: {
-      es: "Contactar con Nosotros",
+      es: "Contacta con Nosotros",
       en: "Contact Us",
     },
     TOUCH: {
-      es: "Ir al carrito",
+      es: "Ponte en contacto",
       en: "Get in Touch",
     },
     NAME: {
@@ -284,6 +284,18 @@ export const LANGUAGE = {
     CONTACT_INFO: {
       es: "Información de contacto",
       en: "Contact Information",
+    },
+    PLACEHOLDER_NAME: {
+      es: "Tu nombre",
+      en: "Your name",
+    },
+    PLACEHOLDER_EMAIL: {
+      es: "tu@email.com",
+      en: "your@email.com",
+    },
+    PLACEHOLDER_MESSAGE: {
+      es: "Tu mensage",
+      en: "Your message",
     },
   },
   LOGIN: {

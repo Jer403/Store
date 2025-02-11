@@ -1,19 +1,19 @@
 import { CircleDashed, LogIn, ShoppingCart, User } from "lucide-react";
 import { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
-import { UserInterface } from "../types";
+import { Preferences } from "../types";
 import { LANGUAGE } from "../consts";
 
 interface UserButtonProps {
   logged: boolean;
   onClickEvent: MouseEventHandler;
   loading: boolean;
-  user: UserInterface | null;
+  preferences: Preferences;
 }
 
 export function UserButton({
   logged,
-  user,
+  preferences,
   loading,
   onClickEvent,
 }: UserButtonProps) {
@@ -32,11 +32,7 @@ export function UserButton({
             <>
               <ShoppingCart className="h-5 w-5"></ShoppingCart>{" "}
               <span className="hidden sm:block ">
-                <>
-                  {user
-                    ? LANGUAGE.NAVBAR.CART[user.preferences.language]
-                    : LANGUAGE.NAVBAR.CART.en}
-                </>
+                <>{LANGUAGE.NAVBAR.CART[preferences.language]}</>
               </span>
             </>
           </button>
@@ -57,22 +53,14 @@ export function UserButton({
             <>
               <User className="h-5 w-5"></User>{" "}
               <span className="hidden sm:block ">
-                <>
-                  {user
-                    ? LANGUAGE.NAVBAR.DASHBOARD[user.preferences.language]
-                    : LANGUAGE.NAVBAR.DASHBOARD.en}
-                </>
+                <>{LANGUAGE.NAVBAR.DASHBOARD[preferences.language]}</>
               </span>
             </>
           ) : (
             <>
               <LogIn width={18} height={24}></LogIn>
               <span className="hidden sm:block ">
-                <>
-                  {user
-                    ? LANGUAGE.NAVBAR.LOGIN[user.preferences.language]
-                    : LANGUAGE.NAVBAR.LOGIN.en}
-                </>
+                <>{LANGUAGE.NAVBAR.LOGIN[preferences.language]}</>
               </span>
             </>
           )}

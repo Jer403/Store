@@ -6,11 +6,13 @@ import { useEffect } from "react";
 import { useUtils } from "../hooks/useUtils.tsx";
 import { BRANDNAME, LANGUAGE, POSITIONS } from "../consts.ts";
 import { useAuth } from "../hooks/useAuth.tsx";
+import { usePreferences } from "../hooks/usePreferences.tsx";
 
 export function Navbar() {
   const { lineLeft, setLineLeftProperties } = useUtils();
-  const { logged, loadingLog, user } = useAuth();
+  const { logged, loadingLog } = useAuth();
   const location = useLocation();
+  const { preferences } = usePreferences();
 
   useEffect(() => {
     if (location.pathname == "/") setLineLeftProperties(POSITIONS.Home);
@@ -43,33 +45,21 @@ export function Navbar() {
               className="text-gray-700 dark:text-white hover:text-indigo-600"
               onClick={() => setLineLeftProperties(POSITIONS.Home)}
             >
-              <>
-                {user
-                  ? LANGUAGE.NAVBAR.HOME[user.preferences.language]
-                  : LANGUAGE.NAVBAR.HOME.en}
-              </>
+              <>{LANGUAGE.NAVBAR.HOME[preferences.language]}</>
             </Link>
             <Link
               to="/about"
               className="text-gray-700 dark:text-white hover:text-indigo-600"
               onClick={() => setLineLeftProperties(POSITIONS.About)}
             >
-              <>
-                {user
-                  ? LANGUAGE.NAVBAR.ABOUT[user.preferences.language]
-                  : LANGUAGE.NAVBAR.ABOUT.en}
-              </>
+              <>{LANGUAGE.NAVBAR.ABOUT[preferences.language]}</>
             </Link>
             <Link
               to="/contact"
               className="text-gray-700 dark:text-white hover:text-indigo-600"
               onClick={() => setLineLeftProperties(POSITIONS.Contact)}
             >
-              <>
-                {user
-                  ? LANGUAGE.NAVBAR.CONTACT[user.preferences.language]
-                  : LANGUAGE.NAVBAR.CONTACT.en}
-              </>
+              <>{LANGUAGE.NAVBAR.CONTACT[preferences.language]}</>
             </Link>
             <HLine style={lineLeft} />
           </div>
@@ -81,7 +71,7 @@ export function Navbar() {
             <UserButton
               logged={logged}
               loading={loadingLog}
-              user={user}
+              preferences={preferences}
               onClickEvent={() => setLineLeftProperties(POSITIONS.User)}
             />
             <button className="md:hidden ml-3">

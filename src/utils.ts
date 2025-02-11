@@ -37,3 +37,13 @@ export function removeDoubles<T>(arrays: Array<T>) {
 
   return finalArr;
 }
+
+export function saveInLocalStorage({
+  item,
+  value,
+}: {
+  item: string;
+  value: string;
+}) {
+  localStorage.setItem(item, value);
+}

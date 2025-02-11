@@ -8,14 +8,16 @@ import { useCart } from "../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import { ProductDetails } from "../components/ProductDetail";
+import { usePreferences } from "../hooks/usePreferences";
 
 export function StoreTest() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const { products, loadingProducts } = useProduct();
   const { addToCart } = useCart();
-  const { logged, user } = useAuth();
+  const { logged } = useAuth();
   const { state: cart, purchased } = useCart();
+  const { preferences } = usePreferences();
   const navigate = useNavigate();
 
   const handleProductAction = (
@@ -59,9 +61,7 @@ export function StoreTest() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 relative">
       <div className="max-w-[115rem] mx-auto px-4 lg:px-3 2xl:px-2">
         <h1 className="text-4xl font-bold text-gray-900 mb-8 dark:text-gray-50">
-          {user
-            ? LANGUAGE.STORE.TITLE[user.preferences.language]
-            : LANGUAGE.STORE.TITLE.en}
+          {LANGUAGE.STORE.TITLE[preferences.language]}
         </h1>
 
         <div className="flex">
@@ -78,9 +78,7 @@ export function StoreTest() {
               <div className=" mt-12 flex items-center justify-center gap-2">
                 <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:text-white"></CircleDashed>
                 <span className="text-2xl sm:text-4xl lg:text-4xl dark:text-white">
-                  {user
-                    ? LANGUAGE.STORE.LOADING[user.preferences.language]
-                    : LANGUAGE.STORE.LOADING.en}
+                  {LANGUAGE.STORE.LOADING[preferences.language]}
                 </span>
               </div>
             ) : products != null ? (
@@ -112,20 +110,14 @@ export function StoreTest() {
                 </div>
               ) : (
                 <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center dark:text-white">
-                  {user
-                    ? LANGUAGE.STORE.NO_PRODUCTS[user.preferences.language]
-                    : LANGUAGE.STORE.NO_PRODUCTS.en}
+                  {LANGUAGE.STORE.NO_PRODUCTS[preferences.language]}
                 </p>
               )
             ) : (
               <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center dark:text-white">
-                {user
-                  ? LANGUAGE.STORE.WRONG[user.preferences.language]
-                  : LANGUAGE.STORE.WRONG.en}
+                {LANGUAGE.STORE.WRONG[preferences.language]}
                 <a className="ml-4 underline dark:text-white" href="/">
-                  {user
-                    ? LANGUAGE.STORE.RELOAD[user.preferences.language]
-                    : LANGUAGE.STORE.RELOAD.en}
+                  {LANGUAGE.STORE.RELOAD[preferences.language]}
                 </a>
               </p>
             )}

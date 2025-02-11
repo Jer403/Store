@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import { useAuth } from "../hooks/useAuth";
 import { LANGUAGE } from "../consts";
+import { usePreferences } from "../hooks/usePreferences";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -30,21 +31,19 @@ export default function Register() {
   const [password2, setPassword2] = useState<string>("");
   const [valUsername, setValUsername] = useState<boolean | null>(null);
   const [valEmail, setValEmail] = useState<boolean | null>(null);
-  const [valpassword, setValpassword] = useState<boolean | null>(null);
+  const [valPassword, setValpassword] = useState<boolean | null>(null);
   const [requestErrors, setRequestErrors] = useState<[]>([]);
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
   const { signUp, logged, user } = useAuth();
   const navigate = useNavigate();
+  const { preferences } = usePreferences();
   let idCount = 0;
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
-    if (valUsername == true && valEmail == true && valpassword == true) {
-      const target = e.currentTarget;
-      target.firstElementChild?.classList.add("md:hidden");
-      target.firstElementChild?.nextElementSibling?.setAttribute(
-        "style",
-        "display: block;"
-      );
+    if (valUsername == true && valEmail == true && valPassword == true) {
+      setLoadingSubmit(true);
 
       const res = (await signUp({
         username,
@@ -52,22 +51,14 @@ export default function Register() {
         password,
       })) as AxiosResult;
 
+      console.log(res);
       if (res.status == 200) {
-        target.firstElementChild?.nextElementSibling?.setAttribute(
-          "style",
-          "display: none;"
-        );
-        target.lastElementChild?.setAttribute("style", "display: block;");
-        target.setAttribute("disabled", "true");
+        setSuccess(true);
         setDataToDefault();
       } else {
         setRequestErrors(res.response.data);
-        target.firstElementChild?.classList.remove("md:hidden");
-        target.firstElementChild?.nextElementSibling?.setAttribute(
-          "style",
-          "display: none;"
-        );
       }
+      setLoadingSubmit(true);
     } else {
       if (valUsername != true) {
         document.getElementById("username")?.classList.add("shake");
@@ -83,7 +74,7 @@ export default function Register() {
         }, 500);
         setValEmail(false);
       }
-      if (valpassword != true) {
+      if (valPassword != true) {
         document.getElementById("password")?.classList.add("shake");
         document.getElementById("password2")?.classList.add("shake");
         setTimeout(() => {
@@ -98,6 +89,10 @@ export default function Register() {
   useEffect(() => {
     if (logged) navigate("/");
   }, [logged, navigate]);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const validateUsername = (value: string) => {
     if (value.length >= 3) {
@@ -134,32 +129,29 @@ export default function Register() {
     <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {user
-              ? LANGUAGE.REGISTER.TITLE[user.preferences.language]
-              : LANGUAGE.REGISTER.TITLE.en}
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+            {LANGUAGE.REGISTER.TITLE[preferences.language]}
           </h2>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-7">
+        <div className="bg-white rounded-lg shadow-md p-7 dark:bg-gray-900">
           <form className="space-y-7">
             <div
               className={`rounded-md shadow-sm -space-y-px ${
                 (valEmail != null ||
                   valUsername != null ||
-                  valpassword != null) &&
+                  valPassword != null) &&
                 "mr-6 sm:mr-0"
               }`}
             >
               <div className="relative">
                 <label htmlFor="username" className="sr-only">
-                  {user
-                    ? LANGUAGE.REGISTER.USERNAME[user.preferences.language]
-                    : LANGUAGE.REGISTER.USERNAME.en}
+                  {LANGUAGE.REGISTER.USERNAME[preferences.language]}
                 </label>
-                <label htmlFor="username" className="text-md text-gray-500">
-                  {user
-                    ? LANGUAGE.REGISTER.USERNAME[user.preferences.language]
-                    : LANGUAGE.REGISTER.USERNAME.en}
+                <label
+                  htmlFor="username"
+                  className="text-md text-gray-500 dark:text-gray-300"
+                >
+                  {LANGUAGE.REGISTER.USERNAME[preferences.language]}
                 </label>
                 <input
                   id="username"
@@ -171,7 +163,7 @@ export default function Register() {
                     setUsername(e.target.value);
                     validateUsername(e.target.value);
                   }}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                 />
                 <div
                   className="absolute w-6 h-6 check"
@@ -192,14 +184,13 @@ export default function Register() {
               </div>
               <div className="relative">
                 <label htmlFor="email-address" className="sr-only">
-                  {user
-                    ? LANGUAGE.REGISTER.EMAIL[user.preferences.language]
-                    : LANGUAGE.REGISTER.EMAIL.en}
+                  {LANGUAGE.REGISTER.EMAIL[preferences.language]}
                 </label>
-                <label htmlFor="username" className="text-md text-gray-500">
-                  {user
-                    ? LANGUAGE.REGISTER.EMAIL[user.preferences.language]
-                    : LANGUAGE.REGISTER.EMAIL.en}
+                <label
+                  htmlFor="username"
+                  className="text-md text-gray-500 dark:text-gray-300"
+                >
+                  {LANGUAGE.REGISTER.EMAIL[preferences.language]}
                 </label>
                 <input
                   id="email-address"
@@ -212,7 +203,7 @@ export default function Register() {
                     setEmail(e.target.value);
                     validateEmail(e.target.value);
                   }}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                 />
                 <div
                   className="absolute w-6 h-6 check"
@@ -233,14 +224,13 @@ export default function Register() {
               </div>
               <div className="relative">
                 <label htmlFor="password" className="sr-only">
-                  {user
-                    ? LANGUAGE.REGISTER.PASS[user.preferences.language]
-                    : LANGUAGE.REGISTER.PASS.en}
+                  {LANGUAGE.REGISTER.PASS[preferences.language]}
                 </label>
-                <label htmlFor="username" className="text-md text-gray-500">
-                  {user
-                    ? LANGUAGE.REGISTER.PASS[user.preferences.language]
-                    : LANGUAGE.REGISTER.PASS.en}
+                <label
+                  htmlFor="username"
+                  className="text-md text-gray-500 dark:text-gray-300"
+                >
+                  {LANGUAGE.REGISTER.PASS[preferences.language]}
                 </label>
                 <input
                   id="password"
@@ -255,7 +245,7 @@ export default function Register() {
                   }}
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                 />
                 <div className="absolute w-6 h-6 eye">
                   {eyeVisible ? (
@@ -266,6 +256,7 @@ export default function Register() {
                           e.preventDefault();
                           setPasswordVisible(!passwordVisible);
                         }}
+                        className="dark:text-white"
                       ></EyeOff>
                     ) : (
                       <EyeIcon
@@ -274,6 +265,7 @@ export default function Register() {
                           e.preventDefault();
                           setPasswordVisible(!passwordVisible);
                         }}
+                        className="dark:text-white"
                       ></EyeIcon>
                     )
                   ) : (
@@ -284,15 +276,15 @@ export default function Register() {
                   className="absolute w-6 h-6 pass-check"
                   style={{
                     color:
-                      valpassword != null
-                        ? valpassword
+                      valPassword != null
+                        ? valPassword
                           ? "var(--good)"
                           : "var(--wrong)"
                         : "transparent",
                   }}
                 >
-                  {valpassword != null ? (
-                    valpassword ? (
+                  {valPassword != null ? (
+                    valPassword ? (
                       <LucideCheckCircle2></LucideCheckCircle2>
                     ) : (
                       <XCircle></XCircle>
@@ -304,14 +296,13 @@ export default function Register() {
               </div>
               <div className="relative">
                 <label htmlFor="password2" className="sr-only">
-                  {user
-                    ? LANGUAGE.REGISTER.REPEAT_PASS[user.preferences.language]
-                    : LANGUAGE.REGISTER.REPEAT_PASS.en}
+                  {LANGUAGE.REGISTER.REPEAT_PASS[preferences.language]}
                 </label>
-                <label htmlFor="username" className="text-md text-gray-500">
-                  {user
-                    ? LANGUAGE.REGISTER.REPEAT_PASS[user.preferences.language]
-                    : LANGUAGE.REGISTER.REPEAT_PASS.en}
+                <label
+                  htmlFor="username"
+                  className="text-md text-gray-500 dark:text-gray-300"
+                >
+                  {LANGUAGE.REGISTER.REPEAT_PASS[preferences.language]}
                 </label>
                 <input
                   id="password2"
@@ -326,7 +317,7 @@ export default function Register() {
                   }}
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                 />
                 <div className="absolute w-6 h-6 eye">
                   {eyeVisible ? (
@@ -337,6 +328,7 @@ export default function Register() {
                           e.preventDefault();
                           setPasswordVisible(!passwordVisible);
                         }}
+                        className="dark:text-white"
                       ></EyeOff>
                     ) : (
                       <EyeIcon
@@ -345,6 +337,7 @@ export default function Register() {
                           e.preventDefault();
                           setPasswordVisible(!passwordVisible);
                         }}
+                        className="dark:text-white"
                       ></EyeIcon>
                     )
                   ) : (
@@ -381,11 +374,9 @@ export default function Register() {
                 />
                 <label
                   htmlFor="remember-me"
-                  className="ml-2 block text-md text-gray-900"
+                  className="ml-2 block text-md text-gray-900 dark:text-gray-100"
                 >
-                  {user
-                    ? LANGUAGE.REGISTER.REMEMBERME[user.preferences.language]
-                    : LANGUAGE.REGISTER.REMEMBERME.en}
+                  {LANGUAGE.REGISTER.REMEMBERME[preferences.language]}
                 </label>
               </div>
 
@@ -406,18 +397,31 @@ export default function Register() {
             <div>
               <button
                 type="submit"
-                className="group relative h-12 w-full items-center flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={
+                  success ||
+                  loadingSubmit ||
+                  !valUsername ||
+                  !valEmail ||
+                  !valPassword
+                }
+                className={`${
+                  (success ||
+                    loadingSubmit ||
+                    !valUsername ||
+                    !valEmail ||
+                    !valPassword) &&
+                  "cursor-not-allowed"
+                } group relative h-12 w-full items-center flex justify-center gap-2 py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 onClick={(e) => {
                   submitClickHandler({ e });
                 }}
               >
-                <span>
-                  {user
-                    ? LANGUAGE.REGISTER.SIGNUP[user.preferences.language]
-                    : LANGUAGE.REGISTER.SIGNUP.en}
-                </span>
-                <CircleDashed className="loader" style={{ display: "none" }} />
-                <CheckCircle2 style={{ display: "none", color: "white" }} />
+                {loadingSubmit ? (
+                  <CircleDashed className="loader" />
+                ) : (
+                  <span>{LANGUAGE.REGISTER.SIGNUP[preferences.language]}</span>
+                )}
+                {success && <CheckCircle2 className="text-white" />}
               </button>
             </div>
           </form>

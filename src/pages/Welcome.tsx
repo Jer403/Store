@@ -4,10 +4,12 @@ import { useUtils } from "../hooks/useUtils";
 import { BRANDNAME, LANGUAGE, POSITIONS } from "../consts";
 import { useAuth } from "../hooks/useAuth";
 import { StoreTest } from "./StoreTest";
+import { usePreferences } from "../hooks/usePreferences";
 
 export default function Welcome() {
   const { setLineLeftProperties } = useUtils();
-  const { logged, user } = useAuth();
+  const { logged } = useAuth();
+  const { preferences } = usePreferences();
 
   const clickHandler = () => {
     setLineLeftProperties(logged ? POSITIONS.Home : POSITIONS.User);
@@ -21,16 +23,12 @@ export default function Welcome() {
           <div className="pt-20 pb-24 text-center lg:pt-40 lg:pb-32">
             <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
               <span className="block">
-                {user
-                  ? LANGUAGE.WELCOME.HERO_WELCOME[user.preferences.language]
-                  : LANGUAGE.WELCOME.HERO_WELCOME.en}
+                {LANGUAGE.WELCOME.HERO_WELCOME[preferences.language]}
               </span>
               <span className="block text-indigo-600 mt-1">{BRANDNAME}</span>
             </h1>
             <p className="mt-6 text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto">
-              {user
-                ? LANGUAGE.WELCOME.HERO_DESCRIPTION[user.preferences.language]
-                : LANGUAGE.WELCOME.HERO_DESCRIPTION.en}
+              {LANGUAGE.WELCOME.HERO_DESCRIPTION[preferences.language]}
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
@@ -39,27 +37,15 @@ export default function Welcome() {
                 onClick={() => clickHandler()}
               >
                 {logged
-                  ? user
-                    ? LANGUAGE.WELCOME.HERO_BUTTON_SEE[
-                        user.preferences.language
-                      ]
-                    : LANGUAGE.WELCOME.HERO_BUTTON_SEE.en
-                  : user
-                  ? LANGUAGE.WELCOME.HERO_BUTTON_START[
-                      user.preferences.language
-                    ]
-                  : LANGUAGE.WELCOME.HERO_BUTTON_START.en}
+                  ? LANGUAGE.WELCOME.HERO_BUTTON_SEE[preferences.language]
+                  : LANGUAGE.WELCOME.HERO_BUTTON_START[preferences.language]}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
               >
-                {user
-                  ? LANGUAGE.WELCOME.HERO_BUTTON_LEARN[
-                      user.preferences.language
-                    ]
-                  : LANGUAGE.WELCOME.HERO_BUTTON_LEARN.en}
+                {LANGUAGE.WELCOME.HERO_BUTTON_LEARN[preferences.language]}
               </Link>
             </div>
           </div>
