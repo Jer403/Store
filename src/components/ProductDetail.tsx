@@ -67,9 +67,10 @@ export function ProductDetails({
 
   return (
     <div
-      className={`relative overflow-y-auto w-full lg:w-[500px] xl:w-[650px] 2xl:w-[800px] max-h-screen bg-white shadow-xl transition-transform duration-300 ease-out right-0 top-0 lg:left-[calc(100%-500px)] xl:left-[calc(100%-650px)] 2xl:left-[calc(100%-800px)] ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      }`}
+      className={`relative overflow-y-auto w-full lg:w-[500px] xl:w-[650px] 2xl:w-[800px] max-h-screen bg-white shadow-xl transition-transform duration-300 
+        ease-out right-0 top-0  lg:left-[calc(100%-500px)] xl:left-[calc(100%-650px)] 2xl:left-[calc(100%-800px)] ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
     >
       <button
         onClick={onClose}

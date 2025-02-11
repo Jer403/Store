@@ -128,7 +128,7 @@ export function StoreTest() {
         </div>
       </div>
       <div
-        className={`fixed top-0  right-0 z-50 transition-transform duration-300 ease-out lg:fixed ${
+        className={`fixed w-full top-0 right-0 z-50 transition-transform duration-300 ease-out ${
           selectedProduct ? "translate-x-0 " : "translate-x-full"
         }`}
       >
