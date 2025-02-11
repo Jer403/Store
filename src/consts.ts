@@ -190,12 +190,16 @@ export const LANGUAGE = {
       en: "Checkout",
     },
     SUMMARY: {
-      es: "Resuen de la compra",
+      es: "Resumen de la compra",
       en: "Order Summary",
     },
     TOTAL: {
       es: "Total",
       en: "Total",
+    },
+    ANY: {
+      es: "No tienes ningún producto en el carrito",
+      en: "You don't have any product in the cart",
     },
     PAYMENT_INFORMATION: {
       es: "Imformación del pago",
@@ -234,7 +238,7 @@ export const LANGUAGE = {
       en: "Pay now",
     },
     TERMS_AND_CONDITIONS: {
-      es: "Continuando con el pago estas de acuerdo con los Terminos y Condiciones de la Plataforma de Tropipay",
+      es: "Al continuar con el pago aceptas los Términos y Condiciones de la Plataforma Tropipay",
       en: "By continuing with the payment you agree to the Terms and Conditions of Tropipay Platform",
     },
   },
@@ -360,6 +364,110 @@ export const LANGUAGE = {
     SIGNUP: {
       es: "Crear cuenta",
       en: "Sign up",
+    },
+  },
+  PAY_SUCCESS: {
+    TITLE: {
+      es: "Pago Exitoso",
+      en: "Payment Success",
+    },
+    TEXT1: {
+      es: "Queremos expresarte nuestro más sincero agradecimiento por tu compra en nuestra tienda virtual. Nos llena de alegría contar con clientes tan valiosos como tú, y tu confianza en nosotros es lo que nos motiva a seguir mejorando día a día. Espero que disfrutes de tu compra tanto como nosotros disfrutamos preparándola para ti.",
+      en: "We want to express our most sincere gratitude for your purchase in our virtual store. It fills us with joy to have clients as valuable as you, and your trust in us is what motivates us to continue improving day by day. I hope you enjoy your purchase as much as we enjoyed preparing it for you.",
+    },
+    TEXT2: {
+      es: "¡Pronto tendra disponible sus productos en su perfil!",
+      en: "Your products will soon be available on your dashboard!",
+    },
+    TEXT3: {
+      es: "¡Gracias por ser parte de nuestra comunidad y por contribuir a que sigamos creciendo!",
+      en: "Thank you for being part of our community and for helping us continue to grow!",
+    },
+    GREETINGS: {
+      es: "Un cordial saludo",
+      en: "Sincerely",
+    },
+    HOME: {
+      es: "Volver a Inicio",
+      en: "Back Home",
+    },
+    DASHBOARD: {
+      es: "Ir a tu Perfil",
+      en: "Go to Dashboard",
+    },
+    PRODUCTS: {
+      es: "Productos comprados",
+      en: "Purchased products",
+    },
+    DETAILS: {
+      es: "Detalles del pago",
+      en: "Payment Details",
+    },
+    AMOUNT: {
+      es: "Monto pagado",
+      en: "Amount paid",
+    },
+    ORDER: {
+      es: "Codigo de la orden",
+      en: "Order Code",
+    },
+    DATE: {
+      es: "Fecha del pago",
+      en: "Payment Date",
+    },
+  },
+  PAY_FAILED: {
+    TITLE: {
+      es: "Pago Fallido",
+      en: "Payment Failed",
+    },
+    TEXT1: {
+      es: "Lo sentimos, hubo un problema con tu pago.",
+      en: "We're sorry, there was a problem with your payment.",
+    },
+    TEXT2: {
+      es: "Agradecemos tu intención de compra en nuestra tienda y, al mismo tiempo, le informamos que hubo un inconveniente con el procesamiento de tu pago. Lamentamos mucho esta situación y entendemos lo frustrante que puede ser.",
+      en: "We appreciate your intention to purchase in our store and, at the same time, we inform you that there was a problem with the processing of your payment. We are very sorry about this situation and understand how frustrating it can be.",
+    },
+    TEXT3: {
+      es: "Te sugerimos verificar con tu banco o método de pago si hubo algún bloqueo o restricción.",
+      en: "We suggest you check with your bank or payment method if there were any blocks or restrictions.",
+    },
+    TEXT4: {
+      es: "Gracias por tu paciencia y por confiar en nosotros.",
+      en: "Thank you for your patience and for trusting us.",
+    },
+    GREETINGS: {
+      es: "Un cordial saludo",
+      en: "Sincerely",
+    },
+    HOME: {
+      es: "Volver a Inicio",
+      en: "Back Home",
+    },
+    CART: {
+      es: "Ir al carrito",
+      en: "Go to Cart",
+    },
+    PRODUCTS: {
+      es: "Productos a comprar",
+      en: "Products to purchase",
+    },
+    DETAILS: {
+      es: "Detalles del pago",
+      en: "Payment Details",
+    },
+    AMOUNT: {
+      es: "Monto a pagar",
+      en: "Amount to paid",
+    },
+    ORDER: {
+      es: "Codigo de la orden",
+      en: "Order Code",
+    },
+    DATE: {
+      es: "Fecha del pago",
+      en: "Payment Date",
     },
   },
 };

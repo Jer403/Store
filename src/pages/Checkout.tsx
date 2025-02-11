@@ -1,8 +1,9 @@
 import { CircleDashed, CreditCard } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { useCart } from "../hooks/useCart";
-import { COUNTRIES } from "../consts";
+import { COUNTRIES, LANGUAGE } from "../consts";
 import { paymentCardRequest } from "../Api/tpp";
+import { usePreferences } from "../hooks/usePreferences";
 
 interface ValidationStateProps {
   name: boolean | null;
@@ -17,6 +18,7 @@ interface ValidationStateProps {
 export default function Checkout() {
   const { state: cart, loadingCart } = useCart();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const { preferences } = usePreferences();
 
   const [name, setName] = useState("Jose");
   const [lastName, setLastName] = useState("Jhonson");
@@ -112,7 +114,7 @@ export default function Checkout() {
           <div className="bg-white dark:bg-gray-900 md:dark:bg-transparent flex flex-col md:flex-row-reverse md:justify-center md:gap-3 rounded-lg shadow-md md:shadow-none p-6 md:p-0">
             <div className="md:dark:bg-gray-900 md:p-6 md:rounded-lg md:shadow-md w-full md:max-w-80 lg:max-w-[360px] flex flex-col md:h-[342px] mb-8 md:mb-0">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-                Checkout
+                {LANGUAGE.CHECKOUT.TITLE[preferences.language]}
               </h1>
 
               <div>
@@ -120,7 +122,7 @@ export default function Checkout() {
                   key={orderCId}
                   className="text-lg font-semibold dark:text-gray-100 mb-4"
                 >
-                  Order Summary
+                  {LANGUAGE.CHECKOUT.SUMMARY[preferences.language]}
                 </h2>
                 <div
                   key={itemsCId}
@@ -147,13 +149,13 @@ export default function Checkout() {
                     ))
                   ) : (
                     <p className="text-xl dark:text-gray-100">
-                      You don't have any product in the cart
+                      {LANGUAGE.CHECKOUT.ANY[preferences.language]}
                     </p>
                   )}
                 </div>
                 <div className="flex flex-col mt-4">
                   <span className="font-semibold flex justify-between dark:text-gray-100">
-                    Total
+                    {LANGUAGE.CHECKOUT.TOTAL[preferences.language]}
                     <span>
                       <span className="font-semibold text-xl dark:text-gray-100">
                         ${total}
@@ -175,7 +177,8 @@ export default function Checkout() {
                 ) : (
                   <span className="flex row align-center">
                     <CreditCard className="h-5 w-5 mr-2" />
-                    Pay Now
+
+                    {LANGUAGE.CHECKOUT.PAY[preferences.language]}
                   </span>
                 )}
               </button>
@@ -183,12 +186,13 @@ export default function Checkout() {
             <div className="md:dark:bg-gray-900 md:p-6 md:rounded-lg md:shadow-md w-full max-w-2xl">
               <div className="mb-8 md:mb-0">
                 <h2 className="text-lg font-semibold mb-4 dark:text-gray-50">
-                  Payment Information
+                  {LANGUAGE.CHECKOUT.PAYMENT_INFORMATION[preferences.language]}
                 </h2>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
-                      Name <span className="text-red-500">*</span>
+                      {LANGUAGE.CHECKOUT.NAME[preferences.language]}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -209,7 +213,8 @@ export default function Checkout() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Last Name <span className="text-red-500">*</span>
+                      {LANGUAGE.CHECKOUT.LASTNAME[preferences.language]}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -230,7 +235,8 @@ export default function Checkout() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Phone Number <span className="text-red-500">*</span>
+                      {LANGUAGE.CHECKOUT.PHONE[preferences.language]}
+                      <span className="text-red-500">*</span>
                     </label>
                     <div className="flex flex-row">
                       <select
@@ -274,7 +280,8 @@ export default function Checkout() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Address <span className="text-red-500">*</span>
+                      {LANGUAGE.CHECKOUT.ADDRESS[preferences.language]}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -296,7 +303,8 @@ export default function Checkout() {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Country <span className="text-red-500">*</span>
+                      {LANGUAGE.CHECKOUT.COUNTRY[preferences.language]}{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <select
                       value={country}
@@ -318,7 +326,8 @@ export default function Checkout() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        City <span className="text-red-500">*</span>
+                        {LANGUAGE.CHECKOUT.CITY[preferences.language]}{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -339,7 +348,8 @@ export default function Checkout() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Postal Code <span className="text-red-500">*</span>
+                        {LANGUAGE.CHECKOUT.POSTALCODE[preferences.language]}{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="number"
@@ -377,7 +387,8 @@ export default function Checkout() {
                 ) : (
                   <span className="flex row align-center">
                     <CreditCard className="h-5 w-5 mr-2" />
-                    Pay Now
+
+                    {LANGUAGE.CHECKOUT.PAY[preferences.language]}
                   </span>
                 )}
               </button>
@@ -385,8 +396,7 @@ export default function Checkout() {
           </div>
           <div className="flex mt-4 items-center justify-center">
             <p className="text-sm text-gray-600 px-3">
-              By continuing with the payment you agree to the Terms and
-              Conditions of Tropipay Platform
+              {LANGUAGE.CHECKOUT.TERMS_AND_CONDITIONS[preferences.language]}
             </p>
           </div>
         </div>

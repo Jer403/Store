@@ -1,8 +1,11 @@
 import { CheckCircle } from "lucide-react";
 import { useId } from "react";
 import { Link } from "react-router-dom";
+import { usePreferences } from "../hooks/usePreferences";
+import { BRANDNAME, LANGUAGE } from "../consts";
 
 export default function About() {
+  const { preferences } = usePreferences();
   const orderCId = useId();
   const itemsCId = useId();
   return (
@@ -13,29 +16,24 @@ export default function About() {
             <p className="text-5xl font-bold text-center flex justify-center items-center gap-3 mb-10">
               <CheckCircle className="h-20 w-20 text-[--good]"></CheckCircle>
               <span className="text-gray-700 dark:text-white">
-                Payment Success
+                {LANGUAGE.PAY_SUCCESS.TITLE[preferences.language]}
               </span>
             </p>
 
             <p className="text-lg text-gray-700 dark:text-white mb-6">
-              Queremos expresarte nuestro más sincero agradecimiento por tu
-              compra en nuestra tienda virtual. Nos llena de alegría contar con
-              clientes tan valiosos como tú, y tu confianza en nosotros es lo
-              que nos motiva a seguir mejorando día a día. Espero que disfrutes
-              de tu compra tanto como nosotros disfrutamos preparándola para ti.
+              {LANGUAGE.PAY_SUCCESS.TEXT1[preferences.language]}
             </p>
             <p className="text-lg text-gray-700 dark:text-white mb-6">
-              ¡Pronto tendra disponible sus productos en su perfil!
+              {LANGUAGE.PAY_SUCCESS.TEXT2[preferences.language]}
             </p>
             <p className="text-lg font-bold text-gray-700 dark:text-white mb-6">
-              ¡Gracias por ser parte de nuestra comunidad y por contribuir a que
-              sigamos creciendo!
+              {LANGUAGE.PAY_SUCCESS.TEXT3[preferences.language]}
             </p>
             <p className="text-lg text-gray-700 dark:text-white">
-              Un cordial saludo,
+              {LANGUAGE.PAY_SUCCESS.GREETINGS[preferences.language]}
             </p>
             <p className="text-lg font-bold text-gray-700 dark:text-white mb-10">
-              DigitalMarket.
+              {BRANDNAME}.
             </p>
 
             <div className="flex flex-row gap-4 mb-10">
@@ -44,14 +42,14 @@ export default function About() {
                 className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
                 onClick={() => window.scrollTo({ top: 0 })}
               >
-                Home
+                {LANGUAGE.PAY_SUCCESS.HOME[preferences.language]}
               </Link>
               <Link
                 to="/Dashboard"
                 className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
                 onClick={() => window.scrollTo({ top: 0 })}
               >
-                Dashboard
+                {LANGUAGE.PAY_SUCCESS.DASHBOARD[preferences.language]}
               </Link>
             </div>
 
@@ -60,11 +58,11 @@ export default function About() {
                 key={orderCId}
                 className="text-xl text-gray-700 dark:text-white font-semibold mb-4"
               >
-                Payment Details
+                {LANGUAGE.PAY_SUCCESS.DETAILS[preferences.language]}
               </h2>
               <div key={"chr-0" + "prod.id" + itemsCId}>
                 <h3 className="text-lg font-medium text-gray-700 dark:text-white">
-                  Purchased products
+                  {LANGUAGE.PAY_SUCCESS.PRODUCTS[preferences.language]}
                 </h3>
               </div>
               <div key={itemsCId} className="border-t border-b py-4 mb-3">
@@ -91,7 +89,7 @@ export default function About() {
               >
                 <div key={"chr-0" + "prod.id" + itemsCId}>
                   <h3 className="text-lg font-medium text-gray-700 dark:text-white">
-                    Amount paid
+                    {LANGUAGE.PAY_SUCCESS.AMOUNT[preferences.language]}
                   </h3>
                 </div>
                 <span
@@ -107,7 +105,7 @@ export default function About() {
               >
                 <div key={"chr-0" + "prod.id" + itemsCId}>
                   <h3 className="text-lg font-medium text-gray-700 dark:text-white">
-                    Order Code
+                    {LANGUAGE.PAY_SUCCESS.ORDER[preferences.language]}
                   </h3>
                 </div>
                 <span
@@ -123,7 +121,7 @@ export default function About() {
               >
                 <div key={"chr-0" + "prod.id" + itemsCId}>
                   <h3 className="text-lg font-medium text-gray-700 dark:text-white">
-                    Payment Date
+                    {LANGUAGE.PAY_SUCCESS.DATE[preferences.language]}
                   </h3>
                 </div>
                 <span
