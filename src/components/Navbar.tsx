@@ -86,7 +86,7 @@ export function Navbar() {
       </div>
       <div
         className={`${
-          mobileLinksShown ? "-translate-y-full" : "translate-y-0"
+          mobileLinksShown ? "translate-y-0" : "-translate-y-full"
         } w-full absolute bg-white dark:bg-gray-900 h-auto p-4 z-0 transition-transform duration-300`}
       >
         <div className="flex flex-col justify-center md:hidden gap-1 items-end relative space-x-8">
