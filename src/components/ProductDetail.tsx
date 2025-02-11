@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import { Product } from "../types";
-import { CircleDashed, Download, LogIn, ShoppingCart, X } from "lucide-react";
+import { CircleDashed, Download, ShoppingCart, X } from "lucide-react";
 import { IMG_API_URL, LANGUAGE } from "../consts";
 
 const specs = {
@@ -40,7 +40,7 @@ export function ProductDetails({
   checkProductInCart,
   checkProductInPurchased,
 }: ProductDetailsProps) {
-  const { logged, user } = useAuth();
+  const { user } = useAuth();
   const { state: cart } = useCart();
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
@@ -120,12 +120,10 @@ export function ProductDetails({
             </span>
             <button
               className={`flex items-center gap-2 px-6 py-3 ${
-                logged
-                  ? isInPurchased
-                    ? "bg-green-500 hover:bg-green-500"
-                    : isInCart
-                    ? "bg-blue-500 hover:bg-blue-500"
-                    : "bg-indigo-600 hover:bg-indigo-700"
+                isInPurchased
+                  ? "bg-green-500 hover:bg-green-500"
+                  : isInCart
+                  ? "bg-blue-500 hover:bg-blue-500"
                   : "bg-indigo-600 hover:bg-indigo-700"
               } text-white rounded-lg  transition-colors`}
               onClick={() =>
@@ -137,43 +135,34 @@ export function ProductDetails({
                 )
               }
             >
-              {logged ? (
-                isInPurchased ? (
-                  <>
-                    <Download className="h-5 w-5" />{" "}
-                    {user
-                      ? LANGUAGE.PRODUCT_BUTTON.DOWNLOAD[
-                          user.preferences.language
-                        ]
-                      : LANGUAGE.PRODUCT_BUTTON.DOWNLOAD.en}
-                  </>
-                ) : loadingSubmit ? (
-                  <>
-                    <CircleDashed className="h-5 w-5 loader" />
-                  </>
-                ) : isInCart ? (
-                  <>
-                    <ShoppingCart className="h-5 w-5" />{" "}
-                    {user
-                      ? LANGUAGE.PRODUCT_BUTTON.GO_TO_CART[
-                          user.preferences.language
-                        ]
-                      : LANGUAGE.PRODUCT_BUTTON.GO_TO_CART.en}
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCart className="h-5 w-5" />
-                    {user
-                      ? LANGUAGE.PRODUCT_BUTTON.ADD[user.preferences.language]
-                      : LANGUAGE.PRODUCT_BUTTON.ADD.en}
-                  </>
-                )
+              {isInPurchased ? (
+                <>
+                  <Download className="h-5 w-5" />{" "}
+                  {user
+                    ? LANGUAGE.PRODUCT_BUTTON.DOWNLOAD[
+                        user.preferences.language
+                      ]
+                    : LANGUAGE.PRODUCT_BUTTON.DOWNLOAD.en}
+                </>
+              ) : loadingSubmit ? (
+                <>
+                  <CircleDashed className="h-5 w-5 loader" />
+                </>
+              ) : isInCart ? (
+                <>
+                  <ShoppingCart className="h-5 w-5" />{" "}
+                  {user
+                    ? LANGUAGE.PRODUCT_BUTTON.GO_TO_CART[
+                        user.preferences.language
+                      ]
+                    : LANGUAGE.PRODUCT_BUTTON.GO_TO_CART.en}
+                </>
               ) : (
                 <>
-                  <LogIn></LogIn>{" "}
+                  <ShoppingCart className="h-5 w-5" />
                   {user
-                    ? LANGUAGE.PRODUCT_BUTTON.LOGIN[user.preferences.language]
-                    : LANGUAGE.PRODUCT_BUTTON.LOGIN.en}
+                    ? LANGUAGE.PRODUCT_BUTTON.ADD[user.preferences.language]
+                    : LANGUAGE.PRODUCT_BUTTON.ADD.en}
                 </>
               )}
             </button>
