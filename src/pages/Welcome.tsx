@@ -8,7 +8,7 @@ import { usePreferences } from "../hooks/usePreferences";
 
 export default function Welcome() {
   const { setLineLeftProperties } = useUtils();
-  const { logged } = useAuth();
+  const { logged, loadingLog } = useAuth();
   const { preferences } = usePreferences();
 
   const clickHandler = () => {
@@ -32,7 +32,7 @@ export default function Welcome() {
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
-                to={logged ? "/store" : "/login"}
+                to={loadingLog ? "/" : logged ? "#store" : "/login"}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
                 onClick={() => clickHandler()}
               >

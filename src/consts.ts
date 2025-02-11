@@ -22,7 +22,7 @@ export const LANGUAGE = {
       en: "Discover a world of premium digital content. From games to software, find everything you need in one secure marketplace.",
     },
     HERO_BUTTON_START: {
-      es: "Empezar",
+      es: "Empezar ahora",
       en: "Get Started",
     },
     HERO_BUTTON_SEE: {

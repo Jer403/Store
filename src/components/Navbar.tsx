@@ -64,7 +64,7 @@ export function Navbar() {
             <HLine style={lineLeft} />
           </div>
 
-          <div className="flex items-center justify-end gap-1 max-w-[120px]">
+          <div className="flex items-center justify-end gap-1 w-[140px] -ml-5">
             {/* <Link to="/dashboard" className="md:hidden text-gray-700 hover:text-indigo-600">
               <User className="h-6 w-6" />
             </Link> */}

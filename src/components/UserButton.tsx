@@ -27,7 +27,7 @@ export function UserButton({
         >
           <button
             type="button"
-            className="px-4 py-2 w-18 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-4 py-2 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <>
               <ShoppingCart className="h-5 w-5"></ShoppingCart>{" "}
@@ -45,7 +45,7 @@ export function UserButton({
       >
         <button
           type="button"
-          className="px-4 py-2 w-14 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="px-3 py-2 w-14 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           {loading ? (
             <CircleDashed className="h-6 w-6 loader"></CircleDashed>
@@ -58,7 +58,7 @@ export function UserButton({
             </>
           ) : (
             <>
-              <LogIn width={18} height={24}></LogIn>
+              <LogIn className="h-5 w-5"></LogIn>
               <span className="hidden sm:block ">
                 <>{LANGUAGE.NAVBAR.LOGIN[preferences.language]}</>
               </span>
