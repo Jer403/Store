@@ -63,7 +63,7 @@ export function StoreTest() {
       id="store"
     >
       <div className="max-w-[115rem] mx-auto px-4 lg:px-3 2xl:px-2">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8 dark:text-gray-50">
+        <h1 className="text-4xl font-bold text-gray-900 mb-8 dark:text-gray-50 text-center">
           {LANGUAGE.STORE.TITLE[preferences.language]}
         </h1>
 
