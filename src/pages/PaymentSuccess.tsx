@@ -5,10 +5,15 @@ import { usePreferences } from "../hooks/usePreferences";
 import { BRANDNAME, LANGUAGE } from "../consts";
 import { getUrlParam } from "../utils";
 import { getPaymentRequest } from "../Api/payment.ts";
+import { CartProduct } from "../types/index.ts";
 
 export default function About() {
   const { preferences } = usePreferences();
   const [loadingPayment, setLoadingPayment] = useState(true);
+  const [cart, setCart] = useState<CartProduct[]>([] as CartProduct[]);
+  const [order, setOrder] = useState<string | null>("");
+  const [date, setDate] = useState<string | null>("");
+  const [price, setPrice] = useState<string | null>("");
   const navigate = useNavigate();
   const orderCId = useId();
   const itemsCId = useId();
@@ -22,18 +27,31 @@ export default function About() {
         const res = await getPaymentRequest(reference);
         if (res.status == 200) {
           setLoadingPayment(false);
+          if (res.data.state == "0") {
+            return navigate(
+              `/payment/failed?bankOrderCode=${getUrlParam(
+                "bankOrderCode"
+              )}&reference=${reference}`
+            );
+          }
+          setCart(res.data.cart);
+          setOrder(getUrlParam("bankOrderCode"));
+          setDate(res.data.created_at);
+          setPrice(res.data.price);
           return;
         }
-        console.log("Status not 200 payment");
+        console.log("Payment status not 200, going to home");
         console.log(res);
+        return navigate("/");
       } catch (error) {
         console.log("Error fetching payment");
         console.log(error);
+        return navigate("/");
       }
     };
     getPaymentInfo();
   }, []);
-  //?bankOrderCode=702270544112&reference=b7e493c4-d27b-4dab-9dff-1e3094bc12d9&state=5
+
   return (
     <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12 ">
       <div className="max-w-7xl mx-auto px-4">
@@ -45,8 +63,8 @@ export default function About() {
           >
             <div
               className={`${
-                !loadingPayment && "hidden"
-              } flex justify-center items-center gap-3`}
+                loadingPayment ? "flex" : "hidden"
+              } justify-center items-center gap-3`}
             >
               <CircleDashed className="h-16 w-16 loader dark:text-white"></CircleDashed>
               <span className="text-4xl dark:text-white">Loading...</span>
@@ -112,137 +130,75 @@ export default function About() {
                   </h3>
                 </div>
                 <div key={itemsCId} className="border-t border-b py-4 mb-3">
-                  <div
-                    key={
-                      "chr-" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
-                    className="flex justify-between items-center"
-                  >
-                    <div
-                      key={
-                        "chr-0" +
-                        "prod.id" +
-                        itemsCId +
-                        Math.floor(Math.random() * 100)
-                      }
-                    >
-                      <h3 className="font-medium text-gray-800 dark:text-white">
-                        Amphora
-                      </h3>
-                    </div>
-                    <span
-                      key={
-                        "chr-1" +
-                        "prod.id" +
-                        itemsCId +
-                        Math.floor(Math.random() * 100)
-                      }
-                      className="font-semibold text-gray-800 dark:text-white"
-                    >
-                      $32
-                    </span>
-                  </div>
+                  {cart.map((prod) => {
+                    return (
+                      <>
+                        <div
+                          key={"chr-" + prod.id + itemsCId}
+                          className="flex justify-between items-center"
+                        >
+                          <div key={"chr-0" + prod.id + itemsCId}>
+                            <h3 className="font-medium text-gray-800 dark:text-white">
+                              {prod.title}
+                            </h3>
+                          </div>
+                          <span
+                            key={"chr-1" + prod.id + itemsCId}
+                            className="font-semibold text-gray-800 dark:text-white"
+                          >
+                            ${prod.price}
+                          </span>
+                        </div>
+                      </>
+                    );
+                  })}
                 </div>
                 <div
-                  key={
-                    "chr-" +
-                    "prod.id" +
-                    itemsCId +
-                    Math.floor(Math.random() * 100)
-                  }
+                  key={"chra-" + itemsCId}
                   className="flex justify-between items-center  mb-3"
                 >
-                  <div
-                    key={
-                      "chr-0" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
-                  >
+                  <div key={"chra-0" + itemsCId}>
                     <h3 className="text-lg font-medium text-gray-700 dark:text-white">
                       {LANGUAGE.PAY_SUCCESS.AMOUNT[preferences.language]}
                     </h3>
                   </div>
                   <span
-                    key={
-                      "chr-1" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
+                    key={"chra-1" + itemsCId}
                     className="font-semibold text-gray-800 dark:text-white"
                   >
-                    $32
+                    ${price}
                   </span>
                 </div>
                 <div
-                  key={
-                    "chr-" +
-                    "prod.id" +
-                    itemsCId +
-                    Math.floor(Math.random() * 100)
-                  }
+                  key={"chro-" + itemsCId}
                   className="flex justify-between items-center  mb-3"
                 >
-                  <div
-                    key={
-                      "chr-0" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
-                  >
+                  <div key={"chro-0" + +itemsCId}>
                     <h3 className="text-lg font-medium text-gray-700 dark:text-white">
                       {LANGUAGE.PAY_SUCCESS.ORDER[preferences.language]}
                     </h3>
                   </div>
                   <span
-                    key={
-                      "chr-1" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
+                    key={"chro-1" + itemsCId}
                     className="font-semibold text-gray-800 dark:text-white"
                   >
-                    AK2184KKJKHSD123
+                    {order}
                   </span>
                 </div>
                 <div
-                  key={
-                    "chr-" +
-                    "prod.id" +
-                    itemsCId +
-                    Math.floor(Math.random() * 100)
-                  }
+                  key={"chrd-" + itemsCId}
                   className="flex justify-between items-center  mb-3"
                 >
-                  <div
-                    key={
-                      "chr-0" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
-                  >
+                  <div key={"chrd-0" + itemsCId}>
                     <h3 className="text-lg font-medium text-gray-700 dark:text-white">
                       {LANGUAGE.PAY_SUCCESS.DATE[preferences.language]}
                     </h3>
                   </div>
                   <span
-                    key={
-                      "chr-1" +
-                      "prod.id" +
-                      itemsCId +
-                      Math.floor(Math.random() * 100)
-                    }
+                    key={"chrd-1" + itemsCId}
                     className="font-semibold text-gray-800 dark:text-white"
                   >
-                    January 30, 2024
+                    {date}
                   </span>
                 </div>
               </div>
