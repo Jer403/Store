@@ -11,9 +11,9 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const handleLogOutClick = () => {
+    navigate("/login");
     signOut();
     clearCart();
-    navigate("/login");
   };
 
   return (

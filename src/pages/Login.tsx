@@ -297,16 +297,11 @@ export default function Login() {
                 }}
               >
                 {loadingSubmit ? (
-                  <CircleDashed
-                    className="loader"
-                    style={{ display: "none" }}
-                  />
+                  <CircleDashed className="loader" />
                 ) : (
                   <span>{LANGUAGE.LOGIN.SIGNIN[preferences.language]}</span>
                 )}
-                {success && (
-                  <CheckCircle2 style={{ display: "none", color: "white" }} />
-                )}
+                {success && <CheckCircle2 style={{ color: "white" }} />}
               </button>
             </div>
           </form>
