@@ -2,7 +2,7 @@ export const POSITIONS = {
   Home: { left: "0px", width: "43" },
   About: { left: "73px", width: "48" },
   Contact: { left: "150px", width: "56" },
-  User: { left: "300px", width: "0" },
+  User: { left: "500px", width: "0" },
 };
 
 export const API_URL = "https://3dcute.up.railway.app/app";
@@ -10,6 +10,36 @@ export const API_URL = "https://3dcute.up.railway.app/app";
 export const IMG_API_URL = "https://3dcute.up.railway.app/app/img/";
 
 export const BRANDNAME = "DigitalMarket";
+
+export const monthsEn = [
+  "January",
+  "Febrary",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const monthsEs = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviember",
+  "Diciember",
+];
 
 export const LANGUAGE = {
   WELCOME: {
@@ -415,6 +445,10 @@ export const LANGUAGE = {
       es: "Codigo de la orden",
       en: "Order Code",
     },
+    PAY_ID: {
+      es: "Codigo del pago",
+      en: "Payment Code",
+    },
     DATE: {
       es: "Fecha del pago",
       en: "Payment Date",
@@ -475,21 +509,6 @@ export const LANGUAGE = {
     },
   },
 };
-
-export const months = [
-  "January",
-  "Febrary",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 export const COUNTRIES = [
   {

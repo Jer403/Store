@@ -3,7 +3,7 @@ import { useEffect, useId, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { usePreferences } from "../hooks/usePreferences";
 import { BRANDNAME, LANGUAGE } from "../consts";
-import { getUrlParam } from "../utils";
+import { createDateTextFromLanguage, getUrlParam } from "../utils";
 import { getPaymentRequest } from "../Api/payment.ts";
 import { CartProduct } from "../types/index.ts";
 
@@ -14,6 +14,7 @@ export default function About() {
   const [order, setOrder] = useState<string | null>("");
   const [date, setDate] = useState<string | null>("");
   const [price, setPrice] = useState<string | null>("");
+  const [payId, setPayId] = useState<string | null>("");
   const navigate = useNavigate();
   const orderCId = useId();
   const itemsCId = useId();
@@ -21,7 +22,9 @@ export default function About() {
   useEffect(() => {
     const getPaymentInfo = async () => {
       const reference = getUrlParam("reference");
+      const bankOrder = getUrlParam("bankOrderCode");
       if (reference == null) return navigate("/");
+      if (bankOrder == null) return navigate("/");
 
       try {
         const res = await getPaymentRequest(reference);
@@ -29,15 +32,14 @@ export default function About() {
           setLoadingPayment(false);
           if (res.data.state == "0") {
             return navigate(
-              `/payment/failed?bankOrderCode=${getUrlParam(
-                "bankOrderCode"
-              )}&reference=${reference}`
+              `/payment/failed?bankOrderCode=${bankOrder}&reference=${reference}`
             );
           }
           setCart(res.data.cart);
-          setOrder(getUrlParam("bankOrderCode"));
+          setOrder(bankOrder);
           setDate(res.data.created_at);
           setPrice(res.data.price);
+          setPayId(reference);
           return;
         }
         console.log("Payment status not 200, going to home");
@@ -137,13 +139,13 @@ export default function About() {
                           key={"chr-" + prod.id + itemsCId}
                           className="flex justify-between items-center"
                         >
-                          <div key={"chr-0" + prod.id + itemsCId}>
+                          <div key={"chrp-0" + prod.id + itemsCId}>
                             <h3 className="font-medium text-gray-800 dark:text-white">
                               {prod.title}
                             </h3>
                           </div>
                           <span
-                            key={"chr-1" + prod.id + itemsCId}
+                            key={"chrp-1" + prod.id + itemsCId}
                             className="font-semibold text-gray-800 dark:text-white"
                           >
                             ${prod.price}
@@ -186,6 +188,22 @@ export default function About() {
                   </span>
                 </div>
                 <div
+                  key={"chri-" + itemsCId}
+                  className="flex justify-between items-center  mb-3"
+                >
+                  <div key={"chri-0" + itemsCId}>
+                    <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                      {LANGUAGE.PAY_SUCCESS.PAY_ID[preferences.language]}
+                    </h3>
+                  </div>
+                  <span
+                    key={"chri-1" + itemsCId}
+                    className="font-semibold text-gray-800 dark:text-white"
+                  >
+                    {payId}
+                  </span>
+                </div>
+                <div
                   key={"chrd-" + itemsCId}
                   className="flex justify-between items-center  mb-3"
                 >
@@ -198,7 +216,10 @@ export default function About() {
                     key={"chrd-1" + itemsCId}
                     className="font-semibold text-gray-800 dark:text-white"
                   >
-                    {date}
+                    {createDateTextFromLanguage(
+                      preferences.language,
+                      new Date(`${date}`)
+                    )}
                   </span>
                 </div>
               </div>

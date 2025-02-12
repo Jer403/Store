@@ -1,3 +1,6 @@
+import { monthsEn, monthsEs } from "./consts";
+import { Language } from "./types";
+
 export function replaceString(
   text: string | null,
   replace: string,
@@ -53,4 +56,16 @@ export function getUrlParam(param: string) {
   const urlParams = new URLSearchParams(queryString);
 
   return urlParams.get(param);
+}
+
+export function createDateTextFromLanguage(lang: Language, date: Date) {
+  if (lang == "es") {
+    return `${date.getDate()} de ${
+      monthsEs[date.getMonth()]
+    }, ${date.getFullYear()}`;
+  } else if (lang == "en") {
+    return `${
+      monthsEn[date.getMonth()]
+    } ${date.getDate()}, ${date.getFullYear()}`;
+  }
 }
