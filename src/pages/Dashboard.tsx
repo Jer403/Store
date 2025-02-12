@@ -1,5 +1,5 @@
 import { LogOut, Package, Settings } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import PurchasedProducts from "./PurchasedProducts.tsx";
@@ -8,10 +8,12 @@ import { LANGUAGE } from "../consts.ts";
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const { clearCart } = useCart();
+  const navigate = useNavigate();
 
   const handleLogOutClick = () => {
     signOut();
     clearCart();
+    navigate("/login");
   };
 
   return (

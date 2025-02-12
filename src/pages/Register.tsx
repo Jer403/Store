@@ -25,16 +25,24 @@ interface AxiosResult {
 export default function Register() {
   const [eyeVisible, setEyeVisible] = useState<boolean>(false);
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
+
   const [valUsername, setValUsername] = useState<boolean | null>(null);
   const [valEmail, setValEmail] = useState<boolean | null>(null);
   const [valPassword, setValpassword] = useState<boolean | null>(null);
+
   const [requestErrors, setRequestErrors] = useState<[]>([]);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+
+  const [nameShake, setNameShake] = useState<boolean>(false);
+  const [emailShake, setEmailShake] = useState<boolean>(false);
+  const [passShake, setPassShake] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+
   const { signUp, logged, user } = useAuth();
   const navigate = useNavigate();
   const { preferences } = usePreferences();
@@ -58,28 +66,26 @@ export default function Register() {
       } else {
         setRequestErrors(res.response.data);
       }
-      setLoadingSubmit(true);
+      setLoadingSubmit(false);
     } else {
       if (valUsername != true) {
-        document.getElementById("username")?.classList.add("shake");
+        setNameShake(true);
         setTimeout(() => {
-          document.getElementById("username")?.classList.remove("shake");
+          setNameShake(false);
         }, 500);
         setValUsername(false);
       }
       if (valEmail != true) {
-        document.getElementById("email-address")?.classList.add("shake");
+        setEmailShake(true);
         setTimeout(() => {
-          document.getElementById("email-address")?.classList.remove("shake");
+          setEmailShake(false);
         }, 500);
         setValEmail(false);
       }
       if (valPassword != true) {
-        document.getElementById("password")?.classList.add("shake");
-        document.getElementById("password2")?.classList.add("shake");
+        setPassShake(true);
         setTimeout(() => {
-          document.getElementById("password")?.classList.remove("shake");
-          document.getElementById("password2")?.classList.remove("shake");
+          setPassShake(false);
         }, 500);
         setValpassword(false);
       }
@@ -163,7 +169,9 @@ export default function Register() {
                     setUsername(e.target.value);
                     validateUsername(e.target.value);
                   }}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className={`${
+                    nameShake && "shake"
+                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
                   className="absolute w-6 h-6 check"
@@ -203,7 +211,9 @@ export default function Register() {
                     setEmail(e.target.value);
                     validateEmail(e.target.value);
                   }}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className={`${
+                    emailShake && "shake"
+                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
                   className="absolute w-6 h-6 check"
@@ -245,7 +255,9 @@ export default function Register() {
                   }}
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className={`${
+                    passShake && "shake"
+                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye">
                   {eyeVisible ? (
@@ -317,7 +329,9 @@ export default function Register() {
                   }}
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className={`${
+                    passShake && "shake"
+                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye">
                   {eyeVisible ? (

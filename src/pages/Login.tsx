@@ -31,6 +31,10 @@ export default function Login() {
   const [requestErrors, setRequestErrors] = useState<[]>([]);
   const [valEmail, setValEmail] = useState<boolean | null>(null);
   const [valPassword, setValpassword] = useState<boolean | null>(null);
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [passShake, setPassShake] = useState<boolean>(false);
+  const [emailShake, setEmailShake] = useState<boolean>(false);
   const { signIn, logged } = useAuth();
   const { preferences } = usePreferences();
   const { loadCart } = useCart();
@@ -41,44 +45,30 @@ export default function Login() {
     e.preventDefault();
 
     if (valEmail == true && valPassword == true) {
-      const target = e.currentTarget;
-      target.firstElementChild?.classList.add("md:hidden");
-      target.firstElementChild?.nextElementSibling?.setAttribute(
-        "style",
-        "display: block;"
-      );
+      setLoadingSubmit(true);
 
       const res = (await signIn({ email, password })) as AxiosResult;
       console.log(res);
 
       if (res.status == 200) {
-        target.firstElementChild?.nextElementSibling?.setAttribute(
-          "style",
-          "display: none;"
-        );
-        target.lastElementChild?.setAttribute("style", "display: block;");
-        target.setAttribute("disabled", "true");
         setDataToDefault();
+        setSuccess(true);
       } else {
         setRequestErrors(res.response.data);
-        target.firstElementChild?.classList.remove("md:hidden");
-        target.firstElementChild?.nextElementSibling?.setAttribute(
-          "style",
-          "display: none;"
-        );
       }
+      setLoadingSubmit(false);
     } else {
       if (valEmail != true) {
-        document.getElementById("email-address")?.classList.add("shake");
+        setEmailShake(true);
         setTimeout(() => {
-          document.getElementById("email-address")?.classList.remove("shake");
+          setEmailShake(false);
         }, 500);
         setValEmail(false);
       }
       if (valPassword != true) {
-        document.getElementById("password")?.classList.add("shake");
+        setPassShake(true);
         setTimeout(() => {
-          document.getElementById("password")?.classList.remove("shake");
+          setPassShake(false);
         }, 500);
         setValpassword(false);
       }
@@ -147,8 +137,9 @@ export default function Login() {
                     setEmail(e.target.value);
                     validateEmail(e.target.value);
                   }}
-                  className="appearance-none text-md h-12 my-1 rounded-md relative block w-full px-4 py-3 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
-                  placeholder=""
+                  className={`${
+                    emailShake && "shake"
+                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-4 py-3 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
                   className="absolute w-6 h-6 check"
@@ -190,7 +181,9 @@ export default function Login() {
                   }}
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
-                  className="appearance-non text-md h-12 mt-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                  className={`${
+                    passShake && "shake"
+                  } appearance-non text-md h-12 mt-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye" style={{ color: "#111" }}>
                   {eyeVisible ? (
@@ -303,9 +296,17 @@ export default function Login() {
                   submitClickHandler({ e });
                 }}
               >
-                <span>{LANGUAGE.LOGIN.SIGNIN[preferences.language]}</span>
-                <CircleDashed className="loader" style={{ display: "none" }} />
-                <CheckCircle2 style={{ display: "none", color: "white" }} />
+                {loadingSubmit ? (
+                  <CircleDashed
+                    className="loader"
+                    style={{ display: "none" }}
+                  />
+                ) : (
+                  <span>{LANGUAGE.LOGIN.SIGNIN[preferences.language]}</span>
+                )}
+                {success && (
+                  <CheckCircle2 style={{ display: "none", color: "white" }} />
+                )}
               </button>
             </div>
           </form>
