@@ -140,12 +140,16 @@ export const LANGUAGE = {
   },
   SETTINGS: {
     TITLE: {
-      es: "Mis Productos Comprados",
+      es: "Ajustes de la Cuenta",
       en: "Account Settings",
     },
     USER_PREF_TITLE: {
       es: "Preferencias de usuario",
       en: "User Preferences",
+    },
+    USER_PREF_DESCRIPTION: {
+      es: "Personliza tus ajustes de cuenta y preferencias",
+      en: "Customize your account settings and preferences",
     },
     LANGUAGE: {
       es: "Lenguaje",

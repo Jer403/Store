@@ -27,9 +27,12 @@ export interface UserInterface {
   email: string;
   preferences: { language: Language; theme: Theme; currency: Currency };
 }
+
 export type Language = "en" | "es";
 export type Theme = "light" | "dark" | "system";
 export type Currency = "USD" | "EUR";
+
+export type PlacesUser = "/login" | "/register" | "/cart" | "/checkout";
 
 export interface Payment {
   id: string;

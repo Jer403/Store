@@ -115,7 +115,7 @@ export default function Cart() {
                     key={anyCId}
                     className="flex flex-col items-center justify-center"
                   >
-                    <p className="text-xl">
+                    <p className="text-xl dark:text-gray-50">
                       {LANGUAGE.CART.ANY_PRODUCT[preferences.language]}
                     </p>
                   </div>
@@ -146,7 +146,7 @@ export default function Cart() {
               >
                 <button
                   type="button"
-                  disabled={cart.length == 0 || loadingCart}
+                  disabled={cart.length == 0}
                   className={`px-4 py-2 w-full flex flex-row ${
                     cart.length == 0 && "cursor-not-allowed bg-indigo-800"
                   } items-center justify-center gap-2 border border-transparent text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}

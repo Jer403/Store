@@ -6,6 +6,7 @@ import { preferencesRequest } from "../Api/auth";
 import { Currency, Language, Theme } from "../types";
 import { usePreferences } from "../hooks/usePreferences";
 import { saveInLocalStorage } from "../utils";
+import { LANGUAGE } from "../consts";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
@@ -53,19 +54,21 @@ export default function Settings() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-            Account Settings
+            {LANGUAGE.SETTINGS.TITLE[preferences.language]}
           </h1>
 
           <div className="space-y-6">
             <SettingsSection
               icon={<User className="h-6 w-6" />}
-              title="User Preferences"
-              description="Customize your account settings and preferences"
+              title={LANGUAGE.SETTINGS.USER_PREF_TITLE[preferences.language]}
+              description={
+                LANGUAGE.SETTINGS.USER_PREF_DESCRIPTION[preferences.language]
+              }
             >
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    Language
+                    {LANGUAGE.SETTINGS.LANGUAGE[preferences.language]}
                   </label>
                   <select
                     value={preferences.language}
@@ -83,7 +86,7 @@ export default function Settings() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    Currency
+                    {LANGUAGE.SETTINGS.CURRENCY[preferences.language]}
                   </label>
                   <select
                     value={preferences.currency}
@@ -104,13 +107,15 @@ export default function Settings() {
 
             <SettingsSection
               icon={<Palette className="h-6 w-6" />}
-              title="Appearance"
-              description="Customize the look and feel"
+              title={LANGUAGE.SETTINGS.APPEARENCE_TITLE[preferences.language]}
+              description={
+                LANGUAGE.SETTINGS.APPEARENCE_DESCRIPTION[preferences.language]
+              }
             >
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    Theme
+                    {LANGUAGE.SETTINGS.THEME[preferences.language]}
                   </label>
                   <select
                     value={preferences.theme}
@@ -122,9 +127,15 @@ export default function Settings() {
                     }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-500 dark:bg-gray-950 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                    <option value="system">System</option>
+                    <option value="light">
+                      {LANGUAGE.SETTINGS.LIGHT[preferences.language]}
+                    </option>
+                    <option value="dark">
+                      {LANGUAGE.SETTINGS.DARK[preferences.language]}
+                    </option>
+                    <option value="system">
+                      {LANGUAGE.SETTINGS.SYSTEM[preferences.language]}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -158,7 +169,7 @@ export default function Settings() {
                 <CircleDashed className="loader" />
               ) : (
                 <span className="flex flex-row justify-center items-center gap-1">
-                  Save Changes
+                  {LANGUAGE.SETTINGS.SAVE[preferences.language]}
                   {saved && (
                     <CheckCircle2 className="h-4 w-4 text-[--good]"></CheckCircle2>
                   )}

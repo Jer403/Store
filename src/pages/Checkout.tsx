@@ -112,7 +112,7 @@ export default function Checkout() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-full mx-auto mb-10 ">
           <div className="bg-white dark:bg-gray-900 md:dark:bg-transparent flex flex-col md:flex-row-reverse md:justify-center md:gap-3 rounded-lg shadow-md md:shadow-none p-6 md:p-0">
-            <div className="md:dark:bg-gray-900 md:p-6 md:rounded-lg md:shadow-md w-full md:max-w-80 lg:max-w-[360px] flex flex-col md:h-[342px] mb-8 md:mb-0">
+            <div className="md:dark:bg-gray-900 md:p-6 md:rounded-lg md:shadow-md w-full md:max-w-80 lg:max-w-[360px] flex flex-col max-h-full h-fit mb-8 md:mb-0">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
                 {LANGUAGE.CHECKOUT.TITLE[preferences.language]}
               </h1>
@@ -128,30 +128,34 @@ export default function Checkout() {
                   key={itemsCId}
                   className="border-t border-b dark:border-gray-500 py-4"
                 >
-                  {cart.length != 0 ? (
-                    cart.map((prod) => (
-                      <div
-                        key={"chr-" + prod.id + itemsCId}
-                        className="flex justify-between items-center"
-                      >
-                        <div key={"chr-0" + prod.id + itemsCId}>
-                          <h3 className="font-medium dark:text-gray-100">
-                            {prod.title}
-                          </h3>
-                        </div>
-                        <span
-                          key={"chr-1" + prod.id + itemsCId}
-                          className="font-semibold dark:text-gray-100"
-                        >
-                          ${prod.price}
-                        </span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xl dark:text-gray-100">
-                      {LANGUAGE.CHECKOUT.ANY[preferences.language]}
-                    </p>
-                  )}
+                  <div className="max-h-full px-1 overflow-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-md">
+                    {cart.length != 0 ? (
+                      <>
+                        {cart.map((prod) => (
+                          <div
+                            key={"chr-" + prod.id + itemsCId}
+                            className="flex justify-between items-center"
+                          >
+                            <div key={"chr-0" + prod.id + itemsCId}>
+                              <h3 className="font-medium dark:text-gray-100">
+                                {prod.title}
+                              </h3>
+                            </div>
+                            <span
+                              key={"chr-1" + prod.id + itemsCId}
+                              className="font-semibold dark:text-gray-100"
+                            >
+                              ${prod.price}
+                            </span>
+                          </div>
+                        ))}
+                      </>
+                    ) : (
+                      <p className="text-xl dark:text-gray-100">
+                        {LANGUAGE.CHECKOUT.ANY[preferences.language]}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div className="flex flex-col mt-4">
                   <span className="font-semibold flex justify-between dark:text-gray-100">
