@@ -7,15 +7,15 @@ import { AppRouter } from "./routes/index.tsx";
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
+    <CartProvider>
+      <AuthProvider>
         <ProductProvider>
           <UtilsProvider>
             <AppRouter></AppRouter>
           </UtilsProvider>
         </ProductProvider>
-      </CartProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </CartProvider>
   );
 }
 

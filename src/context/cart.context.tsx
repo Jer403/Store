@@ -13,12 +13,10 @@ import {
 } from "../reducers/cart.reducer.ts";
 import {
   addProductToCartRequest,
-  clearCartRequest,
   getCartRequest,
-  getPaymentsRequest,
   removeProductFromCartRequest,
 } from "../Api/cart.ts";
-import { CartProduct, Payment, PurchasedProduct } from "../types/index.ts";
+import { CartProduct, PurchasedProduct } from "../types/index.ts";
 import { getPurchasedRequest } from "../Api/payment.ts";
 
 export const CartContext = createContext({
@@ -28,6 +26,7 @@ export const CartContext = createContext({
   clearCart: () => {},
   clearCartFromClient: () => {},
   loadCart: () => {},
+  loadPurchased: () => {},
   loadingCart: false,
   loadingPurchased: true,
   purchased: [] as PurchasedProduct[],
@@ -132,6 +131,7 @@ function useCartReducer() {
     loadCart,
     loadingPurchased,
     purchased,
+    loadPurchased,
   };
 }
 
@@ -146,6 +146,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     loadCart,
     loadingPurchased,
     purchased,
+    loadPurchased,
   } = useCartReducer();
 
   return (
@@ -160,6 +161,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         loadCart,
         loadingPurchased,
         purchased,
+        loadPurchased,
       }}
     >
       {children}

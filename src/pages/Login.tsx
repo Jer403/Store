@@ -37,7 +37,7 @@ export default function Login() {
   const [emailShake, setEmailShake] = useState<boolean>(false);
   const { signIn, logged } = useAuth();
   const { preferences } = usePreferences();
-  const { loadCart } = useCart();
+  const { loadCart, loadPurchased } = useCart();
   const navigate = useNavigate();
   const errorIdKey = useId();
 
@@ -82,9 +82,10 @@ export default function Login() {
       let path = replaceString(urlParams.get("path"), "-", "/");
       if (path == "") path = "/";
       loadCart();
+      loadPurchased();
       navigate(`${path}`);
     }
-  }, [loadCart, logged, navigate]);
+  }, [loadCart, loadPurchased, logged, navigate]);
 
   const setDataToDefault = () => {
     setEmail("");

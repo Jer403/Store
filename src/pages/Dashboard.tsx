@@ -4,11 +4,13 @@ import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import PurchasedProducts from "./PurchasedProducts.tsx";
 import { LANGUAGE } from "../consts.ts";
+import { usePreferences } from "../hooks/usePreferences.tsx";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const { clearCart } = useCart();
   const navigate = useNavigate();
+  const { preferences } = usePreferences();
 
   const handleLogOutClick = () => {
     navigate("/login");
@@ -36,22 +38,14 @@ export default function Dashboard() {
                   className={`flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-600 rounded-lg`}
                 >
                   <Package className="h-5 w-5 mr-3" />
-                  <>
-                    {user
-                      ? LANGUAGE.DASHBOARD.MYITEMS[user.preferences.language]
-                      : LANGUAGE.DASHBOARD.MYITEMS.en}
-                  </>
+                  <>{LANGUAGE.DASHBOARD.MYITEMS[preferences.language]}</>
                 </Link>
                 <Link
                   to="/dashboard/settings"
                   className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg mt-2"
                 >
                   <Settings className="h-5 w-5 mr-3" />
-                  <>
-                    {user
-                      ? LANGUAGE.DASHBOARD.SETTINGS[user.preferences.language]
-                      : LANGUAGE.DASHBOARD.SETTINGS.en}
-                  </>
+                  <>{LANGUAGE.DASHBOARD.SETTINGS[preferences.language]}</>
                 </Link>
                 <Link
                   to="/login"
@@ -59,11 +53,7 @@ export default function Dashboard() {
                   onClick={handleLogOutClick}
                 >
                   <LogOut className="h-5 w-5 mr-3" />
-                  <>
-                    {user
-                      ? LANGUAGE.DASHBOARD.LOGOUT[user.preferences.language]
-                      : LANGUAGE.DASHBOARD.LOGOUT.en}
-                  </>
+                  <>{LANGUAGE.DASHBOARD.LOGOUT[preferences.language]}</>
                 </Link>
               </nav>
             </div>

@@ -20,7 +20,11 @@ export default function PurchasedProducts() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {purchased.map((product) => (
-              <PurchasedProductCard key={product.id} product={product} />
+              <PurchasedProductCard
+                key={product.id}
+                product={product}
+                language={preferences.language}
+              />
             ))}
           </div>
         )}
