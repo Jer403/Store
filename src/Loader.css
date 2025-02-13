@@ -14,7 +14,7 @@
 
 .pl__ring--b {
   animation-name: ringB;
-  stroke: #a855f7;
+  stroke: #6366f1;
 }
 
 .pl__ring--c {
@@ -24,7 +24,7 @@
 
 .pl__ring--d {
   animation-name: ringD;
-  stroke: #a855f7;
+  stroke: #6366f1;
 }
 
 /* Animations */
