@@ -377,6 +377,22 @@ export const LANGUAGE = {
       es: "Iniciar Sesion",
       en: "Sign in",
     },
+    EMAIL_VALID: {
+      es: "Email válido",
+      en: "Valid email",
+    },
+    EMAIL_NOT_VALID: {
+      es: "Email no válido",
+      en: "Invalid email",
+    },
+    PASS_VALID: {
+      es: "Contraseña válida",
+      en: "Valid password",
+    },
+    PASS_NOT_VALID: {
+      es: "Mínimo 6 caracteres",
+      en: "Password should be 6 characters long",
+    },
   },
   REGISTER: {
     TITLE: {
@@ -384,7 +400,7 @@ export const LANGUAGE = {
       en: "Sign Up",
     },
     USERNAME: {
-      es: "Nombre de usuário",
+      es: "Nombre de usuario",
       en: "Username",
     },
     EMAIL: {
@@ -410,6 +426,34 @@ export const LANGUAGE = {
     SIGNUP: {
       es: "Crear cuenta",
       en: "Sign up",
+    },
+    USERNAME_VALID: {
+      es: "Nombre de usuario válido",
+      en: "Valid username",
+    },
+    USERNAME_NOT_VALID: {
+      es: "Mínimo 3 caracteres",
+      en: "Username should be 3 characters long",
+    },
+    EMAIL_VALID: {
+      es: "Email válido",
+      en: "Valid email",
+    },
+    EMAIL_NOT_VALID: {
+      es: "Email no válido",
+      en: "Invalid email",
+    },
+    PASS_VALID: {
+      es: "Contraseña válida",
+      en: "Valid password",
+    },
+    PASS_NOT_VALID: {
+      es: "Mínimo 6 caracteres",
+      en: "Password should be 6 characters long",
+    },
+    PASS_NOT_MATCH: {
+      es: "Las contraseñas no coinicden",
+      en: "Passwords don't match",
     },
   },
   PAY_SUCCESS: {

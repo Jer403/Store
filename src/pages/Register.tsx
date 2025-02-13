@@ -170,7 +170,7 @@ export default function Register() {
                     validateUsername(e.target.value);
                   }}
                   className={`${
-                    nameShake && "shake"
+                    nameShake && "shake !border-[--wrong]"
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
@@ -181,19 +181,17 @@ export default function Register() {
                     color: valUsername ? "var(--good)" : "var(--wrong)",
                   }}
                 >
-                  {valUsername != null ? (
-                    valUsername ? (
-                      <LucideCheckCircle2></LucideCheckCircle2>
-                    ) : (
-                      <XCircle></XCircle>
-                    )
+                  {valUsername ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
                   ) : (
-                    ""
+                    <XCircle></XCircle>
                   )}
                   <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
                     {valUsername
-                      ? "Username is fine"
-                      : "Username should be 3 characters long"}
+                      ? LANGUAGE.REGISTER.USERNAME_VALID[preferences.language]
+                      : LANGUAGE.REGISTER.USERNAME_NOT_VALID[
+                          preferences.language
+                        ]}
                   </span>
                 </div>
               </div>
@@ -219,7 +217,7 @@ export default function Register() {
                     validateEmail(e.target.value);
                   }}
                   className={`${
-                    emailShake && "shake"
+                    emailShake && "shake !border-[--wrong]"
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
@@ -230,17 +228,15 @@ export default function Register() {
                     color: valEmail ? "var(--good)" : "var(--wrong)",
                   }}
                 >
-                  {valEmail != null ? (
-                    valEmail ? (
-                      <LucideCheckCircle2></LucideCheckCircle2>
-                    ) : (
-                      <XCircle></XCircle>
-                    )
+                  {valEmail ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
                   ) : (
-                    ""
+                    <XCircle></XCircle>
                   )}
                   <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
-                    {valEmail ? "Email is valid" : "Email should be valid"}
+                    {valEmail
+                      ? LANGUAGE.REGISTER.EMAIL_VALID[preferences.language]
+                      : LANGUAGE.REGISTER.EMAIL_NOT_VALID[preferences.language]}
                   </span>
                 </div>
               </div>
@@ -268,7 +264,7 @@ export default function Register() {
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
                   className={`${
-                    passShake && "shake"
+                    passShake && "shake !border-[--wrong]"
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye">
@@ -315,22 +311,18 @@ export default function Register() {
                     (valPassword ? "text-[--good]" : "text-[--wrong]")
                   } group`}
                 >
-                  {valPassword != null ? (
-                    valPassword ? (
-                      <LucideCheckCircle2></LucideCheckCircle2>
-                    ) : (
-                      <XCircle></XCircle>
-                    )
+                  {valPassword ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
                   ) : (
-                    ""
+                    <XCircle></XCircle>
                   )}
 
-                  <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
+                  <span className="tooltiptext group-hover:visible max-w-[80vw] after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
                     {valPassword
-                      ? "Password is valid"
+                      ? LANGUAGE.REGISTER.PASS_VALID[preferences.language]
                       : password2.length < 6 || password2.length < 6
-                      ? "Password should be 6 characters long"
-                      : "Passwords don't match"}
+                      ? LANGUAGE.REGISTER.PASS_NOT_VALID[preferences.language]
+                      : LANGUAGE.REGISTER.PASS_NOT_MATCH[preferences.language]}
                   </span>
                 </div>
               </div>
@@ -358,7 +350,7 @@ export default function Register() {
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
                   className={`${
-                    passShake && "shake"
+                    passShake && "shake !border-[--wrong]"
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye">

@@ -9,6 +9,7 @@ import {
 import { MouseEvent, useEffect, useId, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import "../App.css";
 import { replaceString } from "../utils";
 import { useCart } from "../hooks/useCart";
 import { LANGUAGE } from "../consts";
@@ -139,24 +140,28 @@ export default function Login() {
                     validateEmail(e.target.value);
                   }}
                   className={`${
-                    emailShake && "shake"
+                    emailShake && "shake !border-[--wrong]"
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-4 py-3 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
-                  className="absolute w-6 h-6 check"
+                  className={`absolute group w-6 h-6 check ${
+                    valPassword == null && "hidden"
+                  }`}
                   style={{
                     color: valEmail ? "var(--good)" : "var(--wrong)",
                   }}
                 >
-                  {valEmail != null ? (
-                    valEmail ? (
-                      <LucideCheckCircle2></LucideCheckCircle2>
-                    ) : (
-                      <XCircle></XCircle>
-                    )
+                  {valEmail ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
                   ) : (
-                    ""
+                    <XCircle></XCircle>
                   )}
+
+                  <span className="tooltiptext group-hover:visible max-w-[80vw] after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
+                    {valEmail
+                      ? LANGUAGE.LOGIN.EMAIL_VALID[preferences.language]
+                      : LANGUAGE.LOGIN.EMAIL_NOT_VALID[preferences.language]}
+                  </span>
                 </div>
               </div>
               <div className="relative">
@@ -183,50 +188,53 @@ export default function Login() {
                   onMouseEnter={() => setEyeVisible(true)}
                   onMouseLeave={() => setEyeVisible(false)}
                   className={`${
-                    passShake && "shake"
+                    passShake && "shake !border-[--wrong]"
                   } appearance-non text-md h-12 mt-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye" style={{ color: "#111" }}>
-                  {eyeVisible ? (
-                    passwordVisible ? (
+                  <button
+                    className="flex justify-center items-center"
+                    onMouseEnter={() => setEyeVisible(true)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPasswordVisible(!passwordVisible);
+                    }}
+                  >
+                    {passwordVisible ? (
                       <EyeOff
-                        onMouseEnter={() => setEyeVisible(true)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPasswordVisible(!passwordVisible);
-                        }}
-                        className="dark:text-white"
+                        className={`dark:text-white ${
+                          eyeVisible ? "sm:block" : "sm:hidden"
+                        }`}
                       ></EyeOff>
                     ) : (
                       <EyeIcon
-                        onMouseEnter={() => setEyeVisible(true)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPasswordVisible(!passwordVisible);
-                        }}
-                        className="dark:text-white"
+                        className={`dark:text-white block ${
+                          eyeVisible ? "sm:block" : "sm:hidden"
+                        }`}
                       ></EyeIcon>
-                    )
-                  ) : (
-                    ""
-                  )}
+                    )}
+                  </button>
                 </div>
 
                 <div
-                  className="absolute w-6 h-6 check"
+                  className={`absolute group w-6 h-6 check ${
+                    valPassword == null && "hidden"
+                  }`}
                   style={{
                     color: valPassword ? "var(--good)" : "var(--wrong)",
                   }}
                 >
-                  {valPassword != null ? (
-                    valPassword ? (
-                      <LucideCheckCircle2></LucideCheckCircle2>
-                    ) : (
-                      <XCircle></XCircle>
-                    )
+                  {valPassword ? (
+                    <LucideCheckCircle2></LucideCheckCircle2>
                   ) : (
-                    ""
+                    <XCircle></XCircle>
                   )}
+
+                  <span className="tooltiptext group-hover:visible max-w-[80vw] after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
+                    {valPassword
+                      ? LANGUAGE.LOGIN.PASS_VALID[preferences.language]
+                      : LANGUAGE.LOGIN.PASS_NOT_VALID[preferences.language]}
+                  </span>
                 </div>
               </div>
             </div>
@@ -289,7 +297,6 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                disabled={!valEmail || !valPassword}
                 className={`${
                   !valEmail || !valPassword ? "cursor-not-allowed" : ""
                 } group h-12 relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}

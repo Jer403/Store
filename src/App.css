@@ -159,9 +159,7 @@
 
 .tooltiptext {
   visibility: hidden;
-  width: auto;
-  text-wrap: nowrap;
-  text-align: center;
+  width: max-content;
   padding: 5px 18px;
   border-radius: 6px;
 
