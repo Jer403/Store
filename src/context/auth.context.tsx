@@ -15,10 +15,12 @@ interface AuthContextType {
     password: string;
     username: string;
     email: string;
+    remember: boolean;
   }) => Promise<void | unknown>;
   signIn: (user: {
     password: string;
     email: string;
+    remember: boolean;
   }) => Promise<void | unknown>;
   signOut: () => void;
   setUserPreferences: (pref: Preferences) => void;
@@ -48,6 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     password: string;
     username: string;
     email: string;
+    remember: boolean;
   }) => {
     try {
       const res = await registerRequest(user);
@@ -60,7 +63,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  const signIn = async (user: { password: string; email: string }) => {
+  const signIn = async (user: {
+    password: string;
+    email: string;
+    remember: boolean;
+  }) => {
     try {
       const res = await loginRequest(user);
       setUser(res.data);

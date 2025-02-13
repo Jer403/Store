@@ -43,6 +43,8 @@ export default function Register() {
   const [passShake, setPassShake] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
+  const [remeberme, setRemeberme] = useState<boolean>(false);
+
   const { signUp, logged, user } = useAuth();
   const navigate = useNavigate();
   const { preferences } = usePreferences();
@@ -57,6 +59,7 @@ export default function Register() {
         username,
         email,
         password,
+        remember: remeberme,
       })) as AxiosResult;
 
       console.log(res);
@@ -403,6 +406,7 @@ export default function Register() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
+                  onChange={() => setRemeberme(!remeberme)}
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label

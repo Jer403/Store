@@ -104,7 +104,7 @@ export function Navbar() {
               }}
             />
             <button className="md:hidden ml-3 dark:text-white">
-              <button
+              <div
                 className="flex justify-center items-center"
                 onClick={() => setMobileLinksShown(!mobileLinksShown)}
               >
@@ -113,7 +113,7 @@ export function Navbar() {
                 ) : (
                   <Menu className="h-8 w-8" />
                 )}
-              </button>
+              </div>
             </button>
           </div>
         </div>

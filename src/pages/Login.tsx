@@ -36,6 +36,7 @@ export default function Login() {
   const [success, setSuccess] = useState<boolean>(false);
   const [passShake, setPassShake] = useState<boolean>(false);
   const [emailShake, setEmailShake] = useState<boolean>(false);
+  const [remeberme, setRemeberme] = useState<boolean>(false);
   const { signIn, logged } = useAuth();
   const { preferences } = usePreferences();
   const { loadCart, loadPurchased } = useCart();
@@ -47,8 +48,12 @@ export default function Login() {
 
     if (valEmail == true && valPassword == true) {
       setLoadingSubmit(true);
-
-      const res = (await signIn({ email, password })) as AxiosResult;
+      console.log(remeberme);
+      const res = (await signIn({
+        email,
+        password,
+        remember: remeberme,
+      })) as AxiosResult;
       console.log(res);
 
       if (res.status == 200) {
@@ -263,6 +268,7 @@ export default function Login() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
+                    onChange={() => setRemeberme(!remeberme)}
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-900"
                   />
                   <label
