@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { UserButton } from "./UserButton.tsx";
 import { HLine } from "./Elements/HLine.tsx";
@@ -104,10 +104,16 @@ export function Navbar() {
               }}
             />
             <button className="md:hidden ml-3 dark:text-white">
-              <Menu
-                className="h-8 w-8"
+              <button
+                className="flex justify-center items-center"
                 onClick={() => setMobileLinksShown(!mobileLinksShown)}
-              />
+              >
+                {mobileLinksShown ? (
+                  <X className="h-8 w-8"></X>
+                ) : (
+                  <Menu className="h-8 w-8" />
+                )}
+              </button>
             </button>
           </div>
         </div>

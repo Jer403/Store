@@ -7,6 +7,7 @@ import { Currency, Language, Theme } from "../types";
 import { usePreferences } from "../hooks/usePreferences";
 import { saveInLocalStorage } from "../utils";
 import { LANGUAGE } from "../consts";
+import { useNavigate } from "react-router-dom";
 
 interface SubmitClickProps {
   e: React.MouseEvent;
@@ -24,6 +25,7 @@ export default function Settings() {
   const errorIdKey = useId();
   const { setUserPreferences } = useAuth();
   const { preferences, setPreferences } = usePreferences();
+  const navigate = useNavigate();
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
@@ -157,7 +159,16 @@ export default function Settings() {
               ))}
             </div>
           </div>
-          <div className="mt-8 flex justify-end">
+          <div className="mt-8 flex justify-end gap-3">
+            <button
+              type="button"
+              className="px-5 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => {
+                navigate("/dashboard");
+              }}
+            >
+              {LANGUAGE.SETTINGS.BACK[preferences.language]}
+            </button>
             <button
               type="button"
               className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

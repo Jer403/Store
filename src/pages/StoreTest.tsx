@@ -90,7 +90,7 @@ export function StoreTest() {
                   className={`relative grid grid-cols-1 md:grid-cols-2 ${
                     selectedProduct
                       ? "lg:grid-cols-2 xl:grid-cols-3"
-                      : "lg:grid-cols-3 xl:grid-cols-4"
+                      : "lg:grid-cols-2 xl:grid-cols-3"
                   } gap-6`}
                 >
                   {products.map((product) => {
@@ -128,7 +128,7 @@ export function StoreTest() {
         </div>
       </div>
       <div
-        className={`fixed w-full top-0 right-0 z-50 transition-transform duration-300 ease-out ${
+        className={`fixed w-full sm:w-auto top-0 right-0 z-50 transition-transform duration-300 ease-out ${
           selectedProduct ? "translate-x-0 " : "translate-x-full"
         }`}
       >

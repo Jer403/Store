@@ -145,6 +145,14 @@ export const LANGUAGE = {
       es: "Cerrar Sesión",
       en: "Log out",
     },
+    DOWNLOAD: {
+      es: "Descargar",
+      en: "Download",
+    },
+    PURCHASED_AT: {
+      es: "Comprado el",
+      en: "Purchased at",
+    },
   },
   STORE: {
     TITLE: {
@@ -212,6 +220,10 @@ export const LANGUAGE = {
     SYSTEM: {
       es: "Color del sistema",
       en: "System",
+    },
+    BACK: {
+      es: "Atras",
+      en: "Back",
     },
     SAVE: {
       es: "Guardar Cambios",

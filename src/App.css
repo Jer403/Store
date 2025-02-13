@@ -157,6 +157,39 @@
   transition: width 0.2s ease, opacity 0.4s;
 }
 
+.tooltiptext {
+  visibility: hidden;
+  width: auto;
+  text-wrap: nowrap;
+  text-align: center;
+  padding: 5px 18px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  top: -5px;
+  z-index: 1;
+}
+.tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  display: none;
+}
+
+.tooltip-right {
+  left: 140%;
+}
+
+.tooltip-left {
+  top: -5px;
+  right: 140%;
+}
+
 .check {
   top: calc(50% + 1px);
   right: -26px;
@@ -166,6 +199,7 @@
   top: calc(100% + 3px);
   right: -26px;
 }
+
 .pass-check:before,
 .pass-check:after {
   content: "";

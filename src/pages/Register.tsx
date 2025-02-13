@@ -174,7 +174,9 @@ export default function Register() {
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
-                  className="absolute w-6 h-6 check"
+                  className={`absolute w-6 h-6 check group ${
+                    valPassword == null && "hidden"
+                  }`}
                   style={{
                     color: valUsername ? "var(--good)" : "var(--wrong)",
                   }}
@@ -188,6 +190,11 @@ export default function Register() {
                   ) : (
                     ""
                   )}
+                  <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
+                    {valUsername
+                      ? "Username is fine"
+                      : "Username should be 3 characters long"}
+                  </span>
                 </div>
               </div>
               <div className="relative">
@@ -216,7 +223,9 @@ export default function Register() {
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div
-                  className="absolute w-6 h-6 check"
+                  className={`absolute w-6 h-6 check group ${
+                    valPassword == null && "hidden"
+                  }`}
                   style={{
                     color: valEmail ? "var(--good)" : "var(--wrong)",
                   }}
@@ -230,6 +239,9 @@ export default function Register() {
                   ) : (
                     ""
                   )}
+                  <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
+                    {valEmail ? "Email is valid" : "Email should be valid"}
+                  </span>
                 </div>
               </div>
               <div className="relative">
@@ -260,40 +272,48 @@ export default function Register() {
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye">
-                  {eyeVisible ? (
-                    passwordVisible ? (
+                  <button
+                    className="flex justify-center items-center"
+                    onMouseEnter={() => setEyeVisible(true)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPasswordVisible(!passwordVisible);
+                    }}
+                  >
+                    {passwordVisible ? (
                       <EyeOff
-                        onMouseEnter={() => setEyeVisible(true)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPasswordVisible(!passwordVisible);
-                        }}
-                        className="dark:text-white"
+                        className={`dark:text-white ${
+                          eyeVisible ? "sm:block" : "sm:hidden"
+                        }`}
                       ></EyeOff>
                     ) : (
                       <EyeIcon
-                        onMouseEnter={() => setEyeVisible(true)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPasswordVisible(!passwordVisible);
-                        }}
-                        className="dark:text-white"
+                        className={`dark:text-white block ${
+                          eyeVisible ? "sm:block" : "sm:hidden"
+                        }`}
                       ></EyeIcon>
-                    )
-                  ) : (
-                    ""
-                  )}
+                    )}
+                  </button>
                 </div>
                 <div
-                  className="absolute w-6 h-6 pass-check"
-                  style={{
-                    color:
-                      valPassword != null
-                        ? valPassword
-                          ? "var(--good)"
-                          : "var(--wrong)"
-                        : "transparent",
-                  }}
+                  className={`absolute w-6 h-6 pass-check ${
+                    valPassword == null && "hidden"
+                  } ${
+                    valPassword != null
+                      ? password.length < 6
+                        ? "[&::before]:text-[--wrong]"
+                        : "[&::before]:text-[--good]"
+                      : "text-transparent"
+                  } ${
+                    valPassword != null
+                      ? password2.length < 6
+                        ? "[&::after]:text-[--wrong]"
+                        : "[&::after]:text-[--good]"
+                      : "text-transparent"
+                  } ${
+                    valPassword != null &&
+                    (valPassword ? "text-[--good]" : "text-[--wrong]")
+                  } group`}
                 >
                   {valPassword != null ? (
                     valPassword ? (
@@ -304,6 +324,14 @@ export default function Register() {
                   ) : (
                     ""
                   )}
+
+                  <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
+                    {valPassword
+                      ? "Password is valid"
+                      : password2.length < 6 || password2.length < 6
+                      ? "Password should be 6 characters long"
+                      : "Passwords don't match"}
+                  </span>
                 </div>
               </div>
               <div className="relative">
@@ -334,29 +362,28 @@ export default function Register() {
                   } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
                 />
                 <div className="absolute w-6 h-6 eye">
-                  {eyeVisible ? (
-                    passwordVisible ? (
+                  <button
+                    className="flex justify-center items-center"
+                    onMouseEnter={() => setEyeVisible(true)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPasswordVisible(!passwordVisible);
+                    }}
+                  >
+                    {passwordVisible ? (
                       <EyeOff
-                        onMouseEnter={() => setEyeVisible(true)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPasswordVisible(!passwordVisible);
-                        }}
-                        className="dark:text-white"
+                        className={`dark:text-white ${
+                          eyeVisible ? "sm:block" : "sm:hidden"
+                        }`}
                       ></EyeOff>
                     ) : (
                       <EyeIcon
-                        onMouseEnter={() => setEyeVisible(true)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPasswordVisible(!passwordVisible);
-                        }}
-                        className="dark:text-white"
+                        className={`dark:text-white block ${
+                          eyeVisible ? "sm:block" : "sm:hidden"
+                        }`}
                       ></EyeIcon>
-                    )
-                  ) : (
-                    ""
-                  )}
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
@@ -411,13 +438,7 @@ export default function Register() {
             <div>
               <button
                 type="submit"
-                disabled={
-                  success ||
-                  loadingSubmit ||
-                  !valUsername ||
-                  !valEmail ||
-                  !valPassword
-                }
+                disabled={success || loadingSubmit}
                 className={`${
                   (success ||
                     loadingSubmit ||

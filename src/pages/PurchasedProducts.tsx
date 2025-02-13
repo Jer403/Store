@@ -23,7 +23,7 @@ export default function PurchasedProducts() {
               <PurchasedProductCard
                 key={product.id}
                 product={product}
-                language={preferences.language}
+                preferences={preferences}
               />
             ))}
           </div>

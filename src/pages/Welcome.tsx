@@ -1,23 +1,26 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useUtils } from "../hooks/useUtils";
-import { BRANDNAME, LANGUAGE, POSITIONS } from "../consts";
+import { BRANDNAME, LANGUAGE } from "../consts";
 import { useAuth } from "../hooks/useAuth";
 import { StoreTest } from "./StoreTest";
 import { usePreferences } from "../hooks/usePreferences";
 
 export default function Welcome() {
-  const { setLineLeftProperties } = useUtils();
   const { logged, loadingLog } = useAuth();
   const { preferences } = usePreferences();
 
   const clickHandler = () => {
-    setLineLeftProperties(logged ? POSITIONS.Home : POSITIONS.User);
+    if (logged) {
+      const element = document.querySelector("#store");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   return (
     <>
-      <div className=" bg-gradient-to-br  from-indigo-50 via-white to-purple-50 dark:from-indigo-950 dark:via-gray-950 dark:to-purple-950">
+      <div className=" bg-gradient-to-br  from-indigo-100 via-white to-purple-100 dark:from-indigo-950 dark:via-gray-950 dark:to-purple-950">
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="pt-20 pb-24 text-center lg:pt-40 lg:pb-32">
@@ -36,10 +39,17 @@ export default function Welcome() {
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
                 onClick={() => clickHandler()}
               >
-                {logged
-                  ? LANGUAGE.WELCOME.HERO_BUTTON_SEE[preferences.language]
-                  : LANGUAGE.WELCOME.HERO_BUTTON_START[preferences.language]}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                {logged ? (
+                  <>
+                    {LANGUAGE.WELCOME.HERO_BUTTON_SEE[preferences.language]}
+                    <ArrowDown className="ml-2 h-5 w-5" />
+                  </>
+                ) : (
+                  <>
+                    {LANGUAGE.WELCOME.HERO_BUTTON_START[preferences.language]}
+                    <ArrowRight className="ml-2 h-5 w-5"></ArrowRight>
+                  </>
+                )}
               </Link>
               <Link
                 to="/about"
