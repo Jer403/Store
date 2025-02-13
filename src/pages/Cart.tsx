@@ -74,7 +74,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12">
+    <div className="min-h-screen-minus-64 dottedBackground py-12">
       <div className="max-w-[1536px] mx-auto px-4">
         <div className="w-full">
           <h1

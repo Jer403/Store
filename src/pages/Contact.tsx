@@ -5,7 +5,7 @@ import { LANGUAGE } from "../consts";
 export default function Contact() {
   const { preferences } = usePreferences();
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12">
+    <div className="min-h-screen-minus-64 dottedBackground py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-8 dark:text-white">

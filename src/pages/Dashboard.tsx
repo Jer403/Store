@@ -1,5 +1,5 @@
 import { LogOut, Package, Settings } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import PurchasedProducts from "./PurchasedProducts.tsx";
@@ -9,17 +9,15 @@ import { usePreferences } from "../hooks/usePreferences.tsx";
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const { clearCart } = useCart();
-  const navigate = useNavigate();
   const { preferences } = usePreferences();
 
   const handleLogOutClick = () => {
-    navigate("/login");
     signOut();
     clearCart();
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950">
+    <div className="min-h-screen-minus-64 dottedBackground">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">

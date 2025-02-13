@@ -52,7 +52,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12">
+    <div className="min-h-screen-minus-64 dottedBackground py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">

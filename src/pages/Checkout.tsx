@@ -108,7 +108,7 @@ export default function Checkout() {
   // },
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12">
+    <div className="min-h-screen-minus-64 dottedBackground py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-full mx-auto mb-10 ">
           <div className="bg-white dark:bg-gray-900 md:dark:bg-transparent flex flex-col md:flex-row-reverse md:justify-center md:gap-3 rounded-lg shadow-md md:shadow-none p-6 md:p-0">
