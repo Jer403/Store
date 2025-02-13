@@ -8,12 +8,13 @@ import { usePreferences } from "../hooks/usePreferences.tsx";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
-  const { clearCart } = useCart();
+  const { clearCart, clearPurchased } = useCart();
   const { preferences } = usePreferences();
 
   const handleLogOutClick = () => {
     signOut();
     clearCart();
+    clearPurchased();
   };
 
   return (

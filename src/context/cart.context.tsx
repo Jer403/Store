@@ -24,6 +24,7 @@ export const CartContext = createContext({
   addToCart: (id: string) => {},
   removeFromCart: (id: string) => {},
   clearCart: () => {},
+  clearPurchased: () => {},
   clearCartFromClient: () => {},
   loadCart: () => {},
   loadPurchased: () => {},
@@ -114,6 +115,10 @@ function useCartReducer() {
     });
   };
 
+  const clearPurchased = async () => {
+    setPurchased([] as PurchasedProduct[]);
+  };
+
   const clearCartFromClient = async () => {
     dispatch({
       type: CART_ACTIONS.CLEAR_CART,
@@ -132,6 +137,7 @@ function useCartReducer() {
     loadingPurchased,
     purchased,
     loadPurchased,
+    clearPurchased,
   };
 }
 
@@ -147,6 +153,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     loadingPurchased,
     purchased,
     loadPurchased,
+    clearPurchased,
   } = useCartReducer();
 
   return (
@@ -162,6 +169,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         loadingPurchased,
         purchased,
         loadPurchased,
+        clearPurchased,
       }}
     >
       {children}
