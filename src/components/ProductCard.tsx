@@ -50,13 +50,13 @@ export function ProductCard({
   return (
     <div
       onClick={onClick}
-      className="flex flex-col justify-between group bg-white dark:bg-gray-900 dark:shadow-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      className="flex flex-col justify-between group bg-white hover:scale-105 dark:bg-gray-900 dark:shadow-gray-800 rounded-lg shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
       <div className="aspect-[1/1] bg-gray-100">
         <img
           src={`${IMG_API_URL}${product.image}`}
           alt={product.title}
-          className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-200 aspect-auto"
+          className="w-full h-full object-contain transform group- transition-transform duration-200 aspect-auto"
         />
       </div>
       <div className="p-4 h-full flex flex-col justify-between">

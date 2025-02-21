@@ -21,6 +21,14 @@ export interface CartProduct {
   image: string;
 }
 
+export interface ChatMessage {
+  id: string;
+  userId: string;
+  isMessageFromUser: string;
+  message: string;
+  created_at: string;
+}
+
 export interface UserInterface {
   id: string;
   username: string;

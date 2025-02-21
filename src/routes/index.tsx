@@ -6,6 +6,7 @@ import { LoadingBarWrapper } from "../components/Elements/LoadingBarWrapper.tsx"
 import { LoadingWrapper } from "../components/Elements/LoadingWrapper.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { usePreferences } from "../hooks/usePreferences.tsx";
+import { Chat } from "../components/Chat.tsx";
 
 const Welcome = lazy(() => import("../pages/Welcome.tsx"));
 const Dashboard = lazy(() => import("../pages/Dashboard.tsx"));
@@ -28,6 +29,7 @@ export function AppRouter() {
     <Router>
       <div className="min-h-screen dark:bg-gray-950">
         <Navbar />
+        <Chat />
         <Suspense fallback={<LoadingBarWrapper />}>
           <Routes>
             <Route

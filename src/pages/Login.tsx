@@ -14,6 +14,9 @@ import { replaceString } from "../utils";
 import { useCart } from "../hooks/useCart";
 import { LANGUAGE } from "../consts";
 import { usePreferences } from "../hooks/usePreferences";
+import { useChat } from "../hooks/useChat";
+import { useSocket } from "../hooks/useSocket";
+import { UserInterface } from "../types";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -40,8 +43,10 @@ export default function Login() {
   const { signIn, logged } = useAuth();
   const { preferences } = usePreferences();
   const { loadCart, loadPurchased } = useCart();
+  const { loadMessages } = useChat();
   const navigate = useNavigate();
   const errorIdKey = useId();
+  const { connectUserToMessageChannel } = useSocket();
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
@@ -56,9 +61,12 @@ export default function Login() {
       })) as AxiosResult;
       console.log(res);
 
+      const userInfo = res.response.data as unknown as UserInterface;
+
       if (res.status == 200) {
         setDataToDefault();
         setSuccess(true);
+        connectUserToMessageChannel(userInfo);
       } else {
         setRequestErrors(res.response.data);
       }
@@ -89,9 +97,10 @@ export default function Login() {
       if (path == "") path = "/";
       loadCart();
       loadPurchased();
+      loadMessages();
       navigate(`${path}`);
     }
-  }, [loadCart, loadPurchased, logged, navigate]);
+  }, [loadCart, loadMessages, loadPurchased, logged, navigate]);
 
   const setDataToDefault = () => {
     setEmail("");

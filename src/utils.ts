@@ -41,6 +41,77 @@ export function removeDoubles<T>(arrays: Array<T>) {
   return finalArr;
 }
 
+export function formatDateTime(date: Date): string {
+  const pad = (num: number) => String(num).padStart(2, "0");
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1); // Meses empiezan desde 0
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+export function formatDateTimeToUTC(date: Date): string {
+  const pad = (num: number) => String(num).padStart(2, "0");
+
+  const year = date.getUTCFullYear();
+  const month = pad(date.getUTCMonth() + 1); // Meses empiezan desde 0
+  const day = pad(date.getUTCDate());
+  const hours = pad(date.getUTCHours());
+  const minutes = pad(date.getUTCMinutes());
+  const seconds = pad(date.getUTCSeconds());
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+export function formatDateTimeToLocal(str: string): Date {
+  return new Date(convertToLocalTime(str));
+}
+
+export function convertToLocalTime(serverDate: string): string {
+  const utcDate = new Date(serverDate + " UTC");
+
+  return utcDate
+    .toLocaleString("es-ES", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    })
+    .replace(/\//g, "-")
+    .replace(",", "");
+}
+
+export function formatMinutes(num: number) {
+  if (num < 10) {
+    return "0" + num;
+  }
+  return num;
+}
+
+export function formatHours(num: number) {
+  if (num > 12) {
+    return num - 12;
+  }
+  if (num == 0) {
+    return 12;
+  }
+  return num;
+}
+
+export function whichMeridian(num: number) {
+  if (num > 12) {
+    return "pm";
+  }
+  return "am";
+}
+
 export function saveInLocalStorage({
   item,
   value,

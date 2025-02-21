@@ -6,6 +6,7 @@ import {
   verifyTokenRequest,
 } from "../Api/auth";
 import { Preferences, UserInterface } from "../types";
+import { useSocket } from "../hooks/useSocket";
 
 interface AuthContextType {
   user: UserInterface | null;
@@ -45,6 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserInterface | null>(null);
   const [logged, setLogged] = useState(false);
   const [loadingLog, setLoadingLog] = useState(true);
+  const { connectUserToMessageChannel } = useSocket();
 
   const signUp = async (user: {
     password: string;
@@ -93,7 +95,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const verifyToken = async () => {
     try {
       const res = await verifyTokenRequest();
-      console.log(res.data.preferences);
 
       if (!res.data) {
         setUser(null);
@@ -102,6 +103,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       setUser({ ...res.data, preferences: res.data.preferences });
+      connectUserToMessageChannel(res.data);
       setLogged(true);
       setLoadingLog(false);
     } catch (error) {

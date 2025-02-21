@@ -5,16 +5,20 @@ import { useCart } from "../hooks/useCart";
 import PurchasedProducts from "./PurchasedProducts.tsx";
 import { LANGUAGE } from "../consts.ts";
 import { usePreferences } from "../hooks/usePreferences.tsx";
+import { useChat } from "../hooks/useChat.tsx";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const { clearCart, clearPurchased } = useCart();
   const { preferences } = usePreferences();
+  const { setIsChatOpen, clearChat } = useChat();
 
   const handleLogOutClick = () => {
     signOut();
     clearCart();
     clearPurchased();
+    setIsChatOpen(false);
+    clearChat();
   };
 
   return (

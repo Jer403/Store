@@ -89,7 +89,9 @@ export default function Cart() {
           >
             <div
               key={itemsCId}
-              className="w-full min-w-80 bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 lg:p-8 flex flex-col gap-2 relative"
+              className={`w-full min-w-80 bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 ${
+                loadingCart && "pt-9"
+              } lg:p-8 flex flex-col gap-2 relative`}
             >
               {loadingCart && (
                 <CircleDashed className="loader h-6 w-6 absolute top-0 right-0 mr-2 mt-2 dark:text-white"></CircleDashed>
