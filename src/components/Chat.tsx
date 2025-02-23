@@ -111,6 +111,7 @@ export function Chat() {
 
     try {
       const res = await sendMessageRequest(message);
+      if (!res) return;
       if (res.status == 200) {
         console.log("Mensaje recibido");
         removeLoadingMessage({ id: uuid });

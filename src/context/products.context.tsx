@@ -37,6 +37,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
     try {
       const res = await getProductsRequest();
       console.log("Response from products: ", res);
+      if (!res) return;
       if (res.status == 200) {
         setProducts(res.data);
         saveInLocal(res.data);

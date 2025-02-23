@@ -1,9 +1,17 @@
 import axios from "./axios.ts";
 
 export const getPurchasedRequest = async () => {
-  return await axios.get(`/purchases`);
+  try {
+    return await axios.get(`/purchases`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getPaymentRequest = async (reference: string) => {
-  return await axios.post(`/paymentui`, { id: reference });
+  try {
+    return await axios.post(`/paymentui`, { id: reference });
+  } catch (error) {
+    console.log(error);
+  }
 };

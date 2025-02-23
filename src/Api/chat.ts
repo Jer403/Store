@@ -1,9 +1,17 @@
 import axios from "./axios.ts";
 
 export const sendMessageRequest = async (message: string) => {
-  return await axios.post(`/message/create`, { message });
+  try {
+    return await axios.post(`/message/create`, { message });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getMessagesRequest = async () => {
-  return await axios.get(`/messages/user`);
+  try {
+    return await axios.get(`/messages/user`);
+  } catch (error) {
+    console.log(error);
+  }
 };

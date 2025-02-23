@@ -9,5 +9,9 @@ export const paymentCardRequest = async (data: {
   city: string;
   postalCode: string;
 }) => {
-  return await axios.post(`/tpp/paymentcard`, data);
+  try {
+    return await axios.post(`/tpp/paymentcard`, data);
+  } catch (error) {
+    console.log(error);
+  }
 };

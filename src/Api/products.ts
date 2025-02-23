@@ -1,9 +1,17 @@
 import axios from "./axios.ts";
 
 export const getProductsRequest = async () => {
-  return await axios.get(`/product`);
+  try {
+    return await axios.get(`/product`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getProductRequest = async (id: string) => {
-  return await axios.get(`/product/${id}`);
+  try {
+    return await axios.get(`/product/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -1,25 +1,49 @@
 import axios from "./axios.ts";
 
 export const getCartRequest = async () => {
-  return await axios.get(`/cart`);
+  try {
+    return await axios.get(`/cart`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const addProductToCartRequest = async (id: string) => {
-  return await axios.post(`/cart/add`, { id });
+  try {
+    return await axios.post(`/cart/add`, { id });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const removeProductFromCartRequest = async (id: string) => {
-  return await axios.post(`/cart/remove`, { id });
+  try {
+    return await axios.post(`/cart/remove`, { id });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const clearCartRequest = async () => {
-  return await axios.post(`/cart/clear`);
+  try {
+    return await axios.post(`/cart/clear`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getPaymentsRequest = async () => {
-  return await axios.get(`/payments`);
+  try {
+    return await axios.get(`/payments`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const validateCouponRequest = async (id: string) => {
-  return await axios.post(`/cart/coupon/validate`, { id });
+  try {
+    return await axios.post(`/cart/coupon/validate`, { id });
+  } catch (error) {
+    console.log(error);
+  }
 };
