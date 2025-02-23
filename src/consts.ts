@@ -71,7 +71,7 @@ export const LANGUAGE = {
     },
     ABOUT: {
       es: "Sobre nosotros",
-      en: "About",
+      en: "About us",
     },
     CONTACT: {
       es: "Contactar",
