@@ -144,14 +144,7 @@ export default function Register() {
         </div>
         <div className="bg-white rounded-lg shadow-md p-7 dark:bg-gray-900">
           <form className="space-y-7">
-            <div
-              className={`rounded-md shadow-sm -space-y-px ${
-                (valEmail != null ||
-                  valUsername != null ||
-                  valPassword != null) &&
-                "mr-6 sm:mr-0"
-              }`}
-            >
+            <div className={`rounded-md shadow-sm -space-y-px `}>
               <div className="relative">
                 <label htmlFor="username" className="sr-only">
                   {LANGUAGE.REGISTER.USERNAME[preferences.language]}
@@ -178,7 +171,7 @@ export default function Register() {
                 />
                 <div
                   className={`absolute w-6 h-6 check group ${
-                    valPassword == null && "hidden"
+                    valUsername == null && "hidden"
                   }`}
                   style={{
                     color: valUsername ? "var(--good)" : "var(--wrong)",
@@ -225,7 +218,7 @@ export default function Register() {
                 />
                 <div
                   className={`absolute w-6 h-6 check group ${
-                    valPassword == null && "hidden"
+                    valEmail == null && "hidden"
                   }`}
                   style={{
                     color: valEmail ? "var(--good)" : "var(--wrong)",
@@ -400,7 +393,7 @@ export default function Register() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember-me"

@@ -4,6 +4,7 @@ import {
   createContext,
   useEffect,
   useReducer,
+  useRef,
   useState,
 } from "react";
 import {
@@ -37,6 +38,8 @@ function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
   const [loadingCart, setLoadingCart] = useState(false);
   const [loadingPurchased, setLoadingPurchased] = useState(true);
+  const loadingcartQueue = useRef(false);
+  const cartQueue = useRef<string[]>([]);
   const [purchased, setPurchased] = useState([] as PurchasedProduct[]);
 
   const loadCart = async () => {
@@ -85,16 +88,30 @@ function useCartReducer() {
   }, []);
 
   const addToCart = async (id: string) => {
-    const res = await addProductToCartRequest(id);
+    cartQueue.current = [...cartQueue.current, id];
+    if (!loadingcartQueue.current) {
+      addToCartSequence();
+    }
+  };
 
-    if (!res) throw new Error("Add product request failed");
-    if (res.status === 200) {
-      dispatch({
-        type: CART_ACTIONS.SET_CART,
-        payload: res.data,
-      });
+  const addToCartSequence = async () => {
+    if (cartQueue.current.length != 0) {
+      loadingcartQueue.current = true;
+      const res = await addProductToCartRequest(cartQueue.current[0]);
+
+      if (!res) throw new Error("Add product request failed");
+      if (res.status === 200) {
+        dispatch({
+          type: CART_ACTIONS.SET_CART,
+          payload: res.data,
+        });
+      } else {
+        console.error("Error adding product to cart");
+      }
+      cartQueue.current.splice(0, 1);
+      addToCartSequence();
     } else {
-      console.error("Error adding product to cart");
+      loadingcartQueue.current = false;
     }
   };
 

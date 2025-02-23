@@ -159,7 +159,7 @@ export default function Login() {
                 />
                 <div
                   className={`absolute group w-6 h-6 check ${
-                    valPassword == null && "hidden"
+                    valEmail == null && "hidden"
                   }`}
                   style={{
                     color: valEmail ? "var(--good)" : "var(--wrong)",
@@ -271,7 +271,7 @@ export default function Login() {
             </div>
 
             <div className="flex items-center justify-between flex-col">
-              <div className="flex  items-center justify-between w-full">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full">
                 <div className="flex items-center">
                   <input
                     id="remember-me"
@@ -282,13 +282,13 @@ export default function Login() {
                   />
                   <label
                     htmlFor="remember-me"
-                    className="ml-2 block text-md text-gray-900 dark:text-gray-100"
+                    className="ml-2 block text-sm md:text-md text-gray-900 dark:text-gray-100"
                   >
                     {LANGUAGE.LOGIN.REMEMBERME[preferences.language]}
                   </label>
                 </div>
 
-                <div className="text-md">
+                <div className="text-md hidden">
                   <a
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -296,17 +296,16 @@ export default function Login() {
                     {LANGUAGE.LOGIN.FORGOT[preferences.language]}
                   </a>
                 </div>
-              </div>
-              <div className="flex items-center  justify-end w-full">
                 <div className="text-md">
                   <Link
                     to="/register"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-sm md:text-md text-indigo-600 hover:text-indigo-500"
                   >
                     {LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT[preferences.language]}
                   </Link>
                 </div>
               </div>
+              <div className="hidden items-center justify-end w-full"></div>
             </div>
 
             <div>
