@@ -46,6 +46,7 @@ function useCartReducer() {
       console.log("Starting cart request");
       const res = await getCartRequest();
       console.log("Response from cart: ", res);
+      if (!res) throw new Error("Cart request failed");
       if (res.status === 200) {
         dispatch({
           type: CART_ACTIONS.SET_CART,
@@ -65,6 +66,7 @@ function useCartReducer() {
     setLoadingPurchased(true);
     try {
       const res = await getPurchasedRequest();
+      if (!res) throw new Error("Purchases request failed");
       if (res.status === 200) {
         setPurchased(res.data);
       } else {
@@ -85,6 +87,7 @@ function useCartReducer() {
   const addToCart = async (id: string) => {
     const res = await addProductToCartRequest(id);
 
+    if (!res) throw new Error("Add product request failed");
     if (res.status === 200) {
       dispatch({
         type: CART_ACTIONS.SET_CART,
@@ -98,6 +101,7 @@ function useCartReducer() {
   const removeFromCart = async (id: string) => {
     const res = await removeProductFromCartRequest(id);
 
+    if (!res) throw new Error("Remove product request failed");
     if (res.status === 200) {
       dispatch({
         type: CART_ACTIONS.SET_CART,

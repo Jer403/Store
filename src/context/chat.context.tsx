@@ -103,6 +103,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
     try {
       const res = await getMessagesRequest();
       console.log("Response from chats: ", res);
+      if (!res) throw new Error("Chat request failed");
       if (res.status == 200) {
         setChat(res.data);
       } else {

@@ -56,6 +56,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }) => {
     try {
       const res = await registerRequest(user);
+      if (!res) throw new Error("Register request failed");
       setUser(res.data);
       setLogged(true);
       return res;
@@ -72,6 +73,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }) => {
     try {
       const res = await loginRequest(user);
+      if (!res) throw new Error("Request failed");
       setUser(res.data);
       setLogged(true);
       return res;
@@ -95,6 +97,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const verifyToken = async () => {
     try {
       const res = await verifyTokenRequest();
+      if (!res) throw new Error("Request failed");
 
       if (!res.data) {
         setUser(null);
