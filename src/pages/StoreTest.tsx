@@ -81,14 +81,7 @@ export function StoreTest() {
                } 
               `}
           >
-            {loadingProducts ? (
-              <div className=" mt-12 flex items-center justify-center gap-2">
-                <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:text-white"></CircleDashed>
-                <span className="text-2xl sm:text-4xl lg:text-4xl dark:text-white">
-                  {LANGUAGE.STORE.LOADING[preferences.language]}
-                </span>
-              </div>
-            ) : products != null ? (
+            {products != null ? (
               products.length > 0 ? (
                 <div
                   className={`relative grid grid-cols-1 md:grid-cols-2 ${
@@ -120,6 +113,13 @@ export function StoreTest() {
                   {LANGUAGE.STORE.NO_PRODUCTS[preferences.language]}
                 </p>
               )
+            ) : loadingProducts ? (
+              <div className=" mt-12 flex items-center justify-center gap-2">
+                <CircleDashed className="loader h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:text-white"></CircleDashed>
+                <span className="text-2xl sm:text-4xl lg:text-4xl dark:text-white">
+                  {LANGUAGE.STORE.LOADING[preferences.language]}
+                </span>
+              </div>
             ) : (
               <p className="text-2xl sm:text-3xl md:text-4xl mt-12 flex items-center justify-center dark:text-white">
                 {LANGUAGE.STORE.WRONG[preferences.language]}

@@ -146,12 +146,16 @@ export function Chat() {
   }, [chats]);
 
   return (
-    <div className={`${logged ? "fixed" : "hidden"} bottom-8 right-8 z-40`}>
-      <div className="flex items-end flex-col gap-2">
+    <div
+      className={`${
+        logged ? "fixed" : "hidden"
+      } bottom-0 right-0 pr-4 pb-4 pl-4 lg:pr-8 lg:pb-8 lg:pl-0 w-full sm:w-auto z-40`}
+    >
+      <div className="flex items-end flex-col w-full sm:w-[424px] gap-2">
         <div
           className={`${
             isChatOpen ? "flex" : "hidden"
-          } flex-col bg-white rounded-md w-[424px] h-[600px] max-h-[600px] shadow-sm shadow-gray-500`}
+          } flex-col bg-white rounded-md w-full h-[600px] max-h-[600px] shadow-sm shadow-gray-500`}
         >
           <div
             className={`flex w-full border-b border-gray-200 rounded-t-md h-12 items-center justify-center gap-3 p-2`}

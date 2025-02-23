@@ -18,16 +18,18 @@ export const ProductContext = createContext<ProductContextType>({
 
 const localProducts = localStorage.getItem("products");
 const initialProductState =
-  localProducts != "null" && localProducts != null
+  localProducts != null && localProducts != "null"
     ? JSON.parse(localProducts)
-    : [];
+    : null;
 
 export function ProductProvider({ children }: ProductProviderProps) {
-  const [products, setProducts] = useState<Product[]>(initialProductState);
+  const [products, setProducts] = useState<Product[] | null>(
+    initialProductState
+  );
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  const saveInLocal = () => {
-    localStorage.setItem("product", JSON.stringify(products));
+  const saveInLocal = (products: Product[]) => {
+    localStorage.setItem("products", JSON.stringify(products));
   };
 
   const getProducts = async () => {
@@ -37,7 +39,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
       console.log("Response from products: ", res);
       if (res.status == 200) {
         setProducts(res.data);
-        saveInLocal();
+        saveInLocal(res.data);
       } else {
         setProducts([] as Product[]);
       }
