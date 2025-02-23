@@ -91,7 +91,7 @@ export function ProductDetails({
           <div className="w-full flex flex-row flex-wrap max-w-3xl gap-2 mt-2 mb-6">
             <img
               key={"main-image"}
-              src={`${IMG_API_URL}${product.image}`}
+              src={`${IMG_API_URL}${product.image}.webp`}
               alt={`Preview main-image`}
               onMouseEnter={handleMouseEnter}
               className="w-14 h-14 object-cover rounded-md border-2 border-gray-300"
@@ -100,7 +100,7 @@ export function ProductDetails({
               product.gallery.map((image, index) => (
                 <img
                   key={index}
-                  src={`${IMG_API_URL}${image}`}
+                  src={`${IMG_API_URL}${image}.webp`}
                   alt={`Preview ${index + 1}`}
                   onMouseEnter={handleMouseEnter}
                   className="w-14 h-14 object-cover rounded-md border-2 border-gray-300"
