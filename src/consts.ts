@@ -7,7 +7,7 @@ export const POSITIONS = {
 
 export const API_URL = "https://3dcute.up.railway.app/app";
 
-export const IMG_API_URL = "https://3dcute.up.railway.app/app/imgs/";
+export const IMG_API_URL = "https://3dcute.up.railway.app/imgs/";
 
 export const BRANDNAME = "DigitalMarket";
 
