@@ -6,7 +6,7 @@ import { StoreTest } from "./StoreTest";
 import { usePreferences } from "../hooks/usePreferences";
 
 export default function Welcome() {
-  const { logged, loadingLog } = useAuth();
+  const { logged } = useAuth();
   const { preferences } = usePreferences();
 
   const clickHandler = () => {
@@ -35,7 +35,7 @@ export default function Welcome() {
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
-                to={loadingLog ? "/" : logged ? "#store" : "/login"}
+                to={logged ? "#store" : "/login"}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
                 onClick={() => clickHandler()}
               >

@@ -62,22 +62,24 @@ export function ProductCard({
   return (
     <div
       onClick={onClick}
-      className="flex flex-col justify-between group bg-white hover:scale-105 dark:bg-gray-900 dark:shadow-gray-800 rounded-lg shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      className="relative flex flex-col justify-between group bg-white hover:scale-105 dark:bg-gray-900 dark:shadow-gray-800 rounded-lg shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
-      <div className="aspect-[1/1] bg-gray-100">
+      <div className="aspect-[1/1] bg-gray-100 rounded-t-lg">
         <img
           src={`${IMG_API_URL}${product.image}.webp`}
           alt={product.title}
-          className="w-full h-full object-contain transform group- transition-transform duration-200 aspect-auto"
+          className="w-full h-full object-contain transform group-  rounded-t-lg transition-transform duration-200 aspect-auto"
         />
       </div>
       <div className="p-4 h-full flex flex-col justify-between">
-        <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 transition-colors">
+        <h3 className="font-semibold text-gray-900 text-lg dark:text-white group-hover:text-indigo-600 transition-colors">
           {product.title}
         </h3>
         {/* <p className="mt-1 text-sm text-gray-500">AAAAAAAAAAAA</p> */}
         <div className="mt-2 flex items-center justify-between">
-          <span className="font-bold text-indigo-600">${product.price}</span>
+          <span className="font-bold text-indigo-600 flex justify-start items-center gap-1">
+            <span className="text-2xl">${product.price}</span>
+          </span>
 
           <button
             className={`${

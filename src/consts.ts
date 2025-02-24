@@ -194,8 +194,8 @@ export const LANGUAGE = {
       en: "Language",
     },
     CURRENCY: {
-      es: "Moneda",
-      en: "Currency",
+      es: "Moneda (Esta opción es sólo para fines comparativos, los pagos son en EUR)",
+      en: "Currency (This option is for comparing purposes only, payments are in EUR)",
     },
     APPEARENCE_TITLE: {
       es: "Apariencia",
