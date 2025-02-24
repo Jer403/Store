@@ -43,7 +43,7 @@ export function ProductCard({
     const link = document.createElement("link");
     link.rel = "preload";
     link.as = "image";
-    link.href = `${IMG_API_URL}${product.image}`;
+    link.href = `${IMG_API_URL}${product.image}.webp`;
     document.head.appendChild(link);
 
     return () => {
@@ -66,7 +66,7 @@ export function ProductCard({
     >
       <div className="aspect-[1/1] bg-gray-100">
         <img
-          src={`${IMG_API_URL}${product.image}`}
+          src={`${IMG_API_URL}${product.image}.webp`}
           alt={product.title}
           className="w-full h-full object-contain transform group- transition-transform duration-200 aspect-auto"
         />
