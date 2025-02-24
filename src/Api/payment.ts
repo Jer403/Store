@@ -8,6 +8,14 @@ export const getPurchasedRequest = async () => {
   }
 };
 
+export const getRateRequest = async () => {
+  try {
+    return await axios.get(`/rate`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getPaymentRequest = async (reference: string) => {
   try {
     return await axios.post(`/paymentui`, { id: reference });

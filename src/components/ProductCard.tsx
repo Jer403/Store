@@ -27,7 +27,7 @@ export function ProductCard({
   checkProductInCart: (product: Product) => boolean;
   checkProductInPurchased: (product: Product) => boolean;
 }) {
-  const { state: cart } = useCart();
+  const { state: cart, rate } = useCart();
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
@@ -38,18 +38,6 @@ export function ProductCard({
     setIsInCart(checkProductInCart(product));
     setIsInPurchased(checkProductInPurchased(product));
   }, [cart, checkProductInCart, checkProductInPurchased, product]);
-
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = `${IMG_API_URL}${product.image}.webp`;
-    document.head.appendChild(link);
-
-    return () => {
-      document.head.removeChild(link);
-    };
-  }, [product.image]);
 
   useEffect(() => {
     if (isInCart) {
@@ -78,7 +66,14 @@ export function ProductCard({
         {/* <p className="mt-1 text-sm text-gray-500">AAAAAAAAAAAA</p> */}
         <div className="mt-2 flex items-center justify-between">
           <span className="font-bold text-indigo-600 flex justify-start items-center gap-1">
-            <span className="text-2xl">${product.price}</span>
+            <span className="text-2xl">
+              {LANGUAGE.CURRENCIES[preferences.currency]}
+              {preferences.currency == "USD"
+                ? rate == 1
+                  ? product.price
+                  : Math.floor((product.price / rate) * 100) / 100
+                : product.price}
+            </span>
           </span>
 
           <button

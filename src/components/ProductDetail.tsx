@@ -83,7 +83,7 @@ export function ProductDetails({
         <div className="p-6">
           <div className="relative aspect-square mt-3 bg-gray-100 rounded-lg overflow-hidden group">
             <img
-              src={product.gallery ? `${currentImage}.webp` : ""}
+              src={product.gallery ? `${currentImage}` : ""}
               alt={product.title}
               className="w-full h-full object-contain"
             />

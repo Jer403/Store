@@ -102,7 +102,9 @@ export function StoreTest() {
                         checkProductInPurchased={checkProductInPurchased}
                         onClick={() => {
                           setSelectedProduct(product);
-                          setCurrentImage(`${IMG_API_URL}${product.image}`);
+                          setCurrentImage(
+                            `${IMG_API_URL}${product.image}.webp`
+                          );
                         }}
                       />
                     );

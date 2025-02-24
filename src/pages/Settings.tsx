@@ -32,15 +32,20 @@ export default function Settings() {
     if (loadingSubmit) return;
     setLoadingSubmit(true);
     setSaved(false);
-    const res = await preferencesRequest(preferences);
-    if (res.status == 200) {
+    try {
+      const res = await preferencesRequest(preferences);
+      if (!res) return;
+      if (res.status == 200) {
+        setLoadingSubmit(false);
+        setSaved(true);
+        return;
+      }
+      setRequestErrors(res.data.error);
       setLoadingSubmit(false);
-      setSaved(true);
-      return;
+      setSaved(false);
+    } catch (error) {
+      console.log(error);
     }
-    setRequestErrors(res.data.error);
-    setLoadingSubmit(false);
-    setSaved(false);
   };
 
   const handleSettingChange = ({ preference, value }: SettingsProps) => {
@@ -177,7 +182,7 @@ export default function Settings() {
               }}
             >
               {loadingSubmit ? (
-                <CircleDashed className="loader" />
+                <CircleDashed className="loader w-4 h-4" />
               ) : (
                 <span className="flex flex-row justify-center items-center gap-1">
                   {LANGUAGE.SETTINGS.SAVE[preferences.language]}

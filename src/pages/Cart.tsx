@@ -21,7 +21,7 @@ export function CartProductItem({
     <div className="w-full flex flex-row p-2 bg-gray-50 dark:bg-gray-800 border dark:border-gray-500 rounded-lg">
       <div>
         <img
-          src={`${IMG_API_URL}${product.image}`}
+          src={`${IMG_API_URL}${product.image}.webp`}
           alt={product.title}
           className="h-16 w-16 sm:h-20 sm:w-20 md:h-28 md:w-28 text-[8px] aspect-square object-cover rounded-md border-2 border-gray-400 dark:text-gray-50"
         />

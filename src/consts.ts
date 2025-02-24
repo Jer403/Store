@@ -306,6 +306,10 @@ export const LANGUAGE = {
       en: "Login to buy",
     },
   },
+  CURRENCIES: {
+    EUR: "€",
+    USD: "$",
+  },
   CONTACT: {
     TITLE: {
       es: "Contacta con Nosotros",

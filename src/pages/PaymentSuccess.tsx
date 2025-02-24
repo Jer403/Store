@@ -28,6 +28,7 @@ export default function About() {
 
       try {
         const res = await getPaymentRequest(reference);
+        if (!res) return;
         if (res.status == 200) {
           setLoadingPayment(false);
           if (res.data.state == "0") {
@@ -95,7 +96,7 @@ export default function About() {
                 {BRANDNAME}.
               </p>
 
-              <div className="flex flex-row gap-4 mb-10">
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <Link
                   to="/"
                   className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
@@ -173,48 +174,48 @@ export default function About() {
                 </div>
                 <div
                   key={"chro-" + itemsCId}
-                  className="flex justify-between items-center  mb-3"
+                  className="flex flex-col sm:flex-row items-start justify-between sm:items-center  mb-3"
                 >
                   <div key={"chro-0" + +itemsCId}>
-                    <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                    <h3 className="text-md sm:text-lg font-medium text-gray-700 dark:text-white">
                       {LANGUAGE.PAY_SUCCESS.ORDER[preferences.language]}
                     </h3>
                   </div>
                   <span
                     key={"chro-1" + itemsCId}
-                    className="font-semibold text-gray-800 dark:text-white"
+                    className="font-semibold text-sm sm:text-lg text-gray-800 dark:text-white"
                   >
                     {order}
                   </span>
                 </div>
                 <div
                   key={"chri-" + itemsCId}
-                  className="flex justify-between items-center  mb-3"
+                  className="flex flex-col sm:flex-row items-start justify-between sm:items-center  mb-3"
                 >
                   <div key={"chri-0" + itemsCId}>
-                    <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                    <h3 className="text-md sm:text-lg font-medium text-gray-700 dark:text-white">
                       {LANGUAGE.PAY_SUCCESS.PAY_ID[preferences.language]}
                     </h3>
                   </div>
                   <span
                     key={"chri-1" + itemsCId}
-                    className="font-semibold text-gray-800 dark:text-white"
+                    className="font-semibold text-sm sm:text-lg text-gray-800 dark:text-white"
                   >
                     {payId}
                   </span>
                 </div>
                 <div
                   key={"chrd-" + itemsCId}
-                  className="flex justify-between items-center  mb-3"
+                  className="flex flex-col sm:flex-row items-start justify-between sm:items-center  mb-3"
                 >
                   <div key={"chrd-0" + itemsCId}>
-                    <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                    <h3 className="text-md sm:text-lg font-medium text-gray-700 dark:text-white">
                       {LANGUAGE.PAY_SUCCESS.DATE[preferences.language]}
                     </h3>
                   </div>
                   <span
                     key={"chrd-1" + itemsCId}
-                    className="font-semibold text-gray-800 dark:text-white"
+                    className="font-semibold text-sm sm:text-lg text-gray-800 dark:text-white"
                   >
                     {createDateTextFromLanguage(
                       preferences.language,

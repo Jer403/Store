@@ -18,7 +18,7 @@ import {
   removeProductFromCartRequest,
 } from "../Api/cart.ts";
 import { CartProduct, PurchasedProduct } from "../types/index.ts";
-import { getPurchasedRequest } from "../Api/payment.ts";
+import { getPurchasedRequest, getRateRequest } from "../Api/payment.ts";
 
 export const CartContext = createContext({
   state: [] as CartProduct[],
@@ -32,12 +32,14 @@ export const CartContext = createContext({
   loadingCart: false,
   loadingPurchased: true,
   purchased: [] as PurchasedProduct[],
+  rate: 0,
 });
 
 function useCartReducer() {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
   const [loadingCart, setLoadingCart] = useState(false);
   const [loadingPurchased, setLoadingPurchased] = useState(true);
+  const [rate, setRate] = useState(1);
   const loadingcartQueue = useRef(false);
   const cartQueue = useRef<string[]>([]);
   const [purchased, setPurchased] = useState([] as PurchasedProduct[]);
@@ -82,9 +84,24 @@ function useCartReducer() {
     }
   };
 
+  const loadRate = async () => {
+    try {
+      const res = await getRateRequest();
+      if (!res) throw new Error("Rate request failed");
+      if (res.status === 200) {
+        setRate(res.data);
+      } else {
+        console.error("Error loading rate");
+      }
+    } catch (error) {
+      console.error("Error fetching rate data", error);
+    }
+  };
+
   useEffect(() => {
     loadCart();
     loadPurchased();
+    loadRate();
   }, []);
 
   const addToCart = async (id: string) => {
@@ -159,6 +176,7 @@ function useCartReducer() {
     purchased,
     loadPurchased,
     clearPurchased,
+    rate,
   };
 }
 
@@ -175,6 +193,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     purchased,
     loadPurchased,
     clearPurchased,
+    rate,
   } = useCartReducer();
 
   return (
@@ -191,6 +210,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         purchased,
         loadPurchased,
         clearPurchased,
+        rate,
       }}
     >
       {children}
