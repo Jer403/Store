@@ -54,7 +54,7 @@ export function ProductCard({
     >
       <div className="aspect-[1/1] bg-gray-100">
         <img
-          src={`${IMG_API_URL}${product.image}.webp`}
+          src={`${IMG_API_URL}${product.image}`}
           alt={product.title}
           className="w-full h-full object-contain transform group- transition-transform duration-200 aspect-auto"
         />
