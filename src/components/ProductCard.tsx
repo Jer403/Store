@@ -43,7 +43,7 @@ export function ProductCard({
     const link = document.createElement("link");
     link.rel = "preload";
     link.as = "image";
-    link.href = `${IMG_API_URL}${product.image}.webp`;
+    link.href = `${IMG_API_URL}${product.image}`;
     document.head.appendChild(link);
 
     return () => {
