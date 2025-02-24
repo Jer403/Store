@@ -40,6 +40,18 @@ export function ProductCard({
   }, [cart, checkProductInCart, checkProductInPurchased, product]);
 
   useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = `${IMG_API_URL}${product.image}.webp`;
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [product.image]);
+
+  useEffect(() => {
     if (isInCart) {
       if (loadingSubmit) {
         setLoadingSubmit(false);
