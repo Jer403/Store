@@ -18,6 +18,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useChat } from "../hooks/useChat";
 import { ChatMessage } from "../types";
 import { sendMessageRequest } from "../Api/chat";
+import { DropDownTab } from "./DropDownTab";
 
 function ChatMessageCard({ chat }: { chat: ChatMessage }) {
   const date = new Date(chat.created_at + " UTC");
@@ -72,6 +73,7 @@ export function Chat() {
     setNotSeenMessagesToSeen,
   } = useChat();
   const { logged } = useAuth();
+  const [currentQuestion, setCurrentQuestion] = useState("");
 
   const scrollChat = () => {
     const div = document.getElementById("chatBox");
@@ -198,7 +200,57 @@ export function Chat() {
             className={`${
               isInChat ? "hidden" : "flex"
             } h-full flex-col p-3 max-h-full overflow-auto gap-2 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-md`}
-          ></div>
+          >
+            <DropDownTab
+              id="metodos"
+              question="¿Qué métodos de pago aceptan?"
+              answer="Actualmente los pagos se realizan a travéz de la plataforma de pagos Tropipay que acepta pagos con Visa, MasterCard y saldo de Tropipay"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+            <DropDownTab
+              id="formato"
+              question="¿En qué formato están disponibles los modelos 3D?"
+              answer="Los modelos se entregan en formato stl"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+            <DropDownTab
+              id="resolucion"
+              question="¿Se incluyen archivos en diferentes resoluciones o tamaños?"
+              answer="No, el modelo esta en una sola resolucion y tamaño"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+            <DropDownTab
+              id="comoDescargar"
+              question="¿Cómo descargo un modelo después de comprarlo?"
+              answer="En tu perfil estan todos los modelos que has comprado"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+            <DropDownTab
+              id="tiempo"
+              question="¿Cuánto tiempo tengo para descargar un modelo después de la compra?"
+              answer="No tienes un tiempo limitado, una vez comprado lo puedes descargar en cualquier momento en tu perfil"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+            <DropDownTab
+              id="variasDescargas"
+              question="¿Puedo descargar el modelo más de una vez?"
+              answer="Si, puedes descargar los modelos que has comprado cuantas veces quieras"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+            <DropDownTab
+              id="problemaAlDescargar"
+              question="¿Qué hago si tengo problemas para descargar mi archivo?"
+              answer="Escribenos en el chat incorporado en la pestaña de chat o escribenos un correo a asd@gmail.com e intentaremos solucionar su problema"
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+            ></DropDownTab>
+          </div>
 
           <div
             className={`flex w-full border-t ${"border-gray-200"} h-12 items-center`}

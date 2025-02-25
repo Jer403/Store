@@ -32,6 +32,14 @@ export const verifyTokenRequest = async () => {
   }
 };
 
+export const googleAuthRequest = async () => {
+  try {
+    return await axios.get(`/auth/google`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const logoutRequest = async () => {
   try {
     return await axios.get(`/logout`);

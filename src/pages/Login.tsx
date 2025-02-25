@@ -5,6 +5,7 @@ import {
   XCircle,
   EyeIcon,
   EyeOff,
+  Circle,
 } from "lucide-react";
 import { MouseEvent, useEffect, useId, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ import { usePreferences } from "../hooks/usePreferences";
 import { useChat } from "../hooks/useChat";
 import { useSocket } from "../hooks/useSocket";
 import { UserInterface } from "../types";
+import { Google } from "../components/Elements/Google";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -271,7 +273,7 @@ export default function Login() {
             </div>
 
             <div className="flex items-center justify-between flex-col">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full">
+              <div className="flex flex-col md:flex-row items-start gap-2 md:items-center justify-between w-full">
                 <div className="flex items-center">
                   <input
                     id="remember-me"
@@ -282,24 +284,24 @@ export default function Login() {
                   />
                   <label
                     htmlFor="remember-me"
-                    className="ml-2 block text-sm md:text-md text-gray-900 dark:text-gray-100"
+                    className="ml-2 block text-sm md:text-base text-gray-900 dark:text-gray-100"
                   >
                     {LANGUAGE.LOGIN.REMEMBERME[preferences.language]}
                   </label>
                 </div>
 
-                <div className="text-md hidden">
+                <div className="hidden">
                   <a
                     href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-sm md:text:base text-indigo-600 hover:text-indigo-500"
                   >
                     {LANGUAGE.LOGIN.FORGOT[preferences.language]}
                   </a>
                 </div>
-                <div className="text-md">
+                <div className="text-sm md:text:base">
                   <Link
                     to="/register"
-                    className="font-medium text-sm md:text-md text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-sm md:text-base text-indigo-600 hover:text-indigo-500"
                   >
                     {LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT[preferences.language]}
                   </Link>
@@ -327,6 +329,25 @@ export default function Login() {
               </button>
             </div>
           </form>
+
+          <div className="w-full my-8 flex items-center justify-center relative">
+            <div className="absolute w-full border-b border-gray-500"></div>
+            <div className="absolute bg-gray-900 px-2">
+              <Circle className=" h-3 text-gray-500"></Circle>
+            </div>
+          </div>
+
+          <div>
+            <button
+              className={`group h-12 relative w-full flex gap-3 justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md bg-white hover:bg-gray-200`}
+              onClick={() => {
+                location.href = `https://3dcute.up.railway.app/app/auth/google`;
+              }}
+            >
+              <Google className="w-9 h-9"></Google>
+              <span>{LANGUAGE.LOGIN.SIGNIN_GOOGLE[preferences.language]}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

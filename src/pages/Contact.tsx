@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Facebook } from "lucide-react";
 import { usePreferences } from "../hooks/usePreferences";
 import { LANGUAGE } from "../consts";
 
@@ -62,32 +62,17 @@ export default function Contact() {
                 {LANGUAGE.CONTACT.CONTACT_INFO[preferences.language]}
               </h2>
               <div className="space-y-4">
-                <div className="flex items-center">
+                <div className="flex items-center mb-6">
                   <Mail className="h-5 w-5 text-indigo-600 mr-3" />
                   <span className="dark:text-white">
                     support@digitalmarket.com
                   </span>
                 </div>
-                <div className="flex items-center">
-                  <Phone className="h-5 w-5 text-indigo-600 mr-3" />
-                  <span className="dark:text-white">+1 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="h-5 w-5 text-indigo-600 mr-3" />
+                <div className="flex items-center mb-6">
+                  <Facebook className="h-5 w-5 text-indigo-600 mr-3" />
                   <span className="dark:text-white">
                     123 Digital Street, Tech City, TC 12345
                   </span>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">
-                  Business Hours
-                </h3>
-                <div className="space-y-2 text-gray-600 dark:text-gray-300">
-                  <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                  <p>Saturday: 10:00 AM - 4:00 PM</p>
-                  <p>Sunday: Closed</p>
                 </div>
               </div>
             </div>

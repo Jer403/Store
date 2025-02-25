@@ -336,8 +336,8 @@ export const LANGUAGE = {
       en: "Send Message",
     },
     CONTACT_INFO: {
-      es: "Información de contacto",
-      en: "Contact Information",
+      es: "Contactanos a travéz de",
+      en: "Contact us through",
     },
     PLACEHOLDER_NAME: {
       es: "Tu nombre",
@@ -378,8 +378,12 @@ export const LANGUAGE = {
       en: "Don't have an account? Sign up",
     },
     SIGNIN: {
-      es: "Iniciar Sesion",
-      en: "Sign in",
+      es: "Iniciar Sesion con correo",
+      en: "Sign in with email",
+    },
+    SIGNIN_GOOGLE: {
+      es: "Continuar con Google",
+      en: "Continue with Google",
     },
     EMAIL_VALID: {
       es: "Email válido",
