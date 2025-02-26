@@ -11,7 +11,7 @@ import { MouseEvent, useEffect, useId, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import "../App.css";
-import { replaceString } from "../utils";
+import { getUrlParam, replaceString } from "../utils";
 import { useCart } from "../hooks/useCart";
 import { LANGUAGE } from "../consts";
 import { usePreferences } from "../hooks/usePreferences";
@@ -31,17 +31,24 @@ interface AxiosResult {
 
 export default function Login() {
   const [eyeVisible, setEyeVisible] = useState<boolean>(false);
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [requestErrors, setRequestErrors] = useState<[]>([]);
+
+  const [requestErrors, setRequestErrors] = useState<string[]>([]);
+
   const [valEmail, setValEmail] = useState<boolean | null>(null);
   const [valPassword, setValpassword] = useState<boolean | null>(null);
+
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+
   const [passShake, setPassShake] = useState<boolean>(false);
   const [emailShake, setEmailShake] = useState<boolean>(false);
+
   const [remeberme, setRemeberme] = useState<boolean>(false);
+
   const { signIn, logged } = useAuth();
   const { preferences } = usePreferences();
   const { loadCart, loadPurchased } = useCart();
@@ -90,6 +97,15 @@ export default function Login() {
       }
     }
   };
+
+  useEffect(() => {
+    console.log("Checking for errors");
+    const error = getUrlParam("error");
+    console.log(error);
+    if (error) {
+      setRequestErrors([error]);
+    }
+  }, []);
 
   useEffect(() => {
     if (logged) {
