@@ -4,6 +4,7 @@ import { useCart } from "../hooks/useCart";
 import { Product } from "../types";
 import { CircleDashed, Download, ShoppingCart, X } from "lucide-react";
 import { IMG_API_URL, LANGUAGE } from "../consts";
+import { usePreferences } from "../hooks/usePreferences";
 
 const specs = {
   platform: "Windows, Mac, Linux",
@@ -41,10 +42,11 @@ export function ProductDetails({
   checkProductInPurchased,
 }: ProductDetailsProps) {
   const { user } = useAuth();
-  const { state: cart } = useCart();
+  const { state: cart, rate } = useCart();
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isInPurchased, setIsInPurchased] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+  const { preferences } = usePreferences();
 
   useEffect(() => {
     setIsInCart(checkProductInCart(product));
@@ -116,7 +118,12 @@ export function ProductDetails({
           </h2>
           <div className="flex items-center justify-between mb-6">
             <span className="text-3xl font-bold text-indigo-600">
-              ${product.price}
+              {LANGUAGE.CURRENCIES[preferences.currency]}
+              {preferences.currency == "USD"
+                ? rate == 1
+                  ? product.price
+                  : Math.floor((product.price / rate) * 100) / 100
+                : product.price}
             </span>
             <button
               className={`flex items-center gap-2 px-6 py-3 ${

@@ -99,9 +99,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    console.log("Checking for errors");
     const error = getUrlParam("error");
-    console.log(error);
     if (error) {
       setRequestErrors([error]);
     }
