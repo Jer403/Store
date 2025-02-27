@@ -28,7 +28,17 @@ export default function Dashboard() {
           <div className="lg:col-span-1">
             <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
               <div className="flex flex-col items-center">
-                <h2 className="mt-4 text-3xl font-semibold dark:text-white">
+                <h2
+                  className={`mt-4 ${
+                    user
+                      ? user.username.length > 10
+                        ? user.username.length > 18
+                          ? "text-lg"
+                          : "text-xl"
+                        : "text-3xl"
+                      : "text-3xl"
+                  } font-semibold dark:text-white`}
+                >
                   {user?.username}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-200 text-xl">
