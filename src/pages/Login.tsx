@@ -5,7 +5,6 @@ import {
   XCircle,
   EyeIcon,
   EyeOff,
-  Circle,
 } from "lucide-react";
 import { MouseEvent, useEffect, useId, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +17,8 @@ import { usePreferences } from "../hooks/usePreferences";
 import { useChat } from "../hooks/useChat";
 import { useSocket } from "../hooks/useSocket";
 import { UserInterface } from "../types";
-import { Google } from "../components/Elements/Google";
+import { GoogleButton } from "../components/GoogleButton";
+import { ODivisor } from "../components/ODivisor";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -344,24 +344,13 @@ export default function Login() {
             </div>
           </form>
 
-          <div className="w-full my-8 flex items-center justify-center relative">
-            <div className="absolute w-full border-b border-gray-500"></div>
-            <div className="absolute bg-gray-900 px-2">
-              <Circle className=" h-3 text-gray-500"></Circle>
-            </div>
-          </div>
+          <ODivisor></ODivisor>
 
-          <div>
-            <button
-              className={`group h-12 relative w-full flex gap-3 justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md bg-white hover:bg-gray-200`}
-              onClick={() => {
-                location.href = `https://3dcute.up.railway.app/app/auth/google`;
-              }}
-            >
-              <Google className="w-9 h-9"></Google>
-              <span>{LANGUAGE.LOGIN.SIGNIN_GOOGLE[preferences.language]}</span>
-            </button>
-          </div>
+          <GoogleButton
+            text={LANGUAGE.LOGIN.SIGNIN_GOOGLE[preferences.language]}
+            url={`https://3dcute.up.railway.app/app/auth/google`}
+            disabled={loadingSubmit}
+          ></GoogleButton>
         </div>
       </div>
     </div>

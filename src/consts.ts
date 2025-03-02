@@ -280,8 +280,8 @@ export const LANGUAGE = {
       en: "Postal Code",
     },
     PAY: {
-      es: "Pagar ahora",
-      en: "Pay now",
+      es: "Pagar con Tropipay ahora",
+      en: "Pay with TropiPay",
     },
     TERMS_AND_CONDITIONS: {
       es: "Al continuar con el pago aceptas los Términos y Condiciones de la Plataforma Tropipay",

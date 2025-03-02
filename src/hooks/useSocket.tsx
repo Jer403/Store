@@ -15,10 +15,8 @@ export function useSocket() {
   const { addMessageToChat } = useChat();
 
   useEffect(() => {
-    console.log("Ha cambiado la funcion --------------------------------");
     const handleNewMessage = (message: string) => {
       const parsedMessage = JSON.parse(message);
-      console.log("New message from admin: ", parsedMessage);
       addMessageToChat(parsedMessage);
     };
 
@@ -35,7 +33,6 @@ export function useSocket() {
     socket.auth = { userId: id };
     socket.connect();
 
-    console.log(`User ${id} Connected To Chat`);
     socket.emit("connectChat");
   }, []);
 

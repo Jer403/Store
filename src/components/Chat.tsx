@@ -291,7 +291,7 @@ export function Chat() {
         <div
           className={`${
             isChatOpen ? "rotate-0" : "rotate-12"
-          } bg-white dark:bg-gray-50 w-14 h-14 rounded-xl flex justify-center items-center shadow-sm shadow-gray-300 dark:shadow-gray-500 transition-transform`}
+          } bg-white border-2 border-indigo-400 dark:border-transparent dark:bg-gray-50 w-14 h-14 rounded-xl flex justify-center items-center shadow-sm shadow-gray-300 dark:shadow-gray-500 transition-transform`}
           onClick={() => {
             setIsChatOpen(!isChatOpen);
             setNotSeenMessagesToSeen();

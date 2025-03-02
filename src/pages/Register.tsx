@@ -1,17 +1,14 @@
-import {
-  CheckCircle2,
-  CircleDashed,
-  EyeIcon,
-  EyeOff,
-  LucideCheckCircle2,
-  XCircle,
-} from "lucide-react";
+import { CheckCircle2, CircleDashed } from "lucide-react";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import { useAuth } from "../hooks/useAuth";
 import { LANGUAGE } from "../consts";
 import { usePreferences } from "../hooks/usePreferences";
+import { ODivisor } from "../components/ODivisor";
+import { GoogleButton } from "../components/GoogleButton";
+import { InputText } from "../components/form/InputTextAuth";
+import { InputPasswordRepeat } from "../components/form/InputPasswordRepeat";
 
 interface SubmitClickProps {
   e: MouseEvent;
@@ -23,9 +20,6 @@ interface AxiosResult {
 }
 
 export default function Register() {
-  const [eyeVisible, setEyeVisible] = useState<boolean>(false);
-  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -62,7 +56,6 @@ export default function Register() {
         remember: remeberme,
       })) as AxiosResult;
 
-      console.log(res);
       if (res.status == 200) {
         setSuccess(true);
         setDataToDefault();
@@ -98,10 +91,6 @@ export default function Register() {
   useEffect(() => {
     if (logged) navigate("/");
   }, [logged, navigate]);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   const validateUsername = (value: string) => {
     if (value.length >= 3) {
@@ -145,235 +134,63 @@ export default function Register() {
         <div className="bg-white rounded-lg shadow-md p-7 dark:bg-gray-900">
           <form className="space-y-7">
             <div className={`rounded-md shadow-sm -space-y-px `}>
-              <div className="relative">
-                <label htmlFor="username" className="sr-only">
-                  {LANGUAGE.REGISTER.USERNAME[preferences.language]}
-                </label>
-                <label
-                  htmlFor="username"
-                  className="text-md text-gray-500 dark:text-gray-300"
-                >
-                  {LANGUAGE.REGISTER.USERNAME[preferences.language]}
-                </label>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  required
-                  value={username}
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                    validateUsername(e.target.value);
-                  }}
-                  className={`${
-                    nameShake && "shake !border-[--wrong]"
-                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
-                />
-                <div
-                  className={`absolute w-6 h-6 check group ${
-                    valUsername == null && "hidden"
-                  }`}
-                  style={{
-                    color: valUsername ? "var(--good)" : "var(--wrong)",
-                  }}
-                >
-                  {valUsername ? (
-                    <LucideCheckCircle2></LucideCheckCircle2>
-                  ) : (
-                    <XCircle></XCircle>
-                  )}
-                  <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
-                    {valUsername
-                      ? LANGUAGE.REGISTER.USERNAME_VALID[preferences.language]
-                      : LANGUAGE.REGISTER.USERNAME_NOT_VALID[
-                          preferences.language
-                        ]}
-                  </span>
-                </div>
-              </div>
-              <div className="relative">
-                <label htmlFor="email-address" className="sr-only">
-                  {LANGUAGE.REGISTER.EMAIL[preferences.language]}
-                </label>
-                <label
-                  htmlFor="username"
-                  className="text-md text-gray-500 dark:text-gray-300"
-                >
-                  {LANGUAGE.REGISTER.EMAIL[preferences.language]}
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    validateEmail(e.target.value);
-                  }}
-                  className={`${
-                    emailShake && "shake !border-[--wrong]"
-                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
-                />
-                <div
-                  className={`absolute w-6 h-6 check group ${
-                    valEmail == null && "hidden"
-                  }`}
-                  style={{
-                    color: valEmail ? "var(--good)" : "var(--wrong)",
-                  }}
-                >
-                  {valEmail ? (
-                    <LucideCheckCircle2></LucideCheckCircle2>
-                  ) : (
-                    <XCircle></XCircle>
-                  )}
-                  <span className="tooltiptext group-hover:visible after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
-                    {valEmail
-                      ? LANGUAGE.REGISTER.EMAIL_VALID[preferences.language]
-                      : LANGUAGE.REGISTER.EMAIL_NOT_VALID[preferences.language]}
-                  </span>
-                </div>
-              </div>
-              <div className="relative">
-                <label htmlFor="password" className="sr-only">
-                  {LANGUAGE.REGISTER.PASS[preferences.language]}
-                </label>
-                <label
-                  htmlFor="username"
-                  className="text-md text-gray-500 dark:text-gray-300"
-                >
-                  {LANGUAGE.REGISTER.PASS[preferences.language]}
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type={passwordVisible ? "text" : "password"}
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    validatePassword(e.target.value, password2);
-                  }}
-                  onMouseEnter={() => setEyeVisible(true)}
-                  onMouseLeave={() => setEyeVisible(false)}
-                  className={`${
-                    passShake && "shake !border-[--wrong]"
-                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
-                />
-                <div className="absolute w-6 h-6 eye">
-                  <button
-                    className="flex justify-center items-center"
-                    onMouseEnter={() => setEyeVisible(true)}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setPasswordVisible(!passwordVisible);
-                    }}
-                  >
-                    {passwordVisible ? (
-                      <EyeOff
-                        className={`dark:text-white ${
-                          eyeVisible ? "sm:block" : "sm:hidden"
-                        }`}
-                      ></EyeOff>
-                    ) : (
-                      <EyeIcon
-                        className={`dark:text-white block ${
-                          eyeVisible ? "sm:block" : "sm:hidden"
-                        }`}
-                      ></EyeIcon>
-                    )}
-                  </button>
-                </div>
-                <div
-                  className={`absolute w-6 h-6 pass-check ${
-                    valPassword == null && "hidden"
-                  } ${
-                    valPassword != null
-                      ? password.length < 6
-                        ? "[&::before]:text-[--wrong]"
-                        : "[&::before]:text-[--good]"
-                      : "text-transparent"
-                  } ${
-                    valPassword != null
-                      ? password2.length < 6
-                        ? "[&::after]:text-[--wrong]"
-                        : "[&::after]:text-[--good]"
-                      : "text-transparent"
-                  } ${
-                    valPassword != null &&
-                    (valPassword ? "text-[--good]" : "text-[--wrong]")
-                  } group`}
-                >
-                  {valPassword ? (
-                    <LucideCheckCircle2></LucideCheckCircle2>
-                  ) : (
-                    <XCircle></XCircle>
-                  )}
+              <InputText
+                label={LANGUAGE.REGISTER.USERNAME[preferences.language]}
+                id="username"
+                name="username"
+                type="text"
+                required
+                value={username}
+                setValue={setUsername}
+                validateValue={validateUsername}
+                shake={nameShake}
+                valValue={valUsername}
+                val_valid={
+                  LANGUAGE.REGISTER.USERNAME_VALID[preferences.language]
+                }
+                val_not_valid={
+                  LANGUAGE.REGISTER.USERNAME_NOT_VALID[preferences.language]
+                }
+              />
+              <InputText
+                label={LANGUAGE.REGISTER.EMAIL[preferences.language]}
+                id="email-address"
+                name="email"
+                type="email"
+                required
+                value={email}
+                setValue={setEmail}
+                validateValue={validateEmail}
+                shake={emailShake}
+                valValue={valEmail}
+                val_valid={LANGUAGE.REGISTER.EMAIL_VALID[preferences.language]}
+                val_not_valid={
+                  LANGUAGE.REGISTER.EMAIL_NOT_VALID[preferences.language]
+                }
+              />
 
-                  <span className="tooltiptext group-hover:visible max-w-[80vw] after:border-transparent right-[140%] lg:right-auto lg:left-[140%] shadow-sm shadow-gray-300 dark:shadow-gray-600 text-gray-800 bg-gray-50 after:border-r-gray-50 dark:text-white dark:bg-gray-800 dark:after:border-r-gray-800">
-                    {valPassword
-                      ? LANGUAGE.REGISTER.PASS_VALID[preferences.language]
-                      : password2.length < 6 || password2.length < 6
-                      ? LANGUAGE.REGISTER.PASS_NOT_VALID[preferences.language]
-                      : LANGUAGE.REGISTER.PASS_NOT_MATCH[preferences.language]}
-                  </span>
-                </div>
-              </div>
-              <div className="relative">
-                <label htmlFor="password2" className="sr-only">
-                  {LANGUAGE.REGISTER.REPEAT_PASS[preferences.language]}
-                </label>
-                <label
-                  htmlFor="username"
-                  className="text-md text-gray-500 dark:text-gray-300"
-                >
-                  {LANGUAGE.REGISTER.REPEAT_PASS[preferences.language]}
-                </label>
-                <input
-                  id="password2"
-                  name="password2"
-                  type={passwordVisible ? "text" : "password"}
-                  autoComplete="current-password"
-                  required
-                  value={password2}
-                  onChange={(e) => {
-                    setPassword2(e.target.value);
-                    validatePassword(e.target.value, password);
-                  }}
-                  onMouseEnter={() => setEyeVisible(true)}
-                  onMouseLeave={() => setEyeVisible(false)}
-                  className={`${
-                    passShake && "shake !border-[--wrong]"
-                  } appearance-none text-md h-12 my-1 rounded-md relative block w-full px-3 py-2 border autofill:bg-gray-900 dark:bg-gray-900 dark:border-gray-500 dark:text-white border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10`}
-                />
-                <div className="absolute w-6 h-6 eye">
-                  <button
-                    className="flex justify-center items-center"
-                    onMouseEnter={() => setEyeVisible(true)}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setPasswordVisible(!passwordVisible);
-                    }}
-                  >
-                    {passwordVisible ? (
-                      <EyeOff
-                        className={`dark:text-white ${
-                          eyeVisible ? "sm:block" : "sm:hidden"
-                        }`}
-                      ></EyeOff>
-                    ) : (
-                      <EyeIcon
-                        className={`dark:text-white block ${
-                          eyeVisible ? "sm:block" : "sm:hidden"
-                        }`}
-                      ></EyeIcon>
-                    )}
-                  </button>
-                </div>
-              </div>
+              <InputPasswordRepeat
+                label1={LANGUAGE.REGISTER.PASS[preferences.language]}
+                id1="password"
+                name1="password"
+                password1={password}
+                label2={LANGUAGE.REGISTER.REPEAT_PASS[preferences.language]}
+                id2="password2"
+                name2="password2"
+                password2={password2}
+                setPassword1={setPassword}
+                setPassword2={setPassword2}
+                validatePassword={validatePassword}
+                shake={passShake}
+                valPassword={valPassword}
+                pass_valid={LANGUAGE.REGISTER.PASS_VALID[preferences.language]}
+                pass_not_valid={
+                  LANGUAGE.REGISTER.PASS_NOT_VALID[preferences.language]
+                }
+                pass_not_match={
+                  LANGUAGE.REGISTER.PASS_NOT_MATCH[preferences.language]
+                }
+              />
             </div>
 
             <div
@@ -449,6 +266,14 @@ export default function Register() {
               </button>
             </div>
           </form>
+
+          <ODivisor></ODivisor>
+
+          <GoogleButton
+            text={LANGUAGE.LOGIN.SIGNIN_GOOGLE[preferences.language]}
+            url={`https://3dcute.up.railway.app/app/auth/google`}
+            disabled={loadingSubmit}
+          ></GoogleButton>
         </div>
       </div>
     </div>
