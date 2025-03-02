@@ -251,6 +251,10 @@ export const LANGUAGE = {
       es: "Imformación del pago",
       en: "Payment Information",
     },
+    PAYMENT_METHODS: {
+      es: "Metodos de pago",
+      en: "Payment Methods",
+    },
     NAME: {
       es: "Nombre",
       en: "Name",
@@ -280,8 +284,8 @@ export const LANGUAGE = {
       en: "Postal Code",
     },
     PAY: {
-      es: "Pagar con Tropipay ahora",
-      en: "Pay with TropiPay",
+      es: "Pagar ahora",
+      en: "Pay now",
     },
     TERMS_AND_CONDITIONS: {
       es: "Al continuar con el pago aceptas los Términos y Condiciones de la Plataforma Tropipay",
