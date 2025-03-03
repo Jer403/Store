@@ -47,7 +47,7 @@ export function CartProductItem({
               </>
             )}
           </button>
-          <p className="text-md flex items-center dark:text-gray-50">
+          <p className="text-lg font-medium flex items-center dark:text-gray-50">
             ${product.price}.00
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function Cart() {
 
   return (
     <div className="min-h-screen-minus-64 dottedBackground py-12">
-      <div className="max-w-[1536px] mx-auto px-4">
+      <div className="max-w-[1396px] mx-auto px-4">
         <div className="w-full">
           <h1
             key={titleCId}
@@ -137,7 +137,7 @@ export default function Cart() {
               </p>
               <p className="text-xl border-t py-2 flex justify-between items-end dark:text-gray-200">
                 {LANGUAGE.CART.TOTAL[preferences.language]}{" "}
-                <span className="font-bold text-sm">
+                <span className="font-bold text-lg">
                   ${cart.reduce((sum = 0, item) => sum + item.price, 0)}.00
                 </span>
               </p>

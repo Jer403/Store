@@ -164,7 +164,7 @@ export default function Checkout() {
                         <MasterCardLogo className="h-9 w-9"></MasterCardLogo>
                       </>
                     }
-                    gap={"12px"}
+                    gap={"10px"}
                     formHidden={false}
                     formLabelTitle={
                       LANGUAGE.CHECKOUT.PAYMENT_INFORMATION[

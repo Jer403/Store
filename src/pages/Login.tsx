@@ -59,27 +59,32 @@ export default function Login() {
 
   const submitClickHandler = async ({ e }: SubmitClickProps) => {
     e.preventDefault();
+    console.log("Starting auth request");
 
     if (valEmail == true && valPassword == true) {
       setLoadingSubmit(true);
-      console.log(remeberme);
-      const res = (await signIn({
-        email,
-        password,
-        remember: remeberme,
-      })) as AxiosResult;
-      console.log(res);
+      console.log("All fine for auth");
+      try {
+        const res = (await signIn({
+          email,
+          password,
+          remember: remeberme,
+        })) as AxiosResult;
+        console.log(res);
 
-      const userInfo = res.response.data as unknown as UserInterface;
-
-      if (res.status == 200) {
-        setDataToDefault();
-        setSuccess(true);
-        connectUserToMessageChannel(userInfo);
-      } else {
-        setRequestErrors(res.response.data);
+        if (res.status == 200) {
+          const userInfo = res.response.data as unknown as UserInterface;
+          setDataToDefault();
+          setSuccess(true);
+          connectUserToMessageChannel(userInfo);
+        } else {
+          setRequestErrors(res.response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingSubmit(false);
       }
-      setLoadingSubmit(false);
     } else {
       if (valEmail != true) {
         setEmailShake(true);
@@ -96,6 +101,7 @@ export default function Login() {
         setValpassword(false);
       }
     }
+    setLoadingSubmit(false);
   };
 
   useEffect(() => {

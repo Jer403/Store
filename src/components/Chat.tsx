@@ -169,7 +169,7 @@ export function Chat() {
             isChatOpen
               ? "flex border border-gray-200 dark:border-gray-500"
               : "hidden"
-          } flex-col bg-white rounded-md w-full h-[600px] max-h-[600px] shadow-md shadow-gray-300 dark:shadow-gray-600`}
+          } flex-col bg-white rounded-lg overflow-hidden w-full h-[600px] max-h-[600px] shadow-md shadow-gray-300 dark:shadow-gray-600`}
         >
           <div
             className={`flex w-full border-b border-gray-200 rounded-t-md h-12 items-center justify-center gap-3 p-2`}
@@ -275,13 +275,12 @@ export function Chat() {
           </div>
 
           <div
-            className={`w-full border-t border-gray-200 ${
+            className={`w-full bg-gray-100 ${
               isInChat ? "flex" : "hidden"
-            } h-12 items-center`}
+            } h-16 px-3 pb-3 items-center`}
           >
             <form
-              action=""
-              className="flex h-full w-full"
+              className="flex h-full w-full bg-white shadow-sm shadow-gray-300 rounded-lg overflow-hidden border border-gray-200"
               onSubmit={handleChatSubmit}
             >
               <div className="flex w-full">
@@ -291,7 +290,7 @@ export function Chat() {
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full rounded-bl-md focus:z-30 focus:outline-none border-0 focus:border focus:border-indigo-500 text-md p-1 px-2 bg-white"
+                  className="w-full rounded-l-lg focus:z-30 focus:outline-none border-0 focus:border focus:border-indigo-500 text-md p-1 px-2 bg-white"
                   placeholder="Escribe algo..."
                 />
                 <button
@@ -299,7 +298,7 @@ export function Chat() {
                     message == undefined
                       ? "hover:text-gray-500"
                       : "hover:text-indigo-600 hover:bg-indigo-100"
-                  } rounded-br-md`}
+                  }`}
                 >
                   <Send className="flex justify-center items-center w-7 h-7"></Send>
                 </button>

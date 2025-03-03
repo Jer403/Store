@@ -17,11 +17,7 @@ export const loginRequest = async (user: {
   email: string;
   password: string;
 }) => {
-  try {
-    return await axios.post(`/login`, user);
-  } catch (error) {
-    console.log(error);
-  }
+  return await axios.post(`/login`, user);
 };
 
 export const verifyTokenRequest = async () => {

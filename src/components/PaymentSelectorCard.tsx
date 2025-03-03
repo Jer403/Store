@@ -44,7 +44,7 @@ export function PaymentSelectorCard({
                 {title}
               </span>
             </div>
-            <div className={`flex items-center justify-end gap-[${gap}]`}>
+            <div className={`flex items-center justify-end`} style={{ gap }}>
               {childrenIcon}
             </div>
           </div>
@@ -72,7 +72,7 @@ export function PaymentSelectorCard({
                 {title}
               </span>
             </div>
-            <div className={`flex items-center justify-end gap-[${gap}]`}>
+            <div className={`flex items-center justify-end`} style={{ gap }}>
               {childrenIcon}
             </div>
           </div>

@@ -73,9 +73,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }) => {
     try {
       const res = await loginRequest(user);
+      console.log(res);
       if (!res) throw new Error("Request failed");
-      setUser(res.data);
-      setLogged(true);
+      if (res.status == 200) {
+        setUser(res.data);
+        setLogged(true);
+      }
       return res;
     } catch (error) {
       console.log(error);
