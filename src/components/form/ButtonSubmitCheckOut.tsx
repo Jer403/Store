@@ -1,7 +1,10 @@
 interface ButtonSubmitInterface {
   hideInMoblie: boolean;
   loadingSubmit: boolean;
+  type: "submit" | "reset" | "button" | undefined;
+  form?: string;
   loading: boolean;
+  onclick?: () => void;
   disabled: boolean;
   text: string;
 }
@@ -9,19 +12,24 @@ interface ButtonSubmitInterface {
 export function ButtonSubmitCheckOut({
   hideInMoblie,
   loadingSubmit,
+  type,
+  form,
+  onclick,
   loading,
   disabled,
   text,
 }: ButtonSubmitInterface) {
   return (
     <button
-      type="submit"
+      form={form}
+      type={type}
       className={`w-full bg-indigo-600 ${
         hideInMoblie ? "hidden md:flex" : "flex md:!hidden"
       } text-white py-3 mt-3 rounded-lg hover:bg-indigo-700  items-center justify-center ${
         loading && "cursor-not-allowed bg-indigo-800"
-      }`}
+      } ${loading && "cursor-not-allowed bg-indigo-800"}`}
       disabled={disabled}
+      onClick={onclick}
     >
       {loadingSubmit ? (
         <svg

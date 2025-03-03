@@ -15,8 +15,8 @@ import { QvaPayLogo } from "../components/Elements/QvaPayLogo";
 import { BitcoinLogo } from "../components/Elements/BitcoinLogo";
 import { EthereumLogo } from "../components/Elements/EthereumLogo";
 import { LitecoinLogo } from "../components/Elements/LitecoinLogo";
-
-type PayMethods = "tpp" | "qvapay";
+import { PaymentSelectorCard } from "../components/PaymentSelectorCard";
+import { PayMethods } from "../types";
 
 export default function Checkout() {
   const { state: cart, loadingCart } = useCart();
@@ -35,7 +35,7 @@ export default function Checkout() {
   const [city, setCity] = useState("Barcelona");
   const [postalCode, setPostalCode] = useState("78622");
 
-  const handleClickSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleTppSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("starting to submit");
     if (!loadingSubmit) {
@@ -60,6 +60,11 @@ export default function Checkout() {
     }
   };
 
+  const handleQvaPaySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Submit from qvapay");
+  };
+
   const [total, setTotal] = useState(0);
 
   const orderCId = useId();
@@ -75,235 +80,242 @@ export default function Checkout() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-full mx-auto mb-10 ">
           <div className="bg-white dark:bg-gray-900 md:dark:bg-transparent md:bg-transparent rounded-lg">
-            <form
-              className=" flex flex-col md:flex-row-reverse md:justify-center md:gap-3 rounded-lg shadow-md md:shadow-none p-6 md:p-0"
-              onSubmit={handleClickSubmit}
-            >
-              <div className="md:dark:bg-gray-900 md:bg-white md:p-6 md:rounded-lg md:shadow-md w-full md:max-w-80 lg:max-w-[360px] flex flex-col max-h-full h-fit mb-6 md:!mb-0">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-                  {LANGUAGE.CHECKOUT.TITLE[preferences.language]}
-                </h1>
+            <div className=" flex flex-col md:flex-row-reverse md:justify-center md:gap-3 shadow-md md:shadow-none p-6 md:p-0">
+              <div className="w-full flex flex-col md:flex-row-reverse md:justify-center md:gap-3 ">
+                <div className="md:dark:bg-gray-900 md:bg-white md:p-6 md:rounded-lg md:shadow-md w-full md:max-w-80 lg:max-w-[360px] flex flex-col max-h-full h-fit mb-6 md:!mb-0">
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+                    {LANGUAGE.CHECKOUT.TITLE[preferences.language]}
+                  </h1>
 
-                <div>
-                  <h2
-                    key={orderCId}
-                    className="text-lg font-semibold dark:text-gray-100 mb-4"
-                  >
-                    {LANGUAGE.CHECKOUT.SUMMARY[preferences.language]}
-                  </h2>
-                  <div
-                    key={itemsCId}
-                    className="border-t border-b dark:border-gray-500 py-4"
-                  >
-                    <div className="max-h-full px-1 overflow-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-md">
-                      {cart.length != 0 ? (
-                        <>
-                          {cart.map((prod) => (
-                            <ProductItemCheckOut
-                              product={prod}
-                              CId={itemsCId}
-                            />
-                          ))}
-                        </>
-                      ) : (
-                        <p className="text-xl dark:text-gray-100">
-                          {LANGUAGE.CHECKOUT.ANY[preferences.language]}
-                        </p>
-                      )}
+                  <div>
+                    <h2
+                      key={orderCId}
+                      className="text-xl font-bold dark:text-gray-100 mb-4"
+                    >
+                      {LANGUAGE.CHECKOUT.SUMMARY[preferences.language]}
+                    </h2>
+                    <div
+                      key={itemsCId}
+                      className="border-t border-b dark:border-gray-500 py-4"
+                    >
+                      <div className="max-h-full px-1 overflow-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-md">
+                        {cart.length != 0 ? (
+                          <>
+                            {cart.map((prod) => (
+                              <ProductItemCheckOut
+                                product={prod}
+                                CId={itemsCId}
+                              />
+                            ))}
+                          </>
+                        ) : (
+                          <p className="text-xl dark:text-gray-100">
+                            {LANGUAGE.CHECKOUT.ANY[preferences.language]}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col mt-4">
-                    <span className="font-bold text-lg flex justify-between dark:text-gray-100">
-                      {LANGUAGE.CHECKOUT.TOTAL[preferences.language]}
-                      <span>
-                        <span className="font-bold text-xl dark:text-gray-100">
-                          ${total}
+                    <div className="flex flex-col mt-4">
+                      <span className="font-bold text-lg flex justify-between dark:text-gray-100">
+                        {LANGUAGE.CHECKOUT.TOTAL[preferences.language]}
+                        <span>
+                          <span className="font-bold text-xl dark:text-gray-100">
+                            ${total}
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
-                </div>
 
-                <ButtonSubmitCheckOut
-                  hideInMoblie
-                  loadingSubmit={loadingSubmit}
-                  loading={loadingCart || loadingSubmit || cart.length == 0}
-                  disabled={loadingCart || loadingSubmit || cart.length == 0}
-                  text={LANGUAGE.CHECKOUT.PAY[preferences.language]}
-                />
-              </div>
-              <div className="md:dark:bg-gray-900 md:bg-white md:p-6 md:rounded-lg md:shadow-md w-full max-w-2xl flex flex-col gap-3 ">
-                <span className="dark:text-white text-lg font-semibold">
-                  {LANGUAGE.CHECKOUT.PAYMENT_METHODS[preferences.language]}
-                </span>
-                <div
-                  className={`overflow-hidden border transition-[max-height] duration-500 ${
-                    payMethod == "tpp"
-                      ? "border-indigo-500 pt-14 max-h-[745px]"
-                      : "border-gray-600 hover:border-gray-500 pt-[55px] max-h-0 cursor-pointer"
-                  } border-gray-600 rounded-xl relative`}
-                >
-                  <div
-                    className={`w-full h-14 bg-gray-800 border-b hover:border-indigo-500 ${
-                      payMethod == "tpp"
-                        ? "border-indigo-500"
-                        : "border-gray-600"
-                    }  absolute top-0 left-0 gap-3 rounded-xl flex items-center justify-between p-3`}
-                    onClick={() => setPayMethod("tpp")}
-                  >
-                    <div className="flex items-center justify-start gap-3">
-                      <TropipayLogo className="h-9 w-9"></TropipayLogo>
-                      <span className="dark:text-white text-md md:text-lg ">
-                        Pay with Tropipay
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-end gap-3">
-                      <VisaLogo className="h-9 w-9"></VisaLogo>
-                      <MasterCardLogo className="h-9 w-9"></MasterCardLogo>
-                    </div>
-                  </div>
-                  <div className="p-3">
-                    <h2 className="text-lg font-semibold mb-4 dark:text-gray-50">
-                      {
-                        LANGUAGE.CHECKOUT.PAYMENT_INFORMATION[
-                          preferences.language
-                        ]
-                      }
-                    </h2>
-                    <div className="space-y-4 ">
-                      <InputTextCheckOut
-                        label={LANGUAGE.CHECKOUT.NAME[preferences.language]}
-                        id="name"
-                        name="name"
-                        required
-                        type="text"
-                        value={name}
-                        setValue={setName}
-                        disabled={loadingSubmit || cart.length == 0}
-                      />
-                      <InputTextCheckOut
-                        label={LANGUAGE.CHECKOUT.LASTNAME[preferences.language]}
-                        id="lastname"
-                        name="lastname"
-                        required={true}
-                        type="text"
-                        value={lastName}
-                        setValue={setLastName}
-                        disabled={loadingSubmit || cart.length == 0}
-                      />
-                      <InputSelectPhone
-                        label={LANGUAGE.CHECKOUT.PHONE[preferences.language]}
-                        id="phone"
-                        name="phone"
-                        required
-                        value={phoneNumber}
-                        setValue={setPhoneNumber}
-                        setCallingCode={setCallingCode}
-                        disabled={loadingSubmit || cart.length == 0}
-                        countries={
-                          COUNTRIES as {
-                            id: number;
-                            slug: string;
-                            callingCode: number;
-                          }[]
-                        }
-                      />
-                      <InputTextCheckOut
-                        label={LANGUAGE.CHECKOUT.ADDRESS[preferences.language]}
-                        id="address"
-                        name="address"
-                        required
-                        type="text"
-                        value={address}
-                        setValue={setAddress}
-                        disabled={loadingSubmit || cart.length == 0}
-                      />
-                      <InputCountry
-                        label={LANGUAGE.CHECKOUT.COUNTRY[preferences.language]}
-                        id="country"
-                        name="country"
-                        required
-                        value={country}
-                        setValue={setCountry}
-                        disabled={loadingSubmit || cart.length == 0}
-                        countries={
-                          COUNTRIES as {
-                            id: number;
-                            name: string;
-                          }[]
-                        }
-                      />
-                      <div className="grid grid-cols-2 gap-4">
+                  <ButtonSubmitCheckOut
+                    hideInMoblie
+                    type="submit"
+                    form={payMethod != null ? payMethod : undefined}
+                    loadingSubmit={loadingSubmit}
+                    loading={
+                      loadingCart ||
+                      loadingSubmit ||
+                      cart.length == 0 ||
+                      payMethod == null
+                    }
+                    disabled={
+                      loadingCart ||
+                      loadingSubmit ||
+                      cart.length == 0 ||
+                      payMethod == null
+                    }
+                    text={LANGUAGE.CHECKOUT.PAY[preferences.language]}
+                  />
+                </div>
+                <div className="md:dark:bg-gray-900 md:bg-white md:p-6 md:rounded-lg md:shadow-md w-full max-w-2xl flex flex-col gap-3 ">
+                  <span className="dark:text-white text-xl font-bold">
+                    {LANGUAGE.CHECKOUT.PAYMENT_METHODS[preferences.language]}
+                  </span>
+
+                  <PaymentSelectorCard
+                    id="tpp"
+                    title="Pay With Tropipay"
+                    payMethod={payMethod}
+                    setPayMethod={setPayMethod}
+                    icon={<TropipayLogo className="h-9 w-9"></TropipayLogo>}
+                    childrenIcon={
+                      <>
+                        <VisaLogo className="h-9 w-9"></VisaLogo>
+                        <MasterCardLogo className="h-9 w-9"></MasterCardLogo>
+                      </>
+                    }
+                    gap={"12px"}
+                    formHidden={false}
+                    formLabelTitle={
+                      LANGUAGE.CHECKOUT.PAYMENT_INFORMATION[
+                        preferences.language
+                      ]
+                    }
+                    formChildren={
+                      <>
                         <InputTextCheckOut
-                          label={LANGUAGE.CHECKOUT.CITY[preferences.language]}
-                          id="city"
-                          name="city"
+                          label={LANGUAGE.CHECKOUT.NAME[preferences.language]}
+                          id="name"
+                          name="name"
                           required
                           type="text"
-                          value={city}
-                          setValue={setCity}
+                          value={name}
+                          setValue={setName}
                           disabled={loadingSubmit || cart.length == 0}
                         />
                         <InputTextCheckOut
                           label={
-                            LANGUAGE.CHECKOUT.POSTALCODE[preferences.language]
+                            LANGUAGE.CHECKOUT.LASTNAME[preferences.language]
                           }
-                          id="postalCode"
-                          name="postalCode"
-                          required
-                          type="number"
-                          value={postalCode}
-                          setValue={setPostalCode}
+                          id="lastname"
+                          name="lastname"
+                          required={true}
+                          type="text"
+                          value={lastName}
+                          setValue={setLastName}
                           disabled={loadingSubmit || cart.length == 0}
                         />
-                      </div>
-                    </div>
-                  </div>
+                        <InputSelectPhone
+                          label={LANGUAGE.CHECKOUT.PHONE[preferences.language]}
+                          id="phone"
+                          name="phone"
+                          required
+                          value={phoneNumber}
+                          setValue={setPhoneNumber}
+                          setCallingCode={setCallingCode}
+                          disabled={loadingSubmit || cart.length == 0}
+                          countries={
+                            COUNTRIES as {
+                              id: number;
+                              slug: string;
+                              callingCode: number;
+                            }[]
+                          }
+                        />
+                        <InputTextCheckOut
+                          label={
+                            LANGUAGE.CHECKOUT.ADDRESS[preferences.language]
+                          }
+                          id="address"
+                          name="address"
+                          required
+                          type="text"
+                          value={address}
+                          setValue={setAddress}
+                          disabled={loadingSubmit || cart.length == 0}
+                        />
+                        <InputCountry
+                          label={
+                            LANGUAGE.CHECKOUT.COUNTRY[preferences.language]
+                          }
+                          id="country"
+                          name="country"
+                          required
+                          value={country}
+                          setValue={setCountry}
+                          disabled={loadingSubmit || cart.length == 0}
+                          countries={
+                            COUNTRIES as {
+                              id: number;
+                              name: string;
+                            }[]
+                          }
+                        />
+                        <div className="grid grid-cols-2 gap-4">
+                          <InputTextCheckOut
+                            label={LANGUAGE.CHECKOUT.CITY[preferences.language]}
+                            id="city"
+                            name="city"
+                            required
+                            type="text"
+                            value={city}
+                            setValue={setCity}
+                            disabled={loadingSubmit || cart.length == 0}
+                          />
+                          <InputTextCheckOut
+                            label={
+                              LANGUAGE.CHECKOUT.POSTALCODE[preferences.language]
+                            }
+                            id="postalCode"
+                            name="postalCode"
+                            required
+                            type="number"
+                            value={postalCode}
+                            setValue={setPostalCode}
+                            disabled={loadingSubmit || cart.length == 0}
+                          />
+                        </div>
+                      </>
+                    }
+                    handleSubmit={handleTppSubmit}
+                  />
+
+                  <PaymentSelectorCard
+                    id="qvapay"
+                    title="Pay with QvaPay"
+                    payMethod={payMethod}
+                    setPayMethod={setPayMethod}
+                    icon={<QvaPayLogo className="h-9 w-9" />}
+                    formHidden
+                    childrenIcon={
+                      <>
+                        <BitcoinLogo className="h-5 md:h-7" />
+                        <EthereumLogo className="h-5 md:h-7" />
+                        <LitecoinLogo className="h-5 md:h-7" />
+                        <div className="h-5 md:h-7 w-7 md:w-10 rounded-full bg-gray-700 flex items-center justify-center gap-1">
+                          <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
+                          <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
+                          <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
+                        </div>
+                      </>
+                    }
+                    gap={"2px"}
+                    formChildren={<></>}
+                    handleSubmit={handleQvaPaySubmit}
+                  />
+
+                  <ButtonSubmitCheckOut
+                    hideInMoblie={false}
+                    type="submit"
+                    form={payMethod != null ? payMethod : undefined}
+                    loadingSubmit={loadingSubmit}
+                    loading={
+                      loadingCart ||
+                      loadingSubmit ||
+                      cart.length == 0 ||
+                      payMethod == null
+                    }
+                    disabled={
+                      loadingCart ||
+                      loadingSubmit ||
+                      cart.length == 0 ||
+                      payMethod == null
+                    }
+                    text={LANGUAGE.CHECKOUT.PAY[preferences.language]}
+                  />
                 </div>
-                <div
-                  className={`w-full h-14 bg-gray-800 border hover:cursor-pointer ${
-                    payMethod == "qvapay"
-                      ? "border-indigo-500"
-                      : "border-gray-600 hover:border-gray-500"
-                  }  gap-3 rounded-xl flex items-center justify-between p-3`}
-                  onClick={() => setPayMethod("qvapay")}
-                >
-                  <div className="flex items-center justify-start gap-3">
-                    <QvaPayLogo className="h-9 w-9" />
-                    <span className="dark:text-white text-sm sm:text-md md:text-lg">
-                      Pay with QvaPay
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end gap-[2px]">
-                    <BitcoinLogo className="h-5 md:h-7" />
-                    <EthereumLogo className="h-5 md:h-7" />
-                    <LitecoinLogo className="h-5 md:h-7" />
-                    <div className="h-5 md:h-7 w-7 md:w-10 rounded-full bg-gray-700 flex items-center justify-center gap-1">
-                      <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
-                      <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
-                      <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
-                    </div>
-                  </div>
-                </div>
-                <ButtonSubmitCheckOut
-                  hideInMoblie={false}
-                  loadingSubmit={loadingSubmit}
-                  loading={
-                    loadingCart ||
-                    loadingSubmit ||
-                    cart.length == 0 ||
-                    payMethod == null
-                  }
-                  disabled={
-                    loadingCart ||
-                    loadingSubmit ||
-                    cart.length == 0 ||
-                    payMethod == null
-                  }
-                  text={LANGUAGE.CHECKOUT.PAY[preferences.language]}
-                />
               </div>
-            </form>
+            </div>
           </div>
           <div className="flex mt-4 items-center justify-center">
             <p className="text-sm text-gray-600 px-3">

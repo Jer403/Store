@@ -21,22 +21,27 @@ import { sendMessageRequest } from "../Api/chat";
 import { DropDownTab } from "./DropDownTab";
 
 function ChatMessageCard({ chat }: { chat: ChatMessage }) {
-  const date = new Date(chat.created_at + " UTC");
+  const date =
+    chat.created_at == "null" ? null : new Date(chat.created_at + " UTC");
   const { loadingMessage } = useChat();
   return (
     <div
-      className={`relative flex max-w-80 min-h-max h-fit w-fit ${
-        chat.isMessageFromUser == "true" && "self-end"
-      } p-2 border rounded-md border-gray-200 bg-gray-100`}
+      className={`relative rounded-lg flex max-w-80 min-h-max h-fit w-fit ${
+        chat.isMessageFromUser == "true"
+          ? "self-end !rounded-br-none"
+          : "!rounded-bl-none"
+      } p-2 border border-gray-200 bg-white shadow-sm`}
     >
       <p className="flex justify-start text-start text-sm ">
-        {chat.message} &emsp;&emsp;&emsp;&emsp;
+        {chat.message} {date && <>&emsp;&emsp;&emsp;&emsp;</>}
       </p>
-      <p className="text-sm absolute right-1 bottom-1 text-gray-500">{`${formatHours(
-        date.getHours()
-      )}:${formatMinutes(date.getMinutes())} ${whichMeridian(
-        date.getHours()
-      )}`}</p>
+      {date && (
+        <p className="text-sm absolute right-1 bottom-1 text-gray-500">{`${formatHours(
+          date.getHours()
+        )}:${formatMinutes(date.getMinutes())} ${whichMeridian(
+          date.getHours()
+        )}`}</p>
+      )}
       {loadingMessage.find((el) => el.id == chat.id) && (
         <div className="absolute top-1 right-1 items-end justify-end">
           <Clock className="text-gray-500" width={13} height={13}></Clock>
@@ -51,7 +56,7 @@ function DateDivisor({ dateS }: { dateS: string }) {
   return (
     <div className={`relative my-2 flex w-full justify-center items-center`}>
       <div className="border-b w-[80%] absolute border-gray-300"></div>
-      <p className="bg-white z-10 px-4 text-gray-400">{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</p>
+      <p className="bg-gray-100 z-10 px-4 text-gray-400">{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</p>
     </div>
   );
 }
@@ -152,13 +157,19 @@ export function Chat() {
     <div
       className={`${
         logged ? "fixed" : "hidden"
-      } bottom-0 right-0 mr-4 mb-[80px] lg:pr-8 lg:pb-8 lg:pl-0 w-[90%] sm:w-auto z-40`}
+      } bottom-0 right-0 mr-4 mb-[80px]  w-[90%] sm:w-auto z-50`}
     >
-      <div className="flex items-end flex-col w-full sm:w-[424px] gap-2">
+      <div
+        className={`${
+          isChatOpen && ""
+        } flex items-end flex-col w-full sm:w-[424px] gap-2 rounded-lg`}
+      >
         <div
           className={`${
-            isChatOpen ? "flex" : "hidden"
-          } flex-col bg-white rounded-md w-full h-[600px] max-h-[600px] shadow-sm shadow-gray-300 dark:shadow-gray-500`}
+            isChatOpen
+              ? "flex border border-gray-200 dark:border-gray-500"
+              : "hidden"
+          } flex-col bg-white rounded-md w-full h-[600px] max-h-[600px] shadow-md shadow-gray-300 dark:shadow-gray-600`}
         >
           <div
             className={`flex w-full border-b border-gray-200 rounded-t-md h-12 items-center justify-center gap-3 p-2`}
@@ -184,9 +195,20 @@ export function Chat() {
           <div
             className={`${
               isInChat ? "flex" : "hidden"
-            } h-full flex-col p-3 max-h-full overflow-auto gap-2 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-md`}
+            } h-full bg-gray-100 flex-col p-3 max-h-full overflow-auto gap-2 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-md`}
             id="chatBox"
           >
+            <ChatMessageCard
+              chat={{
+                id: "welcomeM",
+                userId: "admin",
+                isMessageFromUser: "false",
+                message:
+                  "Comienza una conversación con nosotros y cuentanos si tienes algun problema",
+                created_at: "null",
+              }}
+              key={"cht-" + "welcomeChat"}
+            ></ChatMessageCard>
             {loadingChat ? (
               <div className="flex justify-center items-center text-lg">
                 <CircleDashed className="loader h-6 w-6"></CircleDashed>{" "}
@@ -253,7 +275,9 @@ export function Chat() {
           </div>
 
           <div
-            className={`flex w-full border-t ${"border-gray-200"} h-12 items-center`}
+            className={`w-full border-t border-gray-200 ${
+              isInChat ? "flex" : "hidden"
+            } h-12 items-center`}
           >
             <form
               action=""
@@ -267,15 +291,10 @@ export function Chat() {
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full rounded-bl-md focus:z-30 focus:outline-indigo-500 text-md p-1 px-2 bg-white"
+                  className="w-full rounded-bl-md focus:z-30 focus:outline-none border-0 focus:border focus:border-indigo-500 text-md p-1 px-2 bg-white"
                   placeholder="Escribe algo..."
                 />
                 <button
-                  // disabled={
-                  //   chatSelected == null ||
-                  //   message == undefined ||
-                  //   message.length == 0
-                  // }
                   className={`h-full w-12 flex justify-center items-center text-gray-900 ${
                     message == undefined
                       ? "hover:text-gray-500"
@@ -291,7 +310,7 @@ export function Chat() {
         <div
           className={`${
             isChatOpen ? "rotate-0" : "rotate-12"
-          } bg-white absolute border-2 -bottom-[64px] right-0 border-indigo-400 dark:border-transparent dark:bg-gray-50 w-14 h-14 rounded-xl flex justify-center items-center shadow-sm shadow-gray-300 dark:shadow-gray-500 transition-transform`}
+          } bg-white absolute border-2 -bottom-[64px] right-0 border-indigo-500 dark:border-transparent dark:bg-gray-50 w-14 h-14 rounded-xl flex justify-center items-center transition-transform`}
           onClick={() => {
             setIsChatOpen(!isChatOpen);
             setNotSeenMessagesToSeen();

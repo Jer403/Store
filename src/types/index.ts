@@ -14,6 +14,8 @@ export interface Product {
   gallery?: string[];
 }
 
+export type PayMethods = "tpp" | "qvapay" | "asd";
+
 export interface CartProduct {
   id: string;
   title: string;
