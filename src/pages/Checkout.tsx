@@ -1,7 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { COUNTRIES, LANGUAGE } from "../consts";
-import { paymentCardRequest } from "../Api/tpp";
 import { usePreferences } from "../hooks/usePreferences";
 import { InputTextCheckOut } from "../components/form/InputTextCheckOut";
 import { InputSelectPhone } from "../components/form/InputSelectPhone";
@@ -17,6 +16,8 @@ import { EthereumLogo } from "../components/Elements/EthereumLogo";
 import { LitecoinLogo } from "../components/Elements/LitecoinLogo";
 import { PaymentSelectorCard } from "../components/PaymentSelectorCard";
 import { PayMethods } from "../types";
+import { paymentLinkRequest as qvapayPaymentLinkRequest } from "../Api/qvapay";
+import { paymentLinkRequest as tppPaymentLinkRequest } from "../Api/tpp";
 
 export default function Checkout() {
   const { state: cart, loadingCart } = useCart();
@@ -37,11 +38,11 @@ export default function Checkout() {
 
   const handleTppSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("starting to submit");
+    console.log("starting to submit tropipay");
     if (!loadingSubmit) {
       console.log("All is fine");
       setLoadingSubmit(true);
-      const res = await paymentCardRequest({
+      const res = await tppPaymentLinkRequest({
         name,
         lastName,
         phoneNumber: `+${callingCode}${phoneNumber}`,
@@ -62,7 +63,19 @@ export default function Checkout() {
 
   const handleQvaPaySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submit from qvapay");
+    console.log("starting to submit qvapay");
+    if (!loadingSubmit) {
+      console.log("All is fine");
+      setLoadingSubmit(true);
+      const res = await qvapayPaymentLinkRequest();
+      if (!res) return;
+      if (res.status == 200) {
+        console.log(res);
+        location.href = res.data.paymentlink;
+        return;
+      }
+      console.log(res);
+    }
   };
 
   const [total, setTotal] = useState(0);

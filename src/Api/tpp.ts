@@ -1,6 +1,6 @@
 import axios from "./axios.ts";
 
-export const paymentCardRequest = async (data: {
+export const paymentLinkRequest = async (data: {
   name: string;
   lastName: string;
   phoneNumber: string;
@@ -10,7 +10,7 @@ export const paymentCardRequest = async (data: {
   postalCode: string;
 }) => {
   try {
-    return await axios.post(`/tpp/paymentcard`, data);
+    return await axios.post(`/tpp/paymentlink`, data);
   } catch (error) {
     console.log(error);
   }
