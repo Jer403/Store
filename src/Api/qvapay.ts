@@ -5,5 +5,6 @@ export const paymentLinkRequest = async () => {
     return await axios.post(`/qvapay/paymentlink`);
   } catch (error) {
     console.log(error);
+    return null;
   }
 };

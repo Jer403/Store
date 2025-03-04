@@ -23,6 +23,7 @@ export default function Checkout() {
   const { state: cart, loadingCart } = useCart();
   const [payMethod, setPayMethod] = useState<PayMethods | null>(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [requestErrors, setRequestErrors] = useState<string[]>([]);
   const { preferences } = usePreferences();
 
   const [name, setName] = useState("Jose");
@@ -42,22 +43,28 @@ export default function Checkout() {
     if (!loadingSubmit) {
       console.log("All is fine");
       setLoadingSubmit(true);
-      const res = await tppPaymentLinkRequest({
-        name,
-        lastName,
-        phoneNumber: `+${callingCode}${phoneNumber}`,
-        address,
-        city,
-        country,
-        postalCode,
-      });
-      if (!res) return;
-      if (res.status == 200) {
-        console.log(res);
-        location.href = res.data.paymentlink;
-        return;
+      try {
+        const res = await tppPaymentLinkRequest({
+          name,
+          lastName,
+          phoneNumber: `+${callingCode}${phoneNumber}`,
+          address,
+          city,
+          country,
+          postalCode,
+        });
+        if (!res) throw new Error("Error while creating payment");
+        if (res.data.error) throw new Error(res.data.error[0]);
+        if (res.status == 200) {
+          location.href = res.data.paymentlink;
+          return;
+        }
+      } catch (error) {
+        setRequestErrors(["Something went wrong"]);
+        console.log(error);
+      } finally {
+        setLoadingSubmit(false);
       }
-      console.log(res);
     }
   };
 
@@ -67,14 +74,20 @@ export default function Checkout() {
     if (!loadingSubmit) {
       console.log("All is fine");
       setLoadingSubmit(true);
-      const res = await qvapayPaymentLinkRequest();
-      if (!res) return;
-      if (res.status == 200) {
-        console.log(res);
-        location.href = res.data.paymentlink;
-        return;
+      try {
+        const res = await qvapayPaymentLinkRequest();
+        if (!res) throw new Error("Error while creating payment");
+        if (res.data.error) throw new Error(res.data.error[0]);
+        if (res.status == 200) {
+          location.href = res.data.paymentlink;
+          return;
+        }
+      } catch (error) {
+        setRequestErrors(["Something went wrong"]);
+        console.log(error);
+      } finally {
+        setLoadingSubmit(false);
       }
-      console.log(res);
     }
   };
 
@@ -140,6 +153,15 @@ export default function Checkout() {
                     </div>
                   </div>
 
+                  {requestErrors.length > 0 && (
+                    <div className="hidden md:flex flex-col items-start justify-center mt-2">
+                      {requestErrors.map((er) => {
+                        return (
+                          <span className="text-xl text-red-500">{er}</span>
+                        );
+                      })}
+                    </div>
+                  )}
                   <ButtonSubmitCheckOut
                     hideInMoblie
                     type="submit"
@@ -306,6 +328,15 @@ export default function Checkout() {
                     formChildren={<></>}
                     handleSubmit={handleQvaPaySubmit}
                   />
+                  {requestErrors.length > 0 && (
+                    <div className="flex md:!hidden flex-col items-start justify-center mt-2">
+                      {requestErrors.map((er) => {
+                        return (
+                          <span className="text-xl text-red-500">{er}</span>
+                        );
+                      })}
+                    </div>
+                  )}
 
                   <ButtonSubmitCheckOut
                     hideInMoblie={false}
