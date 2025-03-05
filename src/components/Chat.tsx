@@ -294,6 +294,7 @@ export function Chat() {
                   type="text"
                   name="message"
                   id="message"
+                  autoComplete="off"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="w-full rounded-l-lg focus:z-30 focus:outline-none border-0 focus:border focus:border-indigo-500 text-md p-1 px-2 bg-white"
