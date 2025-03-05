@@ -61,7 +61,7 @@ export function ProductDetails({
 
   useEffect(() => {
     if (isInCart) {
-      if (!loadingSubmit) {
+      if (loadingSubmit) {
         setLoadingSubmit(false);
       }
     }

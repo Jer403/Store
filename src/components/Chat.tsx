@@ -28,19 +28,25 @@ function ChatMessageCard({ chat }: { chat: ChatMessage }) {
     <div
       className={`relative rounded-lg flex max-w-80 min-h-max h-fit w-fit ${
         chat.isMessageFromUser == "true"
-          ? "self-end !rounded-br-none"
-          : "!rounded-bl-none"
-      } p-2 border border-gray-200 bg-white shadow-sm`}
+          ? "self-end !rounded-br-none bg-indigo-400 border-transparent shadow-gray-300"
+          : "!rounded-bl-none bg-white border-gray-200 shadow-gray-200"
+      } p-2 border shadow-md`}
     >
-      <p className="flex justify-start text-start text-sm ">
+      <p
+        className={`${
+          chat.isMessageFromUser == "true" ? "text-gray-100" : "text-gray-700"
+        } flex justify-start text-start text-sm`}
+      >
         {chat.message} {date && <>&emsp;&emsp;&emsp;&emsp;</>}
       </p>
       {date && (
-        <p className="text-sm absolute right-1 bottom-1 text-gray-500">{`${formatHours(
-          date.getHours()
-        )}:${formatMinutes(date.getMinutes())} ${whichMeridian(
-          date.getHours()
-        )}`}</p>
+        <p
+          className={`${
+            chat.isMessageFromUser == "true" ? "text-gray-100" : "text-gray-500"
+          } text-sm absolute right-1 bottom-1`}
+        >{`${formatHours(date.getHours())}:${formatMinutes(
+          date.getMinutes()
+        )} ${whichMeridian(date.getHours())}`}</p>
       )}
       {loadingMessage.find((el) => el.id == chat.id) && (
         <div className="absolute top-1 right-1 items-end justify-end">
@@ -56,7 +62,7 @@ function DateDivisor({ dateS }: { dateS: string }) {
   return (
     <div className={`relative my-2 flex w-full justify-center items-center`}>
       <div className="border-b w-[80%] absolute border-gray-300"></div>
-      <p className="bg-gray-100 z-10 px-4 text-gray-400">{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</p>
+      <p className="bg-gray-100 z-10 text-sm px-4 text-gray-400">{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</p>
     </div>
   );
 }

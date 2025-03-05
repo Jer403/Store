@@ -82,6 +82,7 @@ export default function Login() {
         }
       } catch (error) {
         console.log(error);
+        setRequestErrors(["Something went wrong"]);
       } finally {
         setLoadingSubmit(false);
       }

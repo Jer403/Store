@@ -79,7 +79,10 @@ export default function Checkout() {
         if (!res) throw new Error("Error while creating payment");
         if (res.data.error) throw new Error(res.data.error[0]);
         if (res.status == 200) {
-          location.href = res.data.paymentlink;
+          console.log(res.data.paymentlink);
+          setTimeout(() => {
+            location.href = res.data.paymentlink;
+          }, 10000);
           return;
         }
       } catch (error) {
@@ -122,7 +125,7 @@ export default function Checkout() {
                     </h2>
                     <div
                       key={itemsCId}
-                      className="border-t border-b dark:border-gray-500 py-4"
+                      className="border-t border-b dark:border-gray-600 py-4"
                     >
                       <div className="max-h-full px-1 overflow-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded-md">
                         {cart.length != 0 ? (
@@ -314,9 +317,9 @@ export default function Checkout() {
                     formHidden
                     childrenIcon={
                       <>
-                        <BitcoinLogo className="h-5 md:h-7" />
-                        <EthereumLogo className="h-5 md:h-7" />
-                        <LitecoinLogo className="h-5 md:h-7" />
+                        <BitcoinLogo className="h-5 md:h-7 -mr-3 z-50" />
+                        <EthereumLogo className="h-5 md:h-7 -mr-3 z-40" />
+                        <LitecoinLogo className="h-5 md:h-7 -mr-3 z-30" />
                         <div className="h-5 md:h-7 w-7 md:w-10 rounded-full bg-gray-700 flex items-center justify-center gap-1">
                           <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
                           <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
