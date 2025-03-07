@@ -6,7 +6,7 @@ export default function TestScroll() {
   const [scroller, setScroller] = useState(0);
 
   const handleScroll = () => {
-    const val = 100 - mapRangeClamped(50, 250, 0, 100, window.scrollY);
+    const val = 110 - mapRangeClamped(50, 250, 0, 100, window.scrollY);
     const val2 = mapRangeClamped(300, 1000, 0, 200, window.scrollY);
 
     console.log(val2);
