@@ -47,6 +47,9 @@ export default function TestScroll() {
           </div>
         </div>
       </div>
+      <div className="fixed top-16 right-2 bg-[rgba(4,4,4,0.33)] rounded-lg h-14 w-32 flex items-center justify-center">
+        <p className="text-white text-xl">{`-${back}%`}</p>
+      </div>
     </div>
   );
 }
