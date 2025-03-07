@@ -26,7 +26,7 @@ export default function TestScroll() {
     <div className="w-full h-screen">
       <div className="w-full h-[200vh] bg-gray-500"></div>
       <div
-        className="fixed w-full h-screen bg-gray-200 transition-[bottom] py-10 ease-out duration-400"
+        className="fixed w-full h-screen bg-gray-200 transition-[bottom] pt-10 ease-out duration-400"
         style={{ bottom: `-${back}%` }}
       >
         <div className="relative flex py-10 h-full overflow-hidden">
@@ -46,9 +46,6 @@ export default function TestScroll() {
             <div className="bg-gray-600 p-3 w-80 h-96"></div>
           </div>
         </div>
-      </div>
-      <div className="fixed top-16 right-2 bg-[rgba(4,4,4,0.33)] rounded-lg h-14 w-32 flex items-center justify-center">
-        <p className="text-white text-xl">{`-${back}%`}</p>
       </div>
     </div>
   );
