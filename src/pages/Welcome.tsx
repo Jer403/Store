@@ -2,8 +2,8 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BRANDNAME, LANGUAGE } from "../consts";
 import { useAuth } from "../hooks/useAuth";
-import { StoreTest } from "./StoreTest";
 import { usePreferences } from "../hooks/usePreferences";
+import { Store } from "./StoreTest";
 
 export default function Welcome() {
   const { logged } = useAuth();
@@ -139,7 +139,7 @@ export default function Welcome() {
           </div>
         </div>
       </div>
-      <StoreTest></StoreTest>
+      <Store></Store>
     </>
   );
 }

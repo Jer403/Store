@@ -10,7 +10,7 @@ import { ProductCard } from "../components/ProductCard";
 import { ProductDetails } from "../components/ProductDetail";
 import { usePreferences } from "../hooks/usePreferences";
 
-export function StoreTest() {
+export function Store() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const { products, loadingProducts } = useProduct();

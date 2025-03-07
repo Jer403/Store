@@ -15,6 +15,69 @@ export function replaceString(
   return newString;
 }
 
+export function clamp(min: number, max: number, val: number) {
+  if (val < min) return min;
+  if (val > max) return max;
+  return val;
+}
+
+export function mapRangeClamped(
+  inRangeA: number,
+  inRangeB: number,
+  outRangeA: number,
+  outRangeB: number,
+  val: number
+) {
+  if (inRangeA < inRangeB) {
+    if (outRangeA < outRangeB) {
+      if (val < inRangeA) return outRangeA;
+      if (val > inRangeB) return outRangeB;
+      const inPerc = ((val - inRangeA) / (inRangeB - inRangeA)) * 100;
+      return Math.round((inPerc * (outRangeB - outRangeA)) / 100);
+    } else {
+      if (val < inRangeA) return outRangeA;
+      if (val > inRangeB) return outRangeB;
+      const inPerc = ((val - inRangeA) / (inRangeB - inRangeA)) * 100;
+      return outRangeA + Math.round((inPerc * (outRangeB - outRangeA)) / 100);
+    }
+  } else {
+    if (outRangeA < outRangeB) {
+      if (val < inRangeB) return outRangeB;
+      if (val > inRangeA) return outRangeA;
+      console.log("asd");
+      const inPerc = ((val - inRangeB) / (inRangeA - inRangeB)) * 100;
+      return outRangeB + Math.round((inPerc * (outRangeA - outRangeB)) / 100);
+    } else {
+      if (val < inRangeB) return outRangeB;
+      if (val > inRangeA) return outRangeA;
+      const inPerc = ((val - inRangeB) / (inRangeA - inRangeB)) * 100;
+      return Math.round((inPerc * (outRangeA - outRangeB)) / 100);
+    }
+  }
+}
+
+// if (inRangeA < inRangeB) {
+//   if (val < inRangeA) return outRangeA;
+//   if (val > inRangeB) return outRangeB;
+//   const inPerc = ((val - inRangeA) / (inRangeB - inRangeA)) * 100;
+//   return Math.round((inPerc * (outRangeB - outRangeA)) / 100);
+// } else {
+//   if (val < inRangeB) return outRangeA;
+//   if (val > inRangeA) return outRangeB;
+//   const inPerc = ((val - inRangeB) / (inRangeA - inRangeB)) * 100;
+//   return Math.round((inPerc * (outRangeA - outRangeB)) / 100);
+// }
+
+export function rangeClamp(
+  rangeBreak: number,
+  outRange: number,
+  inRange: number,
+  val: number
+) {
+  if (val < rangeBreak) return inRange;
+  return outRange;
+}
+
 export function filterADifferenceB<T>(A: Array<T>, B: Array<T>) {
   const difference = A.filter((itemA) => {
     const index = B.findIndex((itemB) => itemB == itemA);
