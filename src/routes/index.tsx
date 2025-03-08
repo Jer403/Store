@@ -27,7 +27,7 @@ export function AppRouter() {
 
   return (
     <Router>
-      <div className="min-h-screen dark:bg-gray-950">
+      <div className="min-h-screen bg-[--primary]">
         <Navbar />
         <Chat />
         <Suspense fallback={<LoadingBarWrapper />}>

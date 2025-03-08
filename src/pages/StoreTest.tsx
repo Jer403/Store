@@ -58,10 +58,7 @@ export function Store() {
   );
   //  bg-gray-50 dark:bg-gray-950 bg-radial
   return (
-    <div
-      className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 relative"
-      id="store"
-    >
+    <div className="min-h-screen bg-[--primary] py-12 relative" id="store">
       <div className="max-w-[115rem] mx-auto px-4 lg:px-3 2xl:px-2">
         <h1
           className={`text-4xl font-bold text-gray-900 mb-8 transition-[padding] dark:text-gray-50 text-center ${

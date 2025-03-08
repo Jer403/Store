@@ -9,7 +9,7 @@ export function usePreferences() {
 
   const [preferences, setPreferences] = useState<Preferences>({
     language: userLanguage as Language,
-    theme: "system",
+    theme: "light",
     currency: "EUR",
   });
 

@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { BRANDNAME, LANGUAGE } from "../consts";
+import { LANGUAGE } from "../consts";
 import { useAuth } from "../hooks/useAuth";
 import { usePreferences } from "../hooks/usePreferences";
 import { Store } from "./StoreTest";
@@ -20,23 +20,23 @@ export default function Welcome() {
 
   return (
     <>
-      <div className=" bg-gradient-to-br  from-indigo-100 via-white to-purple-100 dark:from-indigo-950 dark:via-gray-950 dark:to-purple-950">
+      <div className=" bg-gradient-to-br bg-[--primary]">
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="pt-20 pb-24 text-center lg:pt-40 lg:pb-32">
-            <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
-              <span className="block">
-                {LANGUAGE.WELCOME.HERO_WELCOME[preferences.language]}
+          <div className="pt-20 pb-24 text-center lg:pt-36 lg:pb-32">
+            <h1 className="text-4xl font-extrabold text-gray-900 flex items-center justify-center dark:text-white sm:text-5xl md:text-6xl">
+              <span className="block font-serif mr-2">𝐋𝐨𝐫𝐞𝐧𝐳𝐨</span>
+              <span className="block font-[cursive] text-2xl mb-1">
+                𝒢𝒶𝓁𝓁𝑒𝓇𝓎
               </span>
-              <span className="block text-indigo-600 mt-1">{BRANDNAME}</span>
             </h1>
-            <p className="mt-6 text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="mt-6 text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
               {LANGUAGE.WELCOME.HERO_DESCRIPTION[preferences.language]}
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 to={logged ? "#store" : "/login"}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors duration-200"
                 onClick={() => clickHandler()}
               >
                 {logged ? (

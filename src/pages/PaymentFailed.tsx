@@ -57,11 +57,11 @@ export default function About() {
   }, []);
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12">
+    <div className="min-h-screen-minus-64 bg-[--primary] py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div
-            className={`bg-white dark:bg-gray-900 rounded-lg shadow-md p-8 ${
+            className={`bg-white rounded-lg shadow-md p-8 ${
               loadingPayment && "py-11"
             }`}
           >
@@ -70,13 +70,13 @@ export default function About() {
                 loadingPayment ? "flex" : "hidden"
               } justify-center items-center gap-3`}
             >
-              <CircleDashed className="h-16 w-16 loader dark:text-white"></CircleDashed>
-              <span className="text-4xl dark:text-white">Loading...</span>
+              <CircleDashed className="h-16 w-16 loader "></CircleDashed>
+              <span className="text-4xl ">Loading...</span>
             </div>
             <div className={`${loadingPayment && "hidden"}`}>
               <p className="text-5xl font-bold text-center mb-4 flex justify-center items-center gap-3">
                 <XCircleIcon className="h-20 w-20 text-[--wrong]"></XCircleIcon>
-                <span className="text-gray-700 dark:text-white">
+                <span className="text-gray-700 ">
                   {LANGUAGE.PAY_FAILED.TITLE[preferences.language]}
                 </span>
               </p>
@@ -104,14 +104,14 @@ export default function About() {
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <Link
                   to="/"
-                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors duration-200"
                   onClick={() => window.scrollTo({ top: 0 })}
                 >
                   {LANGUAGE.PAY_FAILED.HOME[preferences.language]}
                 </Link>
                 <Link
                   to="/cart"
-                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors duration-200"
                   onClick={() => window.scrollTo({ top: 0 })}
                 >
                   {LANGUAGE.PAY_FAILED.CART[preferences.language]}

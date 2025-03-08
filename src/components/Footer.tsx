@@ -7,7 +7,6 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-col max-w-[75%] items-center md:items-start my-2">
-            <span className="text-xl font-bold">{BRANDNAME}</span>
             <span className="text-md">
               <span>© </span>
               <span className="text-sm ">

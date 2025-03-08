@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-import { CheckCircle2, CircleDashed, Palette, User } from "lucide-react";
+import { CheckCircle2, CircleDashed, User } from "lucide-react";
 import { SettingsSection } from "../components/SettingsSection";
 import { useAuth } from "../hooks/useAuth";
 import { preferencesRequest } from "../Api/auth";
@@ -57,7 +57,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground py-12">
+    <div className="min-h-screen-minus-64 bg-[--primary] py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
@@ -111,42 +111,6 @@ export default function Settings() {
                 </div>
               </div>
             </SettingsSection>
-
-            <SettingsSection
-              icon={<Palette className="h-6 w-6" />}
-              title={LANGUAGE.SETTINGS.APPEARENCE_TITLE[preferences.language]}
-              description={
-                LANGUAGE.SETTINGS.APPEARENCE_DESCRIPTION[preferences.language]
-              }
-            >
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    {LANGUAGE.SETTINGS.THEME[preferences.language]}
-                  </label>
-                  <select
-                    value={preferences.theme}
-                    onChange={(e) =>
-                      handleSettingChange({
-                        preference: "theme",
-                        value: e.target.value as Theme,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-500 dark:bg-gray-950 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    <option value="light">
-                      {LANGUAGE.SETTINGS.LIGHT[preferences.language]}
-                    </option>
-                    <option value="dark">
-                      {LANGUAGE.SETTINGS.DARK[preferences.language]}
-                    </option>
-                    <option value="system">
-                      {LANGUAGE.SETTINGS.SYSTEM[preferences.language]}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </SettingsSection>
           </div>
           <div
             className="flex items-center justify-between"
@@ -167,7 +131,7 @@ export default function Settings() {
           <div className="mt-8 flex justify-end gap-3">
             <button
               type="button"
-              className="px-5 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="px-5 py-2 border border-transparent text-sm font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => {
                 navigate("/dashboard");
               }}
@@ -176,7 +140,7 @@ export default function Settings() {
             </button>
             <button
               type="button"
-              className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="px-4 py-2 border border-transparent text-sm font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={(e) => {
                 submitClickHandler({ e });
               }}

@@ -50,7 +50,7 @@ export function ProductCard({
   return (
     <div
       onClick={onClick}
-      className="relative flex flex-col justify-between group bg-white hover:scale-105 dark:bg-gray-900 dark:shadow-gray-800 rounded-lg shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      className="relative flex flex-col justify-between group bg-white hover:scale-105 rounded-lg shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
       <div className="aspect-[1/1] bg-gray-100 rounded-t-lg">
         <img
@@ -60,12 +60,12 @@ export function ProductCard({
         />
       </div>
       <div className="p-4 h-full flex flex-col justify-between">
-        <h3 className="font-semibold text-gray-900 text-lg dark:text-white group-hover:text-indigo-600 transition-colors">
+        <h3 className="font-semibold text-gray-900 text-lg dark:text-white group-hover:text-[--secondary] transition-colors">
           {product.title}
         </h3>
         {/* <p className="mt-1 text-sm text-gray-500">AAAAAAAAAAAA</p> */}
         <div className="mt-2 flex items-center justify-between">
-          <span className="font-bold text-indigo-600 flex justify-start items-center gap-1">
+          <span className="font-bold text-[--secondary] flex justify-start items-center gap-1">
             <span className="text-2xl">
               {LANGUAGE.CURRENCIES[preferences.currency]}
               {preferences.currency == "USD"
@@ -79,14 +79,14 @@ export function ProductCard({
           <button
             className={`${
               selectedProduct ? "w-1/4 min-w-12" : "w-auto px-1 min-w-36"
-            } h-10 rounded-lg text-white ${
+            } h-10 rounded-lg transition-colors ${
               logged
                 ? isInPurchased
                   ? "bg-green-500 hover:bg-green-500"
                   : isInCart
-                  ? "bg-blue-500 hover:bg-blue-500"
-                  : "bg-indigo-600 hover:bg-indigo-700"
-                : "bg-indigo-600 hover:bg-indigo-700"
+                  ? "bg-[--secondary_comp] text-gray-800"
+                  : "bg-[--secondary] hover:bg-[--secondary_comp]"
+                : "bg-[--secondary] hover:bg-[--secondary_comp]"
             } items-center justify-center flex gap-2`}
             onClick={(e) => {
               e.stopPropagation();

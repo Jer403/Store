@@ -124,7 +124,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen-minus-64 bg-[--primary] flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
@@ -230,7 +230,7 @@ export default function Register() {
               <div className="text-md">
                 <Link
                   to="/login"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-[--secondary] hover:text-[--secondary_comp]"
                 >
                   {user
                     ? LANGUAGE.REGISTER.ALREADY_ACCOUNT[
@@ -252,7 +252,7 @@ export default function Register() {
                     !valEmail ||
                     !valPassword) &&
                   "cursor-not-allowed"
-                } group relative h-12 w-full items-center flex justify-center gap-2 py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                } group relative h-12 w-full items-center flex justify-center gap-2 py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-[--secondary] hover:bg-[--secondary_comp] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 onClick={(e) => {
                   submitClickHandler({ e });
                 }}

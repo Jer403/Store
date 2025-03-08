@@ -1,6 +1,14 @@
 :root {
   --good: #4cf136;
   --wrong: #ff5d5d;
+  --primary: #d7e9eb;
+  --secondary: #db9575;
+  --secondary_comp: #a9d83b;
+  --secondary_comp_2: #3b82f6;
+  --secondary_comp_3: #9ae94b;
+  --secondary_comp_3_comp: #dbe934;
+  --thertiary: #95cdef;
+  --fourth: #95efb7;
 }
 
 .justify-evenly {

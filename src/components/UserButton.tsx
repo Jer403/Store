@@ -20,14 +20,10 @@ export function UserButton({
   return (
     <>
       {logged && (
-        <Link
-          to="/cart"
-          className="text-gray-700 hover:text-indigo-600"
-          onClick={onClickEvent}
-        >
+        <Link to="/cart" className="text-gray-700" onClick={onClickEvent}>
           <button
             type="button"
-            className="px-4 py-2 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-4 py-2 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <>
               <ShoppingCart className="h-5 w-5"></ShoppingCart>{" "}
@@ -40,12 +36,12 @@ export function UserButton({
       )}
       <Link
         to={loading ? "/" : logged ? "/dashboard" : "/login"}
-        className="text-gray-700 hover:text-indigo-600"
+        className="text-gray-700"
         onClick={onClickEvent}
       >
         <button
           type="button"
-          className="px-3 py-2 w-14 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="px-3 py-2 w-14 sm:w-auto flex flex-row items-center justify-center gap-2 border border-transparent text-sm font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           {loading ? (
             <CircleDashed className="h-6 w-6 loader"></CircleDashed>

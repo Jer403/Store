@@ -145,7 +145,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen-minus-64 bg-[--primary] flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
@@ -314,7 +314,7 @@ export default function Login() {
                 <div className="hidden">
                   <a
                     href="#"
-                    className="font-medium text-sm md:text:base text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-sm md:text:base text-[--secondary] hover:text-[--secondary_comp]"
                   >
                     {LANGUAGE.LOGIN.FORGOT[preferences.language]}
                   </a>
@@ -322,7 +322,7 @@ export default function Login() {
                 <div className="text-sm md:text:base">
                   <Link
                     to="/register"
-                    className="font-medium text-sm md:text-base text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-sm md:text-base text-[--secondary] hover:text-[--secondary_comp]"
                   >
                     {LANGUAGE.LOGIN.DONT_HAVE_ACCOUNT[preferences.language]}
                   </Link>
@@ -336,7 +336,7 @@ export default function Login() {
                 type="submit"
                 className={`${
                   !valEmail || !valPassword ? "cursor-not-allowed" : ""
-                } group h-12 relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                } group h-12 relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-[--secondary] hover:bg-[--secondary_comp] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 onClick={(e) => {
                   submitClickHandler({ e });
                 }}

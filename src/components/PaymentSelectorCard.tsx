@@ -31,7 +31,7 @@ export function PaymentSelectorCard({
       {formHidden ? (
         <>
           <div
-            className={`w-full h-14 bg-gray-800 border hover:cursor-pointer ${
+            className={`w-full h-14 border hover:cursor-pointer ${
               payMethod == id
                 ? "border-indigo-500"
                 : "border-gray-600 hover:border-gray-500"
@@ -56,13 +56,13 @@ export function PaymentSelectorCard({
         <div
           className={`overflow-hidden border transition-[max-height] duration-500 ${
             payMethod == id
-              ? "border-indigo-500 pt-14 max-h-[745px]"
+              ? "border-[--secondary] pt-14 max-h-[745px]"
               : "border-gray-600 hover:border-gray-500 pt-[55px] max-h-0 cursor-pointer"
           } border-gray-600 rounded-xl relative`}
         >
           <div
-            className={`w-full h-14 bg-gray-800 border-b hover:border-indigo-500 ${
-              payMethod == id ? "border-indigo-500" : "border-gray-600"
+            className={`w-full h-14 bg-gray-50 border-b hover:border-indigo-500 ${
+              payMethod == id ? "border-[--secondary]" : "border-gray-600"
             }  absolute top-0 left-0 gap-3 rounded-xl flex items-center justify-between p-3`}
             onClick={() => setPayMethod(id)}
           >

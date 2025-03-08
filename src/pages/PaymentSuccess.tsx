@@ -56,7 +56,7 @@ export default function About() {
   }, []);
 
   return (
-    <div className="min-h-screen-minus-64 bg-gray-100 dark:bg-gray-950 py-12 ">
+    <div className="min-h-screen-minus-64 bg-[--primary] dark:bg-gray-950 py-12 ">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div
@@ -99,14 +99,14 @@ export default function About() {
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <Link
                   to="/"
-                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors duration-200"
                   onClick={() => window.scrollTo({ top: 0 })}
                 >
                   {LANGUAGE.PAY_SUCCESS.HOME[preferences.language]}
                 </Link>
                 <Link
                   to="/Dashboard"
-                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                  className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-2xl font-medium rounded-md bg-[--secondary] hover:bg-[--secondary_comp] transition-colors duration-200"
                   onClick={() => window.scrollTo({ top: 0 })}
                 >
                   {LANGUAGE.PAY_SUCCESS.DASHBOARD[preferences.language]}

@@ -22,11 +22,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground">
+    <div className="min-h-screen-minus-64 bg-[--primary]">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex flex-col items-center">
                 <h2
                   className={`mt-4 ${

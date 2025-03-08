@@ -10,7 +10,7 @@ export function HLine({ style }: HLineProps) {
     <svg
       width="65"
       height="5"
-      className="absolute hidden md:block"
+      className="absolute hidden md:block "
       id="line"
       style={style}
     >
@@ -19,7 +19,7 @@ export function HLine({ style }: HLineProps) {
         y1="0"
         x2="100%"
         y2="0"
-        stroke="rgb(79, 70, 229)"
+        stroke="var(--secondary)"
         strokeWidth="3"
       />
     </svg>

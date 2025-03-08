@@ -74,7 +74,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground py-12">
+    <div className="min-h-screen-minus-64 bg-[--primary] py-12">
       <div className="max-w-[1396px] mx-auto px-4">
         <div className="w-full">
           <h1
@@ -142,16 +142,14 @@ export default function Cart() {
                 </span>
               </p>
 
-              <Link
-                to={"/checkout"}
-                className="text-gray-700 hover:text-indigo-600 mt-2"
-              >
+              <Link to={"/checkout"} className="text-gray-700 mt-2">
                 <button
                   type="button"
                   disabled={cart.length == 0}
                   className={`px-4 py-2 w-full flex flex-row ${
-                    cart.length == 0 && "cursor-not-allowed bg-indigo-800"
-                  } items-center justify-center gap-2 border border-transparent text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                    cart.length == 0 &&
+                    "cursor-not-allowed bg-[--secondary_comp_3_comp]"
+                  } items-center justify-center gap-2 border border-transparent text-lg font-medium rounded-md bg-[--secondary_comp_3] hover:bg-[--secondary_comp_3_comp] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 >
                   <CreditCard></CreditCard>{" "}
                   {LANGUAGE.CART.PAY[preferences.language]}

@@ -23,11 +23,11 @@ export function ButtonSubmitCheckOut({
     <button
       form={form}
       type={type}
-      className={`w-full bg-indigo-600 ${
+      className={`w-full bg-[--secondary_comp_3] ${
         hideInMoblie ? "hidden md:flex" : "flex md:!hidden"
-      } text-white py-3 mt-3 rounded-lg hover:bg-indigo-700  items-center justify-center ${
-        loading && "cursor-not-allowed bg-indigo-800"
-      } ${loading && "cursor-not-allowed bg-indigo-800"}`}
+      }  py-3 mt-3 rounded-lg hover:bg-[--secondary_comp_3_comp]  items-center justify-center ${
+        loading && "cursor-not-allowed bg-[--secondary_comp_3_comp]"
+      }`}
       disabled={disabled}
       onClick={onclick}
     >

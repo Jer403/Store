@@ -4,7 +4,7 @@ import { UserButton } from "./UserButton.tsx";
 import { HLine } from "./Elements/HLine.tsx";
 import { useEffect, useRef, useState } from "react";
 import { useUtils } from "../hooks/useUtils.tsx";
-import { BRANDNAME, LANGUAGE, POSITIONS } from "../consts.ts";
+import { LANGUAGE, POSITIONS } from "../consts.ts";
 import { useAuth } from "../hooks/useAuth.tsx";
 import { usePreferences } from "../hooks/usePreferences.tsx";
 
@@ -46,21 +46,21 @@ export function Navbar() {
   }, [location]);
 
   return (
-    <nav className="bg-white dark:bg-gray-900">
-      <div className="mx-auto px-4 bg-white dark:bg-gray-900 relative z-20">
+    <nav className="bg-[#74e6b1] dark:bg-gray-900">
+      <div className="mx-auto px-4 bg-[--primary] dark:bg-gray-900 relative z-20">
         <div className="flex justify-between items-center h-16">
-          <Link
+          {/* <Link
             to="/"
-            className="font-bold text-xl text-indigo-600"
+            className="font-bold text-xl text-gray-800"
             onClick={() => setMobileLinksShown(false)}
           >
             <span>{BRANDNAME}</span>
-          </Link>
+          </Link> */}
 
           <div className="hidden md:flex items-center relative space-x-8">
             <Link
               to="/"
-              className="text-gray-700 dark:text-white font-medium hover:text-indigo-600"
+              className="text-gray-700 font-medium hover:text-[--secondary]"
               onClick={() => {
                 setLineLeftProperties(POSITIONS.Home);
                 setMobileLinksShown(false);
@@ -72,7 +72,7 @@ export function Navbar() {
             </Link>
             <Link
               to="/contact"
-              className="text-gray-700 dark:text-white font-medium hover:text-indigo-600"
+              className="text-gray-700 font-medium hover:text-[--secondary]"
               onClick={() => {
                 setLineLeftProperties(POSITIONS.Contact);
                 setMobileLinksShown(false);

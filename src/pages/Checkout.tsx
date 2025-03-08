@@ -10,18 +10,13 @@ import { ProductItemCheckOut } from "../components/form/ProductItemCheckOut";
 import { TropipayLogo } from "../components/Elements/TropipayLogo";
 import { VisaLogo } from "../components/Elements/VisaLogo";
 import { MasterCardLogo } from "../components/Elements/MasterCardLogo";
-import { QvaPayLogo } from "../components/Elements/QvaPayLogo";
-import { BitcoinLogo } from "../components/Elements/BitcoinLogo";
-import { EthereumLogo } from "../components/Elements/EthereumLogo";
-import { LitecoinLogo } from "../components/Elements/LitecoinLogo";
 import { PaymentSelectorCard } from "../components/PaymentSelectorCard";
 import { PayMethods } from "../types";
-import { paymentLinkRequest as qvapayPaymentLinkRequest } from "../Api/qvapay";
 import { paymentLinkRequest as tppPaymentLinkRequest } from "../Api/tpp";
 
 export default function Checkout() {
   const { state: cart, loadingCart } = useCart();
-  const [payMethod, setPayMethod] = useState<PayMethods | null>(null);
+  const [payMethod, setPayMethod] = useState<PayMethods | null>("tpp");
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [requestErrors, setRequestErrors] = useState<string[]>([]);
   const { preferences } = usePreferences();
@@ -68,32 +63,6 @@ export default function Checkout() {
     }
   };
 
-  const handleQvaPaySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("starting to submit qvapay");
-    if (!loadingSubmit) {
-      console.log("All is fine");
-      setLoadingSubmit(true);
-      try {
-        const res = await qvapayPaymentLinkRequest();
-        if (!res) throw new Error("Error while creating payment");
-        if (res.data.error) throw new Error(res.data.error[0]);
-        if (res.status == 200) {
-          console.log(res.data.paymentlink);
-          setTimeout(() => {
-            location.href = res.data.paymentlink;
-          }, 10000);
-          return;
-        }
-      } catch (error) {
-        setRequestErrors(["Something went wrong"]);
-        console.log(error);
-      } finally {
-        setLoadingSubmit(false);
-      }
-    }
-  };
-
   const [total, setTotal] = useState(0);
 
   const orderCId = useId();
@@ -105,10 +74,10 @@ export default function Checkout() {
   }, [cart]);
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground py-12">
+    <div className="min-h-screen-minus-64 bg-[--primary] py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-full mx-auto mb-10 ">
-          <div className="bg-white dark:bg-gray-900 md:dark:bg-transparent md:bg-transparent rounded-lg">
+          <div className="bg-white md:dark:bg-transparent md:bg-transparent rounded-lg">
             <div className=" flex flex-col md:flex-row-reverse md:justify-center md:gap-3 shadow-md md:shadow-none p-6 md:p-0">
               <div className="w-full flex flex-col md:flex-row-reverse md:justify-center md:gap-3 ">
                 <div className="md:dark:bg-gray-900 md:bg-white md:p-6 md:rounded-lg md:shadow-md w-full md:max-w-80 lg:max-w-[360px] flex flex-col max-h-full h-fit mb-6 md:!mb-0">
@@ -308,29 +277,6 @@ export default function Checkout() {
                     handleSubmit={handleTppSubmit}
                   />
 
-                  <PaymentSelectorCard
-                    id="qvapay"
-                    title="Pay with QvaPay"
-                    payMethod={payMethod}
-                    setPayMethod={setPayMethod}
-                    icon={<QvaPayLogo className="h-9 w-9" />}
-                    formHidden
-                    childrenIcon={
-                      <>
-                        <BitcoinLogo className="h-5 md:h-7 -mr-3 z-50" />
-                        <EthereumLogo className="h-5 md:h-7 -mr-3 z-40" />
-                        <LitecoinLogo className="h-5 md:h-7 -mr-3 z-30" />
-                        <div className="h-5 md:h-7 w-7 md:w-10 rounded-full bg-gray-700 flex items-center justify-center gap-1">
-                          <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
-                          <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
-                          <div className="h-1 w-[4px] rounded-full bg-gray-800"></div>
-                        </div>
-                      </>
-                    }
-                    gap={"2px"}
-                    formChildren={<></>}
-                    handleSubmit={handleQvaPaySubmit}
-                  />
                   {requestErrors.length > 0 && (
                     <div className="flex md:!hidden flex-col items-start justify-center mt-2">
                       {requestErrors.map((er) => {

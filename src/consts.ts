@@ -9,7 +9,7 @@ export const API_URL = "https://3dcute.up.railway.app/app";
 
 export const IMG_API_URL = "https://3dcute.up.railway.app/imgs/";
 
-export const BRANDNAME = "DigitalMarket";
+export const BRANDNAME = "Lorenzo Gallery";
 
 export const monthsEn = [
   "January",
@@ -45,11 +45,11 @@ export const LANGUAGE = {
   WELCOME: {
     HERO_WELCOME: {
       es: "Bienvenido a",
-      en: "Welcome to",
+      en: "Lorenzo Gallery",
     },
     HERO_DESCRIPTION: {
       es: "Descubre un mundo de contenido digital premium. Desde juegos hasta software, encuentra todo lo que necesitas en un mercado seguro",
-      en: "Discover a world of premium digital content. From games to software, find everything you need in one secure marketplace.",
+      en: `𝐻𝒾 𝑒𝓋𝑒𝓇𝓎𝑜𝓃𝑒! 👋 𝑀𝓎 𝓃𝒶𝓂𝑒 𝒾𝓈 𝐼𝓋𝒶𝓃 𝐿𝑜𝓇𝑒𝓃𝓏𝑜, 𝒶𝓃𝒹 𝑔𝓊𝑒𝓈𝓈 𝓌𝒽𝒶𝓉? 𝐼 𝒶𝒷𝓈𝑜𝓁𝓊𝓉𝑒𝓁𝓎 𝐿𝒪𝒱𝐸 𝓈𝒸𝓊𝓁𝓅𝓉𝓊𝓇𝑒𝓈! 𝐼𝓂𝒶𝑔𝒾𝓃𝑒 𝓉𝒽𝑜𝓈𝑒 𝒸𝑜𝑜𝓁 𝓈𝓉𝒶𝓉𝓊𝑒𝓈 𝓎𝑜𝓊 𝓈𝑒𝑒 𝒾𝓃 𝓅𝒶𝓇𝓀𝓈 𝑜𝓇 𝓂𝓊𝓈𝑒𝓊𝓂𝓈, 𝒷𝓊𝓉 𝐼 𝓂𝒶𝓀𝑒 𝓂𝒾𝓃𝑒 𝑜𝓃 𝓂𝓎 𝒸𝑜𝓂𝓅𝓊𝓉𝑒𝓇! 💻 𝐼𝓉'𝓈 𝓁𝒾𝓀𝑒 𝒽𝒶𝓋𝒾𝓃𝑔 𝓂𝒶𝑔𝒾𝒸 𝒸𝓁𝒶𝓎, 𝒷𝓊𝓉 𝒾𝓉'𝓈 𝒹𝒾𝑔𝒾𝓉𝒶𝓁. 𝐼 𝒸𝒶𝓃 𝓂𝒶𝓀𝑒 𝒶𝓃𝓎𝓉𝒽𝒾𝓃𝑔 𝐼 𝒹𝓇𝑒𝒶𝓂 𝑜𝒻! 🦕🤖🚀 𝐼’𝓋𝑒 𝒶𝓁𝓌𝒶𝓎𝓈 𝒷𝑒𝑒𝓃 𝒻𝒶𝓈𝒸𝒾𝓃𝒶𝓉𝑒𝒹 𝒷𝓎 𝒽𝑜𝓌 𝓎𝑜𝓊 𝒸𝒶𝓃 𝒸𝓇𝑒𝒶𝓉𝑒 𝓈𝑜𝓂𝑒𝓉𝒽𝒾𝓃𝑔 𝒶𝓂𝒶𝓏𝒾𝓃𝑔 𝒻𝓇𝑜𝓂 𝓃𝑜𝓉𝒽𝒾𝓃𝑔 ✨ 𝐼’𝓂 𝓈𝓊𝓅𝑒𝓇 𝑒𝓍𝒸𝒾𝓉𝑒𝒹 𝒷𝑒𝒸𝒶𝓊𝓈𝑒 𝐼 𝒽𝒶𝓋𝑒 𝓉𝒽𝒾𝓈 𝓁𝒾𝓉𝓉𝓁𝑒 𝓅𝓁𝒶𝒸𝑒 𝓃𝑜𝓌, 𝒶 𝓌𝑒𝒷𝓈𝒾𝓉𝑒, 𝓌𝒽𝑒𝓇𝑒 𝐼 𝒸𝒶𝓃 𝓈𝒽𝑜𝓌 𝓎𝑜𝓊 𝒶𝓁𝓁 𝓉𝒽𝑒 𝒸𝑜𝑜𝓁 3𝒟 𝓂𝑜𝒹𝑒𝓁𝓈 𝐼’𝓋𝑒 𝓂𝒶𝒹𝑒. 𝐼𝓉’𝓈 𝓁𝒾𝓀𝑒 𝓂𝓎 𝑜𝓌𝓃 𝓈𝑒𝒸𝓇𝑒𝓉 𝑔𝒶𝓁𝓁𝑒𝓇𝓎, 𝒷𝓊𝓉 𝓎𝑜𝓊'𝓇𝑒 𝒶𝓁𝓁 𝒾𝓃𝓋𝒾𝓉𝑒𝒹! 🎉 𝐼’𝓂 𝒶𝓁𝓈𝑜 𝒽𝑜𝓅𝒾𝓃𝑔 𝓉𝒽𝒶𝓉 𝓂𝒶𝓎𝒷𝑒, 𝒿𝓊𝓈𝓉 𝓂𝒶𝓎𝒷𝑒, 𝓈𝑜𝓂𝑒 𝑜𝒻 𝓎𝑜𝓊 𝓌𝒾𝓁𝓁 𝓁𝒾𝓀𝑒 𝓂𝓎 𝒸𝓇𝑒𝒶𝓉𝒾𝑜𝓃𝓈 𝓈𝑜 𝓂𝓊𝒸𝒽 𝓉𝒽𝒶𝓉 𝓎𝑜𝓊’𝒹 𝓁𝒾𝓀𝑒 𝓉𝑜 𝒽𝒶𝓋𝑒 𝓉𝒽𝑒𝓂. 𝒜𝓃𝒹 𝓎𝑜𝓊 𝓀𝓃𝑜𝓌 𝓌𝒽𝒶𝓉? 𝐼𝒻 𝓉𝒽𝒶𝓉 𝒽𝒶𝓅𝓅𝑒𝓃𝓈, 𝒾𝓉 𝓌𝑜𝓊𝓁𝒹 𝒽𝑒𝓁𝓅 𝓂𝑒 𝓀𝑒𝑒𝓅 𝓂𝒶𝓀𝒾𝓃𝑔 𝓂𝑜𝓇𝑒 𝒸𝑜𝑜𝓁 𝓈𝓉𝓊𝒻𝒻! 𝒮𝑜 𝓎𝑒𝒶𝒽, 𝓉𝒽𝒶𝓉 𝓌𝑜𝓊𝓁𝒹 𝒷𝑒 𝓈𝓊𝓅𝑒𝓇 𝒶𝓌𝑒𝓈𝑜𝓂𝑒! 𝐼 𝓅𝓊𝓉 𝒶 𝓁𝑜𝓉 𝑜𝒻 𝓁𝑜𝓋𝑒 𝒶𝓃𝒹 𝒻𝓊𝓃 𝒾𝓃𝓉𝑜 𝑒𝒶𝒸𝒽 𝓂𝑜𝒹𝑒𝓁, 𝒶𝓃𝒹 𝐼 𝒽𝑜𝓅𝑒 𝓌𝒽𝑒𝓃 𝓎𝑜𝓊 𝓈𝑒𝑒 𝓉𝒽𝑒𝓂, 𝓎𝑜𝓊 𝓌𝒾𝓁𝓁 𝒻𝑒𝑒𝓁 𝓉𝒽𝑒 𝑒𝓍𝒸𝒾𝓉𝑒𝓂𝑒𝓃𝓉 𝒶𝓃𝒹 𝓉𝒽𝑒 𝓈𝒶𝓂𝑒 𝒿𝑜𝓎 𝓉𝒽𝒶𝓉 𝐼 𝒽𝒶𝒹 𝓌𝒽𝑒𝓃 𝐼 𝒸𝓇𝑒𝒶𝓉𝑒𝒹 𝓉𝒽𝑒𝓂. 𝐼 𝓌𝒶𝓃𝓉 𝓉𝑜 𝓂𝒶𝓀𝑒 𝓉𝒽𝒾𝓃𝑔𝓈 𝓉𝒽𝒶𝓉 𝓌𝒾𝓁𝓁 𝓂𝒶𝓀𝑒 𝓎𝑜𝓊 𝓈𝒶𝓎 '𝒲𝒪𝒲!'`,
     },
     HERO_BUTTON_START: {
       es: "Empezar ahora",
@@ -156,8 +156,8 @@ export const LANGUAGE = {
   },
   STORE: {
     TITLE: {
-      es: "Nuestros productos",
-      en: "Our Products",
+      es: "Mis esculturas",
+      en: "Sculptures on display",
     },
     LOADING: {
       es: "Cargando productos...",
@@ -316,8 +316,8 @@ export const LANGUAGE = {
   },
   CONTACT: {
     TITLE: {
-      es: "Contacta con Nosotros",
-      en: "Contact Us",
+      es: "Contacta",
+      en: "Contact",
     },
     TOUCH: {
       es: "Ponte en contacto",
@@ -340,8 +340,8 @@ export const LANGUAGE = {
       en: "Send Message",
     },
     CONTACT_INFO: {
-      es: "Contactanos a travéz de",
-      en: "Contact us through",
+      es: "Contacta a travéz de",
+      en: "Contact through",
     },
     PLACEHOLDER_NAME: {
       es: "Tu nombre",

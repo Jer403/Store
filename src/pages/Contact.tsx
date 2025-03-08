@@ -35,7 +35,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen-minus-64 dottedBackground py-12">
+    <div className="min-h-screen-minus-64 bg-[--primary] py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-8 dark:text-white">
@@ -108,7 +108,7 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-indigo-600 flex justify-center items-center text-white py-2 rounded-lg hover:bg-indigo-700"
+                  className="w-full bg-[--secondary] flex justify-center items-center text-white py-2 rounded-lg hover:bg-[--secondary_comp]"
                 >
                   {loadingSubmit ? (
                     <CircleDashed className="w-6 h-6 loader"></CircleDashed>
@@ -125,13 +125,13 @@ export default function Contact() {
               </h2>
               <div className="space-y-4">
                 <div className="flex items-center mb-6">
-                  <Mail className="h-5 w-5 text-indigo-600 mr-3" />
+                  <Mail className="h-5 w-5 text-[--secondary] mr-3" />
                   <span className="dark:text-white">
                     support@digitalmarket.com
                   </span>
                 </div>
                 <div className="flex items-center mb-6">
-                  <Facebook className="h-5 w-5 text-indigo-600 mr-3" />
+                  <Facebook className="h-5 w-5 text-[--secondary] mr-3" />
                   <span className="dark:text-white">
                     123 Digital Street, Tech City, TC 12345
                   </span>
