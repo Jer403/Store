@@ -60,8 +60,8 @@ export const LANGUAGE = {
       en: "See our products",
     },
     HERO_BUTTON_LEARN: {
-      es: "Aprender más",
-      en: "Learn More",
+      es: "Contactanos",
+      en: "Contact",
     },
   },
   NAVBAR: {

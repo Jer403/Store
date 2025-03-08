@@ -10,9 +10,9 @@ import { usePreferences } from "../hooks/usePreferences.tsx";
 
 const PlacesUser: string[] = ["/login", "/register", "/cart", "/checkout"];
 
-function Divisor() {
-  return <div className="border-l border-gray-400 h-5 mx-4"></div>;
-}
+// function Divisor() {
+//   return <div className="border-l border-gray-400 h-5 mx-4"></div>;
+// }
 
 export function Navbar() {
   const { lineLeft, setLineLeftProperties } = useUtils();
@@ -57,7 +57,7 @@ export function Navbar() {
             <span>{BRANDNAME}</span>
           </Link>
 
-          <div className="hidden md:flex items-center relative space-x-">
+          <div className="hidden md:flex items-center relative space-x-8">
             <Link
               to="/"
               className="text-gray-700 dark:text-white font-medium hover:text-indigo-600"
@@ -70,20 +70,6 @@ export function Navbar() {
                 {LANGUAGE.NAVBAR.HOME[preferences.language]}
               </span>
             </Link>
-            <Divisor></Divisor>
-            <Link
-              to="/about"
-              className="text-gray-700 dark:text-white font-medium hover:text-indigo-600"
-              onClick={() => {
-                setLineLeftProperties(POSITIONS.About);
-                setMobileLinksShown(false);
-              }}
-            >
-              <span ref={AboutRef}>
-                {LANGUAGE.NAVBAR.ABOUT[preferences.language]}
-              </span>
-            </Link>
-            <Divisor></Divisor>
             <Link
               to="/contact"
               className="text-gray-700 dark:text-white font-medium hover:text-indigo-600"
@@ -136,13 +122,6 @@ export function Navbar() {
             onClick={() => setMobileLinksShown(!mobileLinksShown)}
           >
             <>{LANGUAGE.NAVBAR.HOME[preferences.language]}</>
-          </Link>
-          <Link
-            to="/about"
-            className="text-gray-700 dark:text-white hover:text-indigo-600 text-xl"
-            onClick={() => setMobileLinksShown(!mobileLinksShown)}
-          >
-            <>{LANGUAGE.NAVBAR.ABOUT[preferences.language]}</>
           </Link>
           <Link
             to="/contact"

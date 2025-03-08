@@ -23,29 +23,22 @@ export default function TestScroll() {
   }, []);
 
   return (
-    <div className="w-full h-screen">
-      <div className="w-full h-[200vh] bg-gray-500"></div>
+    <div className="relative w-full h-screen">
+      <div className="w-full h-[100vh] bg-gray-500"></div>
       <div
-        className="fixed w-full h-screen bg-gray-200 transition-[bottom] pt-10 ease-out duration-400"
+        className="relative w-full bg-gray-200 transition-[bottom] pt-10 ease-out duration-400 flex flex-wrap items-center justify-center gap-3"
         style={{ bottom: `-${back}%` }}
       >
-        <div className="relative flex py-10 h-full overflow-hidden">
-          <div
-            className="absolute flex flex-wrap w-full items-center justify-center gap-3"
-            style={{ top: `-${scroller}%` }}
-          >
-            <div className="bg-blue-400 p-3 w-80 h-96"></div>
-            <div className="bg-gray-600 p-3 w-80 h-96"></div>
-            <div className="bg-blue-400 p-3 w-80 h-96"></div>
-            <div className="bg-gray-600 p-3 w-80 h-96"></div>
-            <div className="bg-blue-400 p-3 w-80 h-96"></div>
-            <div className="bg-gray-600 p-3 w-80 h-96"></div>
-            <div className="bg-blue-400 p-3 w-80 h-96"></div>
-            <div className="bg-gray-600 p-3 w-80 h-96"></div>
-            <div className="bg-blue-400 p-3 w-80 h-96"></div>
-            <div className="bg-gray-600 p-3 w-80 h-96"></div>
-          </div>
-        </div>
+        <div className="bg-blue-400 p-3 w-80 h-96"></div>
+        <div className="bg-gray-600 p-3 w-80 h-96"></div>
+        <div className="bg-blue-400 p-3 w-80 h-96"></div>
+        <div className="bg-gray-600 p-3 w-80 h-96"></div>
+        <div className="bg-blue-400 p-3 w-80 h-96"></div>
+        <div className="bg-gray-600 p-3 w-80 h-96"></div>
+        <div className="bg-blue-400 p-3 w-80 h-96"></div>
+        <div className="bg-gray-600 p-3 w-80 h-96"></div>
+        <div className="bg-blue-400 p-3 w-80 h-96"></div>
+        <div className="bg-gray-600 p-3 w-80 h-96"></div>
       </div>
     </div>
   );

@@ -52,7 +52,7 @@ export default function Welcome() {
                 )}
               </Link>
               <Link
-                to="/about"
+                to="/contact"
                 className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
               >
                 {LANGUAGE.WELCOME.HERO_BUTTON_LEARN[preferences.language]}
